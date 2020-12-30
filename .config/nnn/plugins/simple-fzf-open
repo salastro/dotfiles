@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+FILE=$(fzf)
+
+[ -z "$FILE" ] || xdg-open "$FILE" &

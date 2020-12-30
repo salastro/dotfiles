@@ -1,0 +1,103 @@
+# st
+super + Return
+	$TERMINAL
+
+alt + n ; {n,s,p,v,m,d,D}
+	$SHELL -ic $FILE_MANAGER{' ~/',' DiskE/Important/STEM',' Pictures',' Videos',' Music',' Downloads',' Documents'}
+
+alt + b
+	$TERMINAL btm
+
+alt + r
+	$TERMINAL newsboat
+
+alt + ctrl + h
+	$SHELL -ic '$TERMINAL $EDITOR .config/sxhkd/sxhkdrc'
+
+alt + ctrl + {p,c,s}
+	$SHELL -ic $FILE_MANAGER{' .srcpkgs',' .config',' .scripts'}
+
+#dmenu
+super + d
+	dmenu_run
+
+## dmenu calculator
+super + equal
+	=
+
+## dmenu youtube
+alt + shift + y
+	dmenu-yt
+
+## dmenu calcurse
+### todo
+alt + t
+	todo-cal
+
+### apts
+alt + shift + a
+	apts-cal
+
+# mpv
+alt + p
+        mpv "$(xclip -o -selection clipboard)" #mpv from clipboard start
+
+# loffice
+alt + shift + l ; {l,w,i}
+	{loffice,lowriter,loimpress}
+
+# slock
+super + shift + l
+        slock #lock the screen
+
+# scripts
+super + s
+	power #exit, reboot and shutdown
+
+# tabbed
+alt + shift + b
+        tabbed -c surf -e #open surf
+
+# web
+alt + w
+	$SHELL -ic '$BROWSER'
+
+alt + shift + s
+	dmenu-search-engines
+
+# system
+{XF86MonBrightnessUp,XF86MonBrightnessDown}
+        brillo -{A,U} 5 #brightness
+
+## Audio
+{XF86AudioRaiseVolume,XF86AudioLowerVolume}
+        amixer sset Master 5%{+,-};pkill -RTMIN+1 dwmblocks #audio
+
+{XF86AudioMute,XF86AudioMute}
+        amixer sset Master {mute,unmute};pkill -RTMIN+1 dwmblocks #mute, unmute
+
+
+{XF86RFKill,XF86RFKill}
+	rfkill {,un}block all #airplane mode toggle
+
+## Screenshots
+### Fullscreen
+Print
+	maim | xclip -selection clipboard -t image/png #fullscreen shot into clipboard
+
+Print + super
+	maim | tee ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png #fullscreenshot save and into clipboard
+
+### Active window
+Print + shift
+        maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png #active window into clipboard
+
+Print + shift + super
+        maim -i $(xdotool getactivewindow) | tee ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png #active window save and into clipboard
+
+### Selected area/window
+Print + control
+	maim -s -B | xclip -selection clipboard -t image/png #fullscreenshot save and into clipboard
+
+Print + control + super
+	maim -s -B | tee ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png #fullscreenshot save and into clipboard
