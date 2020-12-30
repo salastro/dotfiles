@@ -1,0 +1,5 @@
+#!/bin/mksh
+
+height=$(wc -l ~/.local/share/calcurse/todo | awk '{print $1}')
+
+cat ~/.local/share/calcurse/todo | dmenu -l $height -p "Tasks"

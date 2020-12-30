@@ -1,0 +1,24 @@
+#!/bin/mksh
+
+web_search="https://duckduckgo.com/?q="
+google_search="https://www.google.com/search?q="
+youtube_search="https://www.youtube.com/results?search_query="
+wiki_search="https://en.wikipedia.org/w/index.php?search="
+
+keyword=$(tac ~/.cache/search_history | dmenu -l 5 -p "Search")
+
+[ "$keyword" = "" ] || echo $keyword >> ~/.cache/search_history
+
+search_engine="${keyword:0:2}"
+
+search_word=${keyword#$search_engine}
+
+keyword="$(sed 's/ /+/g' <<<$keyword)"
+
+case $search_engine in
+	"g ") $BROWSER "$google_search$search_word" ;;
+	"y ") $BROWSER "$youtube_search$search_word" ;;
+	"w ") $BROWSER "$wiki_search$search_word" ;;
+	"") ;;
+	*) $BROWSER "$web_search$keyword"
+esac
