@@ -1,0 +1,77 @@
+# xbps pkg manager
+alias xi='doas xbps-install'
+alias xq='xbps-query'
+alias xr='doas xbps-remove'
+alias xre='doas xbps-reconfigure'
+alias xal='doas xbps-alternatives'
+alias xpkgdb='doas xbps-pkgdb'
+alias xri='doas xbps-rindex'
+alias xqs='xq -Rs'
+
+# ls coloring
+alias ls='ls --color=auto'
+
+# ls and clear
+alias cl="clear;ls"
+alias cla="clear;ls -A"
+
+# nnn
+alias nnn='nnn -C -d -t 120'
+export NNN_LOCKER=cmatrix
+export NNN_PLUG='o:simple-fzf-open;w:setwall'
+NNN_BMS='d:~/Documents'
+
+# fzf
+alias fzfo='xdg-open "$(fzf)"'
+
+# alsamixer no color
+alias alsamixer='alsamixer -g'
+
+# git
+alias gb="git branch"
+alias gbd='gb -D'
+alias gc="git checkout"
+alias gcb="gc -b"
+alias clg="cl;gb"
+alias clag="cla;gb"
+alias gap="git apply"
+alias gad='git add'
+alias gco='git commit'
+alias gmrg='git merge'
+alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+
+# DiskD
+alias mE="doas mount /dev/sda5 $HOME/DiskE"
+alias cnE='doas nnn /mnt/DiskE/'
+
+# Clear
+alias c="clear"
+
+# Important Dirs
+alias study='cd /home/salahdin/DiskE/Important/STEM'
+alias studyn='study && nnn'
+
+# sc-im
+alias scim="sc-im"
+
+#mpv
+alias mpv-360="mpv -ytdl-format='bestvideo[height<?360]+bestaudio'"
+alias mpv-240="mpv -ytdl-format='bestvideo[height<?240]+bestaudio'"
+alias mpv-144="mpv -ytdl-format='bestvideo[height<?144]+bestaudio'"
+alias mpv-480="mpv -ytdl-format='bestvideo[height<?480]+bestaudio'"
+alias mpv-720="mpv -ytdl-format='bestvideo[height<?720]+bestaudio'"
+alias mpv-1080="mpv -ytdl-format='bestvideo[height<?1080]+bestaudio'"
+
+# wpm
+alias wpm='wpm --monochrome --tag 60'
+
+# System
+mkdircd(){ mkdir "$1" && cd "$1" ; }
+
+# fetch scripts
+alias uf='ufetch'
+alias nf='neofetch'
+alias of='onefetch'
+alias cufr='c;uf;rpg c'
+# programs on start-up
+ufetch
