@@ -18,8 +18,11 @@ alias cla="clear;ls -A"
 # nnn
 alias nnn='nnn -C -d -t 120'
 export NNN_LOCKER=cmatrix
-export NNN_PLUG='o:simple-fzf-open;w:setwall'
+export NNN_PLUG='o:simple-fzf-open;w:setpywal'
 NNN_BMS='d:~/Documents'
+
+# vim/nvim
+alias vim='nvim'
 
 # fzf
 alias fzfo='xdg-open "$(fzf)"'
