@@ -17,7 +17,7 @@ alt + o
 	obs
 
 super + r
-	pkill -RTMIN+5 dwmblocks
+	record-screen
 
 #dmenu
 super + d
