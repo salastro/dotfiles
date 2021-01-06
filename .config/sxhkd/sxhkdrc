@@ -2,20 +2,22 @@
 super + Return
 	$TERMINAL
 
-alt + n ; {n,s,p,v,m,d,D}
-	$SHELL -ic $FILE_MANAGER{' ~/',' DiskE/Important/STEM',' Pictures',' Videos',' Music',' Downloads',' Documents'}
-
+alt + n 
+	$SHELL -ic $FILE_MANAGER
 alt + b
 	$TERMINAL btm
 
-alt + r
+ctrl + alt + r
 	$TERMINAL newsboat
 
 alt + ctrl + h
 	$SHELL -ic '$TERMINAL $EDITOR .config/sxhkd/sxhkdrc'
 
-alt + ctrl + {p,c,s}
-	$SHELL -ic $FILE_MANAGER{' .srcpkgs',' .config',' .scripts'}
+alt + o
+	obs
+
+super + r
+	pkill -RTMIN+5 dwmblocks
 
 #dmenu
 super + d
@@ -53,10 +55,6 @@ super + shift + l
 # scripts
 super + s
 	power #exit, reboot and shutdown
-
-# tabbed
-alt + shift + b
-        tabbed -c surf -e #open surf
 
 # web
 alt + w

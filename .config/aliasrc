@@ -2,6 +2,7 @@
 alias xi='doas xbps-install'
 alias xq='xbps-query'
 alias xr='doas xbps-remove'
+alias xu='xi -Su;pkill -RTMIN+2 dwmblocks'
 alias xre='doas xbps-reconfigure'
 alias xal='doas xbps-alternatives'
 alias xpkgdb='doas xbps-pkgdb'
@@ -15,14 +16,21 @@ alias ls='ls --color=auto'
 alias cl="clear;ls"
 alias cla="clear;ls -A"
 
+# ls
+alias ll='ls -l'
+alias llh='ls -lh'
+
 # nnn
 alias nnn='nnn -C -d -t 120'
 export NNN_LOCKER=cmatrix
-export NNN_PLUG='o:simple-fzf-open;w:setpywal'
-NNN_BMS='d:~/Documents'
+export NNN_PLUG='f:simple-fzf-open;w:setpywal;W:setpywalvid'
+export NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;s:~/.scripts;S:~/.local/bin'
 
-# vim/nvim
-alias vim='nvim'
+# scrcpy
+alias scrcpy='scrcpy --shortcut-mod=rctrl+lalt'
+alias adb-restart='adb kill-server;adb start-server'
+
+# ffmpeg
 
 # fzf
 alias fzfo='xdg-open "$(fzf)"'
@@ -42,10 +50,6 @@ alias gad='git add'
 alias gco='git commit'
 alias gmrg='git merge'
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
-
-# DiskD
-alias mE="doas mount /dev/sda5 $HOME/DiskE"
-alias cnE='doas nnn /mnt/DiskE/'
 
 # Clear
 alias c="clear"

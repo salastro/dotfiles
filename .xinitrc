@@ -4,7 +4,7 @@ xmodmap /home/salahdin/.Xmodmap
 
 numlockx &
 
-wal -R
+~/.cache/background &
 
 sxhkd &
 
