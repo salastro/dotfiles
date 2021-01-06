@@ -1,0 +1,23 @@
+# [ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon="" || printf " $(iwgetid -r) " 
+# [ ! -n "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print int($3 * 100 / 70) "%" }')
+
+case "$(cat /sys/class/net/w*/operstate 2>/dev/null)" in
+	down) wifiicon="" ;;
+	up) wifiicon="  $(iwgetid -r) $(awk '/^\s*w/ { print int($3 * 100 / 70) "%" }' /proc/net/wireless)" ;;
+esac
+
+case "$(cat /sys/class/net/enp0s20f0u*/operstate 2>/dev/null)" in
+	down) usbicon="" ;;
+	up) usbicon=" " ;;
+esac
+
+case "$(cat /sys/class/net/eno1/operstate 2>/dev/null)" in
+	down) ethicon="" ;;
+	up) ethicon=" 🔌" ;;
+esac
+
+[ "$wifiicon" = "" ] || stateicon="│ 📡"
+[ "$usbicon" = "" ] || stateicon="│ 📡"
+[ "$ethicon" = "" ] || stateicon="│ 📡"
+
+printf "%s%s%s%s" "$stateicon" "$wifiicon" "$usbicon" "$ethicon"

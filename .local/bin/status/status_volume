@@ -1,0 +1,7 @@
+volstat="$(amixer get Master)"
+
+echo "$volstat" | grep "off" >/dev/null && printf "🔇" && exit
+
+vol="🔊 $(echo "$volstat" | grep -o "\[[0-9]\+%\]" | sed 's/[^0-9]*//g')"
+
+printf "%s%%" "$vol"

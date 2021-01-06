@@ -1,0 +1,17 @@
+battery="/sys/class/power_supply/BAT1"
+
+capacity=$(cat "$battery/capacity")
+
+status=$(cat "$battery/status")
+
+case "$status" in
+        "Full") status="#" ;;
+        "Discharging") status="-" ;;
+        "Charging") status="+" ;;
+        "Not charging") status="=" ;;
+        "Unknown") status="?" ;;
+esac
+
+[ "$status" = "-" ] && [ "$capacity" -le 25 ] && warn=" __LOW BATTERY__"
+
+printf "%s%% %s%s" $capacity $status $warn;unset warn
