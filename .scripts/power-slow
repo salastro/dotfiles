@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#choice=$(echo "Off\nReboot\nExit\nSleep\nX"  | dmenu -i -p "Power")
+choice="X"
+case $choice in
+	"Off") doas poweroff ;;
+	"Reboot") doas reboot ;;
+	"Sleep") doas zzz ;;
+	"Exit") doas pkill ;;
+	"X") exit ;;
+esac

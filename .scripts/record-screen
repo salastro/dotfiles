@@ -1,0 +1,13 @@
+#!/bin/bash
+
+PIDFILE="/var/run/user/$UID/record.pid"
+
+
+if [ -s $PIDFILE ]
+then
+	kill $(cat $PIDFILE)
+	rm $PIDFILE
+else
+	ffmpeg -video_size 1366x768 -framerate 30 -f x11grab -i :0 ~/Videos/Mine/Screencast/$(date +%s).mp4 & echo $! > $PIDFILE
+fi
+pkill -RTMIN+5 dwmblocks
