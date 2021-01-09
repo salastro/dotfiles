@@ -69,7 +69,7 @@ alt + shift + s
 
 ## Audio
 {XF86AudioRaiseVolume,XF86AudioLowerVolume,XF86AudioMute}
-	volume {rasie,lower,toggle}
+	volume {raise,lower,toggle}
 
 {XF86RFKill,XF86RFKill}
 	rfkill {,un}block all #airplane mode toggle
