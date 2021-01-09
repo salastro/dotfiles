@@ -24,7 +24,7 @@ alias llh='ll -h'
 alias nnn='nnn -C -d -t 120'
 export NNN_LOCKER=cmatrix
 export NNN_PLUG='f:simple-fzf-open;w:setpywal;W:setpywalvid'
-export NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;s:~/.scripts;S:~/.local/bin'
+export NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;S:~/.scripts;a:~/.local/bin;s:~/DiskE/Important/STEM'
 
 # scrcpy
 alias scrcpy='scrcpy --shortcut-mod=rctrl+lalt'
