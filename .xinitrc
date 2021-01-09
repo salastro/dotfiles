@@ -8,8 +8,10 @@ numlockx &
 
 sxhkd &
 
-compton &
+xcompmgr &
 
 dwmblocks &
+
+brillo -I
 
 dwm
