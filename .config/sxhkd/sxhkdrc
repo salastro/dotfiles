@@ -13,8 +13,11 @@ ctrl + alt + r
 alt + ctrl + h
 	$SHELL -ic '$TERMINAL $EDITOR .config/sxhkd/sxhkdrc'
 
-super + r
-	record-screen
+alt + C
+	$TERMINAL calcurse
+
+alt + d
+	$TERMINAL dijo
 
 #dmenu
 super + d
@@ -54,7 +57,7 @@ super + s
 	power #exit, reboot and shutdown
 
 # web
-alt + w
+super + w
 	$SHELL -ic '$BROWSER'
 
 alt + shift + s
@@ -62,15 +65,11 @@ alt + shift + s
 
 # system
 {XF86MonBrightnessUp,XF86MonBrightnessDown}
-        brillo -{A,U} 5 #brightness
+	brightness {up,down}
 
 ## Audio
-{XF86AudioRaiseVolume,XF86AudioLowerVolume}
-        amixer sset Master 5%{+,-};pkill -RTMIN+1 dwmblocks #audio
-
-{XF86AudioMute,XF86AudioMute}
-        amixer sset Master {mute,unmute};pkill -RTMIN+1 dwmblocks #mute, unmute
-
+{XF86AudioRaiseVolume,XF86AudioLowerVolume,XF86AudioMute}
+	volume {rasie,lower,toggle}
 
 {XF86RFKill,XF86RFKill}
 	rfkill {,un}block all #airplane mode toggle
@@ -96,3 +95,9 @@ Print + control
 
 Print + control + super
 	maim -s -B | tee ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png #fullscreenshot save and into clipboard
+## record screen
+super + r
+	record-screen
+
+alt + space
+	pkill -RTMIN+7 dwmblocks

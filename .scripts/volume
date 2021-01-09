@@ -1,0 +1,7 @@
+#!/bin/sh
+
+[ "$1" = "rasie" ] && amixer sset Master 5%+
+[ "$1" = "lower" ] && amixer sset Master 5%-
+[ "$1" = "toggle" ] && amixer sset Master toggle
+
+pkill -RTMIN+1 dwmblocks
