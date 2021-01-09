@@ -13,9 +13,6 @@ ctrl + alt + r
 alt + ctrl + h
 	$SHELL -ic '$TERMINAL $EDITOR .config/sxhkd/sxhkdrc'
 
-alt + o
-	obs
-
 super + r
 	record-screen
 

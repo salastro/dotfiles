@@ -18,7 +18,7 @@ alias cla="clear;ls -A"
 
 # ls
 alias ll='ls -l'
-alias llh='ls -lh'
+alias llh='ll -h'
 
 # nnn
 alias nnn='nnn -C -d -t 120'
@@ -49,7 +49,7 @@ alias gap="git apply"
 alias gad='git add'
 alias gco='git commit'
 alias gmrg='git merge'
-alias dotfiles='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # Clear
 alias c="clear"

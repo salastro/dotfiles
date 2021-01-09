@@ -8,6 +8,6 @@ then
 	kill $(cat $PIDFILE)
 	rm $PIDFILE
 else
-	ffmpeg -video_size 1366x768 -framerate 30 -f x11grab -i :0 ~/Videos/Mine/Screencast/$(date +%s).mp4 & echo $! > $PIDFILE
+	ffmpeg -video_size 1366x768 -framerate 30 -f x11grab -i :0 -f alsa -i hw:0 -af "volume=10" ~/Videos/Mine/Screencast/$(date +%s).mp4 & echo $! > $PIDFILE
 fi
 pkill -RTMIN+5 dwmblocks
