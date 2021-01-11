@@ -13,7 +13,7 @@ ctrl + alt + r
 alt + ctrl + h
 	$SHELL -ic '$TERMINAL $EDITOR .config/sxhkd/sxhkdrc'
 
-alt + C
+alt + m
 	$TERMINAL calcurse
 
 alt + d
@@ -98,6 +98,9 @@ Print + control + super
 ## record screen
 super + r
 	record-screen
+
+super + R
+	xscreenkey
 
 alt + space
 	pkill -RTMIN+7 dwmblocks
