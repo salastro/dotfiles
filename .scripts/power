@@ -2,7 +2,11 @@
 
 choice=$(echo "Off\nReboot\nExit\nSleep\nX"  | dmenu -i -p "Power")
 
+_sleep() {
+	slock & doas zzz
+}
+
 [ $choice = "Off" ] && doas poweroff
 [ $choice = "Reboot" ] && doas reboot
-[ $choice = "Exit" ] && doas pkill
-[ $choice = "Sleep" ] && doas zzz
+[ $choice = "Exit" ] && doas pkill dwm
+[ $choice = "Sleep" ] && _sleep
