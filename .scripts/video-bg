@@ -12,11 +12,13 @@ _screen() {
     PIDs+=($!)
 }
 
-while read p; do
-  [[ $(ps -p "$p" -o comm=) == "xwinwrap" ]] && kill "$p";
-done < $PIDFILE
+#while read p; do
+  #[[ $(ps -p "$p" -o comm=) == "xwinwrap" ]] && kill "$p";
+#done < $PIDFILE
+#
+#sleep 0.5
 
-sleep 0.5
+kill $(cat $PIDFILE)
 
 for i in $( xrandr -q | grep ' connected' | grep -oP '\d+x\d+\+\d+\+\d+')
 do
