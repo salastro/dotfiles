@@ -1,3 +1,5 @@
+[ -f "$HOME/.profile" ] && source "$HOME/.profile"
+
 # xbps pkg manager
 alias xi='doas xbps-install'
 alias xq='xbps-query'
