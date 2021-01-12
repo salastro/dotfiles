@@ -58,7 +58,7 @@ super + s
 
 # web
 super + w
-	$SHELL -ic '$BROWSER'
+	$SHELL -ic $BROWSER
 
 alt + shift + s
 	dmenu-search-engines
