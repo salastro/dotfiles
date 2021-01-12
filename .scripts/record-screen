@@ -2,7 +2,6 @@
 
 PIDFILE="/var/run/user/$UID/record.pid"
 
-
 if [ -s $PIDFILE ]
 then
 	kill $(cat $PIDFILE)

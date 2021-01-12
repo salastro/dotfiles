@@ -2,7 +2,7 @@
 super + Return
 	$TERMINAL
 
-alt + n 
+super + n 
 	$SHELL -ic $FILE_MANAGER
 alt + b
 	$TERMINAL btm
