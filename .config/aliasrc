@@ -82,6 +82,7 @@ alias gap="git apply"
 alias gad='git add'
 alias gco='git commit'
 alias gmrg='git merge'
+alias gcl='git clone'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # Clear
