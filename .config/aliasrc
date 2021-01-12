@@ -55,6 +55,10 @@ n ()
     fi
 }
 
+# cpg/mvg
+alias cp='cpg -g'
+alias mv='mvg -g'
+
 # scrcpy
 alias scrcpy='scrcpy --shortcut-mod=rctrl+lalt'
 alias adb-restart='adb kill-server;adb start-server'
