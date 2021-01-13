@@ -15,10 +15,10 @@ _screen() {
 #while read p; do
   #[[ $(ps -p "$p" -o comm=) == "xwinwrap" ]] && kill "$p";
 #done < $PIDFILE
-#
-#sleep 0.5
 
 kill $(cat $PIDFILE)
+
+sleep 0.5
 
 for i in $( xrandr -q | grep ' connected' | grep -oP '\d+x\d+\+\d+\+\d+')
 do
