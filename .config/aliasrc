@@ -4,6 +4,7 @@
 alias xi='doas xbps-install'
 alias xq='xbps-query'
 alias xr='doas xbps-remove'
+alias xrr='doas xbps-remove -R'
 alias xu='xi -Su;pkill -RTMIN+2 dwmblocks'
 alias xre='doas xbps-reconfigure'
 alias xal='doas xbps-alternatives'
