@@ -1,5 +1,5 @@
 #!/bin/bash
 
-PIDFILE="/var/run/user/$UID/record.pid"
+PIDFILE="/tmp/record.pid"
 
 [ -s $PIDFILE ] &&  printf " [recording] "
