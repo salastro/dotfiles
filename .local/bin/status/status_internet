@@ -16,8 +16,8 @@ case "$(cat /sys/class/net/eno1/operstate 2>/dev/null)" in
 	up) ethicon=" 🔌" ;;
 esac
 
-[ "$wifiicon" = "" ] || stateicon="│ 📡"
-[ "$usbicon" = "" ] || stateicon="│ 📡"
-[ "$ethicon" = "" ] || stateicon="│ 📡"
+[ "$wifiicon" = "" ] || stateicon="[📡"
+[ "$usbicon" = "" ] ||  stateicon="[📡"
+[ "$ethicon" = "" ] ||  stateicon="[📡"
 
 printf "%s%s%s%s" "$stateicon" "$wifiicon" "$usbicon" "$ethicon"
