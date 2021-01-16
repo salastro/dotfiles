@@ -5,7 +5,7 @@ set rnu
 
 set spelllang=en
 
-autocmd BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { killall -q dwmblocks;setsid dwmblocks & }
+autocmd BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
 autocmd BufWritePost *config.def.h !doas rm 'config.h' && doas make clean install
 autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 autocmd BufWritePost *.zshrc !exec zsh -l
