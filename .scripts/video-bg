@@ -7,7 +7,8 @@ declare -a PIDs
 _screen() {
     xwinwrap -ov -ni -g "$1" -- mpv --fullscreen\
         --no-stop-screensaver \
-        --speed=1 --panscan=1 --loop-file --no-audio --no-osc --no-osd-bar -wid WID --no-input-default-bindings \
+	--speed=1 --panscan=1 \
+        --loop-file --no-audio --no-osc --no-osd-bar -wid WID --no-input-default-bindings \
         "$2" &
     PIDs+=($!)
 }
