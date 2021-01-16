@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PIDFILE="/var/run/user/$UID/bg.pid"
+PIDFILE="/tmp/bg.pid"
 
 declare -a PIDs
 

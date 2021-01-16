@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PIDFILE="/var/run/user/$UID/screenkey.pid"
+PIDFILE="/tmp/screenkey.pid"
 
 if [ -s $PIDFILE ]
 then
