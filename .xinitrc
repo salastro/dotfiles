@@ -5,7 +5,7 @@ numlockx &
 ~/.cache/background
 
 sxhkd &
-xcompmgr &
+picom --experimental-backends &
 dwmblocks &
 
 brillo -I
