@@ -61,6 +61,12 @@ n ()
 alias cp='cpg -g'
 alias mv='mvg -g'
 
+# devour
+alias dmpv='devour mpv'
+alias dzathura='devour zathura'
+alias dzathurat='devour zathurat'
+alias dsxiv='devour sxiv'
+
 # scrcpy
 alias scrcpy='scrcpy --shortcut-mod=rctrl+lalt'
 alias adb-restart='adb kill-server;adb start-server'
