@@ -102,6 +102,9 @@ alias study='cd /home/salahdin/DiskE/Important/STEM'
 # sc-im
 alias scim="sc-im"
 
+# nvim/vim
+alias v='$EDITOR'
+
 #mpv
 alias mpv-360="mpv -ytdl-format='bestvideo[height<?360]+bestaudio'"
 alias mpv-240="mpv -ytdl-format='bestvideo[height<?240]+bestaudio'"
