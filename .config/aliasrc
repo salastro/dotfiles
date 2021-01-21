@@ -3,6 +3,11 @@
 # xbps pkg manager
 alias xi='doas xbps-install'
 alias xq='xbps-query'
+alias xqs='xq -Rs'
+alias xqsf="xqs \* | fzf | awk  '{print $2}' | xclip -selection clipboard"
+xqsfi(){
+	xi "$(xqs \* | fzf | awk  '{print $2}')"
+}
 alias xr='doas xbps-remove'
 alias xrr='doas xbps-remove -R'
 alias xu='xi -Su;pkill -RTMIN+2 dwmblocks'
@@ -10,7 +15,6 @@ alias xre='doas xbps-reconfigure'
 alias xal='doas xbps-alternatives'
 alias xpkgdb='doas xbps-pkgdb'
 alias xri='doas xbps-rindex'
-alias xqs='xq -Rs'
 
 # ls coloring
 alias ls='ls --color=auto'
