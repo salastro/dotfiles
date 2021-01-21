@@ -58,12 +58,21 @@ super + s
 
 # web
 super + w
-	$SHELL -ic $BROWSER
+	$BROWSER
 
 alt + shift + s
 	dmenu-search-engines
 
 # system
+## Keyboard
+
+#alt + semicolon
+#	xdotool keyup semicolon key --clearmodifiers Escape
+
+~alt + semicolon
+	xdotool key Escape
+
+## Brightness
 {XF86MonBrightnessUp,XF86MonBrightnessDown}
 	brightness {up,down}
 
