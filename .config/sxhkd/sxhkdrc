@@ -16,12 +16,19 @@ alt + ctrl + h
 alt + m
 	$TERMINAL calcurse
 
-alt + d
+alt + D
 	$TERMINAL dijo
+
+super + W
+	$TERMINAL nmtui
 
 #dmenu
 super + d
 	dmenu_run
+
+#xlunch
+super + D
+	$TERMINAL xlunch
 
 ## dmenu calculator
 super + equal
@@ -65,10 +72,6 @@ alt + shift + s
 
 # system
 ## Keyboard
-
-#alt + semicolon
-#	xdotool keyup semicolon key --clearmodifiers Escape
-
 ~alt + semicolon
 	xdotool key Escape
 
