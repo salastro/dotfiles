@@ -1,16 +1,25 @@
 [ -f "$HOME/.profile" ] && source "$HOME/.profile"
 
 # xbps pkg manager
-alias xi='doas xbps-install'
+xi(){
+	doas xbps-install $@
+	pkill -rtmin+2 dwmblocks
+}
 alias xq='xbps-query'
 alias xqs='xq -Rs'
 alias xqsf="xqs \* | fzf | awk  '{print $2}' | xclip -selection clipboard"
 xqsfi(){
 	xi "$(xqs \* | fzf | awk  '{print $2}')"
 }
-alias xr='doas xbps-remove'
-alias xrr='doas xbps-remove -R'
-alias xu='xi -Su;pkill -RTMIN+2 dwmblocks'
+xr(){
+	doas xbps-remove $@
+	pkill -rtmin+2 dwmblocks
+}
+alias xrr='xr -R'
+xu(){
+	xi -Su $@
+	pkill -rtmin+2 dwmblocks
+}
 alias xre='doas xbps-reconfigure'
 alias xal='doas xbps-alternatives'
 alias xpkgdb='doas xbps-pkgdb'
@@ -93,7 +102,7 @@ alias clag="cla;gb"
 alias gap="git apply"
 alias gad='git add'
 alias gco='git commit'
-alias gmrg='git merge'
+alias gm='git merge'
 alias gcl='git clone'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
@@ -107,7 +116,7 @@ alias study='cd /home/salahdin/DiskE/Important/STEM'
 alias scim="sc-im"
 
 # nvim/vim
-alias v='$EDITOR'
+alias e='$EDITOR'
 
 #mpv
 alias mpv-360="mpv -ytdl-format='bestvideo[height<?360]+bestaudio'"
