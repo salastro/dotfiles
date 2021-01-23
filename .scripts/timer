@@ -1,0 +1,18 @@
+#!/bin/sh
+
+TMPFILE="/tmp/timer.time"
+soundfile="$HOME/Music/Notifications/Sci-fi.mp3"
+
+_start_timer() {
+	termdown $1 -o $TMPFILE --exec-cmd "pkill -RTMIN+4 dwmblocks" && mpv $soundfile
+	rm -f $TMPFILE
+	pkill -RTMIN+4 dwmblocks 
+}
+_stop_timer() {
+	pkill termdown
+}
+
+case $1 in
+	"stop") _stop_timer ;;
+	*) _start_timer $1 ;;
+esac
