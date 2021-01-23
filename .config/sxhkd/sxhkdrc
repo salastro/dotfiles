@@ -73,7 +73,7 @@ alt + shift + s
 # system
 ## Keyboard
 ~alt + semicolon
-	xdotool key Escape
+	xdotool key --clearmodifiers Escape
 
 ## Brightness
 {XF86MonBrightnessUp,XF86MonBrightnessDown}
