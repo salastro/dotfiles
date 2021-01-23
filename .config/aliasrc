@@ -104,6 +104,7 @@ alias gad='git add'
 alias gco='git commit'
 alias gm='git merge'
 alias gcl='git clone'
+alias gp='git push'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # Clear
