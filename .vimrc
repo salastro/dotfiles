@@ -14,6 +14,10 @@ autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 autocmd BufNewFile,BufRead *.txt setlocal spell
 
 call plug#begin('~/.local/share/nvim/plugged')
+" Nerdtree things "
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " Auto Complete PopUp "
 Plug 'vim-scripts/AutoComplPop'
