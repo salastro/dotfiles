@@ -22,6 +22,9 @@ alt + D
 super + W
 	$TERMINAL nmtui
 
+super + e
+	$TERMINAL $EDITOR
+
 #dmenu
 super + d
 	dmenu_run
