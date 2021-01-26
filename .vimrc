@@ -5,7 +5,10 @@ syntax on
 set nu
 set rnu
 
-set spelllang=en
+set spl=en
+
+set cpt+=kspell
+set cot=menuone,longest
 
 autocmd BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
 autocmd BufWritePost *config.def.h !doas rm 'config.h' && doas make clean install
@@ -14,5 +17,7 @@ autocmd BufWritePost *.zshrc !exec zsh -l
 autocmd BufNewFile,BufRead *.txt setlocal spell
 
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+
+" Auto Complete PopUp "
+Plug 'vim-scripts/AutoComplPop'
 call plug#end()
