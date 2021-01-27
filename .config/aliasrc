@@ -146,6 +146,9 @@ alias mpv-1080="mpv -ytdl-format='bestvideo[height<?1080]+bestaudio'"
 # wpm
 alias wpm='wpm --monochrome --tag 60'
 
+# flatpak
+alias Steam='apulse flatpak run com.valvesoftware.Steam'
+
 # System
 mkdircd(){ mkdir "$1" && cd "$1" ; }
 
