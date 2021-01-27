@@ -8,6 +8,7 @@
 #
 # Produces:
 #   YYYY-MM.txt in your $NOTES_DIRECTORY (this is set below).
+# Original script source -->> https://github.com/nickjj/notes
 
 set -e
 
