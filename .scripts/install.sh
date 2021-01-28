@@ -123,3 +123,7 @@ doas xbps-install ImageMagick sxiv ffmpeg
 doas xbps-install mpv
 ###### config
 cp -r dotfiles/.config/mpv ~/.config/mpv/
+
+# cp important dirs
+cp -r dotfiles/.scripts/ ~/.scripts/
+cp -r dotfiles/.local/bin/status/ ~/.local/bin/
