@@ -1,6 +1,5 @@
 # Add to path
 path+=('/home/salahdin/.local/bin')
-fpath=(usr/share/zsh/site-functions/ $fpath)
 
 # Enable colors and change prompt:
 #autoload -U colors && colors
