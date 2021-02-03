@@ -1,12 +1,15 @@
 # Add to path
 path+=('/home/salahdin/.local/bin')
 
-# Enable colors and change prompt:
-#autoload -U colors && colors
-#PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-
-# starship prompt
-eval "$(starship init zsh)"
+if test "$USER" = "root"
+then
+	# Enable colors and change prompt:
+	autoload -U colors && colors
+	PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}#%b "
+else
+	# starship prompt
+	eval "$(starship init zsh)"
+fi
 
 # history
 HISTSIZE=10000000
