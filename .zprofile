@@ -12,5 +12,5 @@ if [[ "$(tty)" = "/dev/tty1" ]]; then
        # check if chronyd is working and if not start it (for some reason this fixes time)
 	pgrep chronyd || doas chronyd
        # check dwm is working and if not startx
-        pgrep dwm || neofetch --config .config/neofetch/config-start-up.conf;startx
+        pgrep dwm || neofetch --config .config/neofetch/config-start-up.conf && startx
 fi
