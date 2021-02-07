@@ -12,7 +12,7 @@
 
 set -e
 
-readonly NOTES_DIRECTORY="${NOTES_DIRECTORY:-"${HOME}/Notes"}"
+readonly NOTES_DIRECTORY="${NOTES_DIRECTORY:-"${HOME}/Documents/Notes/Daily"}"
 readonly NOTES_EDITOR="${EDITOR}"
 
 readonly NOTES_FILE="$(date +%Y-%m-%d).txt"
