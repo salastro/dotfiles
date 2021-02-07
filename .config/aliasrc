@@ -25,6 +25,9 @@ alias xal='doas xbps-alternatives'
 alias xpkgdb='doas xbps-pkgdb'
 alias xri='doas xbps-rindex'
 
+# trash
+alias rm='trash'
+
 # ls coloring
 alias ls='ls --color=auto'
 
