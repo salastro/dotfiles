@@ -106,16 +106,18 @@ Print + shift + super
 
 ### Selected area/window
 Print + control
-	maim -s -B | xclip -selection clipboard -t image/png #fullscreenshot save and into clipboard
+	maim -sBu | xclip -selection clipboard -t image/png #fullscreenshot save and into clipboard
 
 Print + control + super
-	maim -s -B | tee ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png #fullscreenshot save and into clipboard
+	maim -sBu | tee ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png #fullscreenshot save and into clipboard
 ## record screen
 super + r
 	record-screen
 
+### screen keys
 super + R
 	xscreenkey
 
-alt + space
-	pkill -RTMIN+7 dwmblocks
+### webcam
+super + alt + r
+	$SHELL -ic camera

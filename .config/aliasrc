@@ -142,8 +142,6 @@ alias e='$EDITOR'
 #alias mpv-480="mpv -ytdl-format='bestvideo[height<?480]+bestaudio'"
 #alias mpv-720="mpv -ytdl-format='bestvideo[height<?720]+bestaudio'"
 #alias mpv-1080="mpv -ytdl-format='bestvideo[height<?1080]+bestaudio'"
-alias camera0="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=-0-0 --autofit=30%"
-alias camera1="mpv av://v4l2:/dev/video1 --profile=low-latency --untimed"
 
 # System
 mkdircd(){ mkdir "$1" && cd "$1" ; }
