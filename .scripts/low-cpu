@@ -42,7 +42,7 @@ _print() {
 		# print the intel_pstate/max_perf_pct file
 		"limit") cat /sys/devices/system/cpu/intel_pstate/max_perf_pct ;;
 		# print the turbo state
-		"turbo") _turboOnOff ;;
+		"turbo") _getTurboState ;;
 		# if value not defined print "Not a something to print" 
 		*) echo "Not a something to print" ;;
 	esac
