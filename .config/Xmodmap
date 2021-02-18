@@ -1,0 +1,5 @@
+! Caps lock
+keycode 66 = BackSpace
+! BackSpace
+keycode 22 = Caps_Lock
+clear lock
