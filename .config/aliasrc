@@ -1,3 +1,9 @@
+    # _    _ _           ____   ____ 
+   # / \  | (_) __ _ ___|  _ \ / ___|
+  # / _ \ | | |/ _` / __| |_) | |    
+ # / ___ \| | | (_| \__ \  _ <| |___ 
+# /_/   \_\_|_|\__,_|___/_| \_\\____|
+                                   
 [ -f "$HOME/.profile" ] && source "$HOME/.profile"
 
 # xbps pkg manager
@@ -28,16 +34,13 @@ alias xri='doas xbps-rindex'
 # trash
 alias rm='trash'
 
-# ls coloring
-alias ls='ls --color=auto'
-
-# ls and clear
-alias cl="clear;ls"
-alias cla="clear;ls -A"
-
 # ls
+alias ls='ls --color=auto -F'
 alias ll='ls -l'
 alias llh='ll -h'
+alias la='ls -A'
+alias cl="c;ls"
+alias cla="c;la"
 
 # man pages
 export LESS_TERMCAP_mb=$'\e[1;32m'
@@ -59,7 +62,7 @@ random() {
 alias nnn='nnn -r -C -d -t 120'
 export NNN_LOCKER=cmatrix
 export NNN_PLUG='f:simple-fzf-open;w:setpywal;W:setpywalvid'
-export NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;S:~/.scripts;a:~/.local/bin;s:~/DiskE/Important/STEM'
+export NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;S:~/.scripts;a:~/.local/bin;s:/mnt/DiskE/Important/STEM'
 export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_TRASH=1
 n ()
@@ -101,10 +104,7 @@ alias dzathurat='devour zathurat'
 alias dsxiv='devour sxiv'
 
 # scrcpy
-alias scrcpy='scrcpy --shortcut-mod=rctrl+lalt'
 alias adb-restart='adb kill-server;adb start-server'
-
-# ffmpeg
 
 # fzf
 alias fzfo='xdg-open "$(fzf)"'
@@ -113,6 +113,7 @@ alias fzfo='xdg-open "$(fzf)"'
 alias alsamixer='alsamixer -g'
 
 # git
+alias g='git'
 alias gb="git branch"
 alias gbd='gb -D'
 alias gc="git checkout"
@@ -125,36 +126,28 @@ alias gco='git commit'
 alias gm='git merge'
 alias gcl='git clone'
 alias gp='git push'
-alias dotfiles='git --git-dir=~/.dotfiles/ --work-tree=$HOME'
+alias gs='git status'
+alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # Clear
 alias c="clear"
 
-# Important Dirs
-alias study='cd /home/salahdin/DiskE/Important/STEM'
-
-# sc-im
-alias scim="sc-im"
-
 # nvim/vim
 alias e='$EDITOR'
 
-#mpv
-alias mpv-360="mpv -ytdl-format='bestvideo[height<?360]+bestaudio'"
-alias mpv-240="mpv -ytdl-format='bestvideo[height<?240]+bestaudio'"
-alias mpv-144="mpv -ytdl-format='bestvideo[height<?144]+bestaudio'"
-alias mpv-480="mpv -ytdl-format='bestvideo[height<?480]+bestaudio'"
-alias mpv-720="mpv -ytdl-format='bestvideo[height<?720]+bestaudio'"
-alias mpv-1080="mpv -ytdl-format='bestvideo[height<?1080]+bestaudio'"
-
-# wpm
-alias wpm='wpm --monochrome --tag 60'
-
-# flatpak
-alias Steam='apulse flatpak run com.valvesoftware.Steam'
+# mpv
+#alias mpv-360="mpv -ytdl-format='bestvideo[height<?360]+bestaudio'"
+#alias mpv-240="mpv -ytdl-format='bestvideo[height<?240]+bestaudio'"
+#alias mpv-144="mpv -ytdl-format='bestvideo[height<?144]+bestaudio'"
+#alias mpv-480="mpv -ytdl-format='bestvideo[height<?480]+bestaudio'"
+#alias mpv-720="mpv -ytdl-format='bestvideo[height<?720]+bestaudio'"
+#alias mpv-1080="mpv -ytdl-format='bestvideo[height<?1080]+bestaudio'"
+alias camera0="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --geometry=-0-0 --autofit=30%"
+alias camera1="mpv av://v4l2:/dev/video1 --profile=low-latency --untimed"
 
 # System
 mkdircd(){ mkdir "$1" && cd "$1" ; }
+alias ..='cd ..'
 
 # fetch scripts
 alias uf='ufetch'
