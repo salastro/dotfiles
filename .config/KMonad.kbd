@@ -1,0 +1,15 @@
+(defcfg
+	input (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+	output (uinput-sink "KMonad kbd")
+	fallthrough true
+)
+
+(defsrc
+	bspc
+	caps
+)
+
+(deflayer default
+	caps
+	bspc
+)
