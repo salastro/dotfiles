@@ -39,15 +39,18 @@ nnoremap ,uc :so ~/.config/nvim/init.vim<CR>
 com! MakeTags !ctags -R .
 
 call plug#begin('~/.local/share/nvim/plugged')
+
 " Plug 'christoomey/vim-titlecase' 
 " Plug 'djoshea/vim-autoread'
+Plug 'baskerville/vim-sxhkdrc'
 Plug 'christoomey/vim-sort-motion'
+Plug 'itchyny/lightline.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/AutoComplPop'
-Plug 'itchyny/lightline.vim'
 Plug 'vimwiki/vimwiki'
+
 call plug#end()
 
 " VimWiki
