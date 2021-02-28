@@ -10,8 +10,6 @@ sxhkd &
 picom --experimental-backends &
 dwmblocks &
 
-brillo -I
-
 $TERMINAL calcurse &
 $TERMINAL dijo &
 
