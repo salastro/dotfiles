@@ -61,10 +61,6 @@ alt + A
 alt + p
         mpv "$(xclip -o -selection clipboard)" #mpv from clipboard start
 
-# loffice
-alt + shift + l ; {l,w,i}
-	{loffice,lowriter,loimpress}
-
 # slock
 super + L
         slock #lock the screen
