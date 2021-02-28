@@ -30,6 +30,7 @@ alias xre='doas xbps-reconfigure'
 alias xal='doas xbps-alternatives'
 alias xpkgdb='doas xbps-pkgdb'
 alias xri='doas xbps-rindex'
+alias fp='fuzzypkg'
 
 # trash
 alias rm='trash'
