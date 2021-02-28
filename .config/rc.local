@@ -1,1 +1,1 @@
-/etc/rc.local
+brillo -I
