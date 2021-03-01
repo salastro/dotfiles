@@ -62,7 +62,7 @@ random() {
 # nnn
 alias nnn='nnn -r -C -d -t 120'
 export NNN_LOCKER=cmatrix
-export NNN_PLUG='f:simple-fzf-open;w:setpywal;W:setpywalvid;d:dragdrop;t:preview-tabbed'
+export NNN_PLUG='f:simple-fzf-open;w:setpywal;W:setpywalvid;d:dragdrop;t:preview-tabbed;i:-sxiv;I:d-sxiv'
 export NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;S:~/.scripts;a:~/.local/bin;s:/mnt/DiskE/Important/STEM;c:~/.config/'
 export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_TRASH=1
