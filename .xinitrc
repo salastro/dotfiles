@@ -1,7 +1,6 @@
 #!/bin/sh
-setxkbmap -layout us,ara -option grp:alt_space_toggle
-xmodmap ~/.config/Xmodmap
-# doas kmonad ~/.config/kmonad-test.kbd &
+
+setxkbmap -layout us,ara -option compose:lctrl -option grp:alt_space_toggle
 numlockx &
 
 ~/.cache/background

@@ -1,7 +1,6 @@
 (defcfg
 	input (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
-	output (uinput-sink "KMonad kbd"
-	)
+	output (uinput-sink "KMonad kbd")
 	fallthrough true
 	cmp-seq lctl
 )
@@ -18,8 +17,14 @@
 (defalias
 	spc (tap-next-release spc (layer-toggle num))
 	esc (tap-next-release esc (layer-toggle vi))
-	b C-lft
-	w C-rght
+;;	evi (tap-hold 100 esc ralt)
+#|	vi (layer-toggle vi)
+	esc (tap-next-release esc (layer-toggle vi))
+	esc (tap-next-release esc (layer-toggle vi))
+	esc (tap-next-release esc (layer-toggle vi))
+	esc (multi-tap 100 @evi @vi)|#
+	b (around rctl lft)
+	w (around rctl rght)
 	u C-z
 	r C-y
 	c A-c
@@ -42,7 +47,7 @@
 	tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
 	bspc a    s    d    f    g    h    j    k    l    ;    '    ret
 	lsft z    x    c    v    b    n    m    ,    .    /    rsft
-	lctl met  lalt           @spc           @esc rctl lft  up   down rght
+	rctl met  lalt           @spc           @esc rctl lft  up   down rght
 )
 
 (deflayer vi
@@ -54,20 +59,11 @@
 	_    _    _              _              _    _    _    _    _    _   
 )
 
-;; (deflayer special
-;; 	esc
-;; 	grv  1    2    3    4    5    6    7    8    9    0    -    =    caps
-;; 	tab  q    w    é    r    t    y    u    i    ö    p    [    ]    \
-;; 	bspc ä    s    d    f    g    h    j    k    l    ;    '    ret
-;; 	lsft +"   x    c    v    b    n    m    ,    .    /    rsft
-;; 	lctl met  lalt           spc            @esc rctl lft  up   down rght
-;; )
-
 (deflayer num
 	_
 	_    _    _    _    _    _    _    _    _    _    _    _    _    _   
 	_    _    _    _    -    _    _    =    _    _    _    _    _    _
 	_    1    2    3    4    5    6    7    8    9    0    _    _  
-	_    _    _    _    _    _    _    _    _    _    _    _   
+	_    lctl _    _    _    _    _    _    _    _    _    _   
 	_    _    _              _              _    _    _    _    _    _   
 )
