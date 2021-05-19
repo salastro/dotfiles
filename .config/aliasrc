@@ -30,6 +30,10 @@ alias xpkgdb='doas xbps-pkgdb'
 alias xri='doas xbps-rindex'
 alias fp='fuzzypkg'
 
+# Shortcuts
+alias e='nvim'
+alias m='neomutt'
+
 # trash
 alias rm='trash'
 
