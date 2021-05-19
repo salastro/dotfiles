@@ -32,6 +32,9 @@ super + ctrl + w
 super + e
 	$TERMINAL $EDITOR
 
+alt + control + m
+	$TERMINAL neomutt
+
 #dmenu
 super + d
 	dmenu_run
