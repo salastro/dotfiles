@@ -7,7 +7,7 @@
 
 # Terminal programs
 super + Return
-	$SHELL -ic $TERMINAL
+	$TERMINAL
 
 super + n 
 	$SHELL -ic $FILE_MANAGER
