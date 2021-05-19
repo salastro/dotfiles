@@ -7,14 +7,14 @@ then
 	autoload -U colors && colors
 	PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}#%b "
 else
-	# starship prompt
+	# StarShip prompt
 	eval "$(starship init zsh)"
 fi
 
 # history
 HISTSIZE=10000000
 SAVEHIST=10000000
-HISTFILE=~/.cache/zsh_history
+HISTFILE=~/.cache/zsh/zsh_history
 
 # Basic auto/tab complete:
 autoload -U compinit
