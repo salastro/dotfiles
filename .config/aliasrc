@@ -111,6 +111,14 @@ alias fzfo='xdg-open "$(fzf)"'
 # alsamixer no color
 alias alsamixer='alsamixer -g'
 
+# task
+export TASKRC=$HOME/.config/taskrc
+alias t='task'
+alias td='task delete'
+alias ta='task add'
+## vit
+export VIT_DIR="$HOME/.config/vit/"
+
 # git
 alias g='git'
 alias gb="git branch"
