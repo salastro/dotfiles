@@ -58,7 +58,11 @@ bindkey "^?" backward-delete-char
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
+bindkey '^x' edit-command-line
+
+# Keybinds
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
 
 # Load aliases if existent.
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
