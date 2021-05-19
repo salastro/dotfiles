@@ -143,10 +143,18 @@ alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 # Clear
 alias c="clear"
 
-# nvim/vim
-alias e='$EDITOR'
+# youtube-dl
+alias ytdl='youtube-dl --write-description'
+alias ytdl18='youtube-dl --write-description -f 18'
+alias ytdl22='youtube-dl --write-description -f 22'
 
 # mpv
+mpvy() {
+	youtube-dl -o - "$1" | tee "$2" | mpv -
+}
+dmpvy() {
+	youtube-dl -o - "$1" | tee "$2" | dmpv -
+}
 #alias mpv-360="mpv -ytdl-format='bestvideo[height<?360]+bestaudio'"
 #alias mpv-240="mpv -ytdl-format='bestvideo[height<?240]+bestaudio'"
 #alias mpv-144="mpv -ytdl-format='bestvideo[height<?144]+bestaudio'"
