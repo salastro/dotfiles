@@ -1,4 +1,4 @@
 [character]
-success_symbol = "[λ](bold green) "
-error_symbol = "[y](bold red) "
+success_symbol = "[Σ](bold green) "
+error_symbol = "[Ω](bold red) "
 vicmd_symbol = "[V](bold blue) "
