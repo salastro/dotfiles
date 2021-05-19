@@ -1,0 +1,20 @@
+defaults
+auth	on
+tls	on
+tls_trust_file	/etc/ssl/certs/ca-certificates.crt
+logfile /home/salahdin/.config/msmtp/msmtp.log
+
+
+
+
+account salah2112004@gmail.com
+host smtp.gmail.com
+port 587
+from salah2112004@gmail.com
+user salah2112004@gmail.com
+passwordeval "pass salah2112004@gmail.com"
+auth on
+tls on
+tls_trust_file	/etc/ssl/certs/ca-certificates.crt
+logfile /home/salahdin/.config/msmtp/msmtp.log
+
