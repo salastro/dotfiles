@@ -5,6 +5,8 @@ setxkbmap -layout us,ara -option compose:lctrl -option grp:alt_space_toggle
 numlockx &
 
 # Themes stuff
+xrdb ~/.Xresources
+xrdb -merge ~/.cache/wal/colors.Xresources
 ~/.cache/background
 
 # Background stuff
