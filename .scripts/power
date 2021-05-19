@@ -6,7 +6,9 @@ _sleep() {
 	slock & doas zzz
 }
 
-[ $choice = "Off" ] && doas poweroff
-[ $choice = "Reboot" ] && doas reboot
-[ $choice = "Exit" ] && doas pkill dwm
-[ $choice = "Sleep" ] && _sleep
+case $choice in
+	Off) doas poweroff ;;
+	Reboot) doas reboot;;
+	Exit) doas pkill dwm;;
+	Sleep) _sleep ;;
+esac
