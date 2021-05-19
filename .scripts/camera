@@ -2,4 +2,4 @@
 
 camera=$(ls /dev/video* | dmenu -p "Choose camera")
 
-mpv av://v4l2:$camera --profile=low-latency --untimed --geometry=-0-0 --autofit=30%
+mpv av://v4l2:$camera --profile=low-latency --untimed --geometry=+100+200 --autofit=30% --keepaspect-window
