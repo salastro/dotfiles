@@ -9,6 +9,7 @@ esac
 case "$(cat /sys/class/net/enp0s20f0u*/operstate 2>/dev/null)" in
 	down) usbicon="" ;;
 	up) usbicon=" " ;;
+	unknown) usbicon=" ?" ;;
 esac
 
 case "$(cat /sys/class/net/eno1/operstate 2>/dev/null)" in
