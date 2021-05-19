@@ -1,5 +1,0 @@
-#!/bin/dash
-
-height=$(wc -l ~/.local/share/calcurse/apts | awk '{print $1}')
-
-cat ~/.local/share/calcurse/apts | dmenu -l $height -p "Appointments"
