@@ -31,8 +31,8 @@ alias xri='doas xbps-rindex'
 alias fp='fuzzypkg'
 
 # Shortcuts
-alias e='nvim'
-alias m='neomutt'
+alias e='$EDITOR'
+alias m='$EMAIL'
 
 # trash
 alias rm='trash'
