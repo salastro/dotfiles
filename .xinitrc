@@ -9,7 +9,4 @@ sxhkd &
 picom --experimental-backends &
 dwmblocks &
 
-$TERMINAL calcurse &
-$TERMINAL dijo &
-
-dwm
+exec dwm
