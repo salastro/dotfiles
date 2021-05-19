@@ -3,13 +3,16 @@
 TMPFILE="/tmp/timer.time"
 soundfile="$HOME/Music/Notifications/Sci-fi.mp3"
 
+_notify_me() {
+	echo "Time is up" | dzen2 -p 4 & mpv $soundfile
+}
 _start_timer() {
-	termdown $1 -o $TMPFILE --exec-cmd "pkill -RTMIN+4 dwmblocks" && mpv $soundfile
+	termdown $1 -o $TMPFILE --exec-cmd "pkill -RTMIN+4 dwmblocks" && _notify_me
 	rm -f $TMPFILE
 	pkill -RTMIN+4 dwmblocks 
 }
 _stop_timer() {
-	pkill termdown
+	pkill termdown && echo "Stopped timer" | dzen2 -p 2
 }
 
 case $1 in

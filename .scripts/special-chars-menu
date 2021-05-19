@@ -13,5 +13,5 @@ if [ -n "$1" ]; then
 	xdotool type "$chosen"
 else
 	echo "$chosen" | tr -d '\n' | xclip -selection clipboard
-	notify-send "'$chosen' copied to clipboard." &
+	echo "'$chosen' copied to clipboard." | dzen2 -p 2 &
 fi
