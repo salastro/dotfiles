@@ -15,6 +15,11 @@ se cot=menuone
 " Enable mouse
 se mouse=a
 
+" Keys
+inoremap  <End>
+inoremap  <Home>
+vnoremap  "+y/\V"
+
 " automation
 "" Suckless(-like) programs
 autocmd BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
