@@ -24,11 +24,14 @@ vnoremap  "+y/\V"
 "" Suckless(-like) programs
 autocmd BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
 autocmd BufWritePost *config.def.h !doas rm 'config.h' && doas make clean install
-"" other
-autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+"" spell
 autocmd BufNewFile,BufRead *.txt setl spell
 autocmd BufNewFile,BufRead *.tex setl spell
-autocmd BufWritePost .Xmodmap !setxkbmap && xmodmap ~/.Xmodmap
+autocmd BufNewFile,BufRead *.ms setl spell
+autocmd BufNewFile,BufRead *.md setl spell
+"" other
+autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+autocmd BufWritePost *.kbd !doas pkill kmonad; setsid doas kmonad %:p &
 
 " templates
 "" html
