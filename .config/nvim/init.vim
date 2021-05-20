@@ -70,13 +70,17 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Plug 'christoomey/vim-titlecase' 
 " Plug 'djoshea/vim-autoread'
 Plug 'baskerville/vim-sxhkdrc'
+Plug 'kmonad/kmonad-vim'
+Plug 'cespare/vim-toml'
 Plug 'christoomey/vim-sort-motion'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'skywind3000/vim-rt-format'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/AutoComplPop'
 Plug 'vimwiki/vimwiki'
+Plug 'skammer/vim-css-color'
 
 call plug#end()
 
