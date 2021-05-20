@@ -1,0 +1,35 @@
+# pcm.sound-core {
+# 	type plug
+# 	slave.pcm {
+#     		type bluealsa                       
+#     		device "E8:07:BF:8B:4E:6E"          
+#     		profile "a2dp"                      
+#     		delay 10000                         
+# 	}
+# 	hint {
+# 		show on
+# 		description "My Bluetooth Headset"
+# 	}
+# }
+# pcm.!default {
+# 	type plug
+# 	slave.pcm {
+#     		type bluealsa                       
+#     		device "E8:07:BF:8B:4E:6E"          
+#     		profile "a2dp"                      
+#     		delay 10000                         
+# 	}
+# }
+
+pcm.!default {
+    type asym
+    playback.pcm "plug:softvol"
+    capture.pcm "plug:dsnoop"
+}
+
+pcm.softvol {
+    type softvol
+    slave.pcm "dmix"
+    control { name "PCM"; card 0; }
+    max_dB 65.0
+}
