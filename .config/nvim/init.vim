@@ -12,6 +12,9 @@ se rnu
 se cpt+=kspell
 se cot=menuone
 
+" Enable mouse
+se mouse=a
+
 " automation
 "" Suckless(-like) programs
 autocmd BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
