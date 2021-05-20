@@ -59,8 +59,11 @@ nnoremap ftd :filetype detect<CR>
 " update configuration
 nnoremap ,uc :so ~/.config/nvim/init.vim<CR>
 
-" tag jumping
+" Custom commands
+"" tag jumping
 com! MakeTags !ctags -R .
+"" Compiler
+com! Compile !compiler %
 
 call plug#begin('~/.local/share/nvim/plugged')
 
