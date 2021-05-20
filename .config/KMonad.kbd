@@ -58,8 +58,8 @@
 (deflayer vi
 	_
 	_    @1   @2   @3   @4   @5   @6   @7   @8   @9   @0   _    _    _   
-	_    _    @w   _    @r   _    _    @u   _    _    _    _    _    _
-	del  _    _    _    _    _    lft  down up   rght _    _    _  
+	_    _    @w   end  @r   _    _    @u   _    _    _    _    _    _
+	del  home _    _    _    _    lft  down up   rght _    _    _  
 	_    _    _    @c   @v   @b   _    _    _    _    _    _   
 	_    _    _              _              _    _    _    _    _    _   
 )

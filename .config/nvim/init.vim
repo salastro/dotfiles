@@ -16,8 +16,6 @@ se cot=menuone
 se mouse=a
 
 " Keys
-inoremap  <End>
-inoremap  <Home>
 vnoremap  "+y/\V"
 
 " automation
