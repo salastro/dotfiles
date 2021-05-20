@@ -14,6 +14,7 @@
 	lctl met  lalt           spc            ralt rctl lft  up   down rght
 )
 
+;; Default layout aliases
 (defalias
 	spc (tap-next-release spc (layer-toggle num))
 	esc (tap-next-release esc (layer-toggle vi))
@@ -23,6 +24,10 @@
 	esc (tap-next-release esc (layer-toggle vi))
 	esc (tap-next-release esc (layer-toggle vi))
 	esc (multi-tap 100 @evi @vi)|#
+)
+
+;; VI-like-mode-aliases 
+(defalias 
 	b (around rctl lft)
 	w (around rctl rght)
 	u C-z
