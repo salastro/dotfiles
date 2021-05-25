@@ -30,7 +30,6 @@
 
 ;; VI-selection-like-mode-aliases 
 (defalias 
-	;; vb (around rctl (around shft lft))
 	vb C-S-lft
 	vw C-S-rght
 	vlf S-lft
@@ -55,7 +54,7 @@
 	_
 	_    1    2    3    4    5    6    7    8    9    0    _    _    _   
 	_    _    @w   end  _    _    _    _    _    _    _    _    _    _
-	del  home _    _    _    _    lft  down up   rght _    _    _  
+	_    home _    _    _    _    lft  down up   rght _    _    _  
 	_    _    _    _    @v   @b   _    _    _    _    _    _   
 	_    _    _              _              _    _    _    _    _    _   
 )
@@ -73,7 +72,7 @@
 	_
 	_    _    _    _    _    _    _    _    _    _    _    _    _    _   
 	_    _    _    _    -    _    _    =    _    _    _    _    _    _
-	_    1    2    3    4    5    6    7    8    9    0    _    _  
+	del  1    2    3    4    5    6    7    8    9    0    _    _  
 	_    lctl _    _    _    _    _    _    _    _    _    _   
 	_    _    _              _              _    _    _    _    _    _   
 )
