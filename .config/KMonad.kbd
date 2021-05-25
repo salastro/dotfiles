@@ -23,22 +23,23 @@
 
 ;; VI-like-mode-aliases 
 (defalias 
-	b (around rctl lft)
-	w (around rctl rght)
+	b C-lft
+	w C-rght
 	v (layer-add sel)
 )
 
 ;; VI-selection-like-mode-aliases 
 (defalias 
-	vb (around rctl (around shft lft))
-	vw (around rctl (around shft rght))
-	vlf (around shft lft)
-	vrg (around shft rght)
-	vup (around shft up)
-	vdo (around shft down)
-	vho (around shft home)
-	ven (around shft end)
-	ves (layer-rem sel)
+	;; vb (around rctl (around shft lft))
+	vb C-S-lft
+	vw C-S-rght
+	vlf S-lft
+	vrg S-rght
+	vup S-up
+	vdo S-down
+	vho S-home
+	ven S-end
+	ves S-l
 )
 
 (deflayer default
