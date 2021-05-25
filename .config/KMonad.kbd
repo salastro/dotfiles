@@ -18,12 +18,7 @@
 (defalias
 	spc (tap-next-release spc (layer-toggle num))
 	esc (tap-next-release esc (layer-toggle vi))
-;;	evi (tap-hold 100 esc ralt)
-#|	vi (layer-toggle vi)
-	esc (tap-next-release esc (layer-toggle vi))
-	esc (tap-next-release esc (layer-toggle vi))
-	esc (tap-next-release esc (layer-toggle vi))
-	esc (multi-tap 100 @evi @vi)|#
+	alt (multi-tap 200 alt @esc)
 )
 
 ;; VI-like-mode-aliases 
@@ -34,16 +29,6 @@
 	r C-y
 	c A-c
 	v A-v
-	1 A-1
-	2 A-2
-	3 A-3
-	4 A-4
-	5 A-5
-	6 A-6
-	7 A-7
-	8 A-8
-	9 A-9
-	0 A-0
 )
 
 (deflayer default
@@ -52,12 +37,12 @@
 	tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
 	bspc a    s    d    f    g    h    j    k    l    ;    '    ret
 	lsft z    x    c    v    b    n    m    ,    .    /    rsft
-	rctl met  lalt           @spc           @esc rctl lft  up   down rght
+	rctl met  lalt           @spc           @alt rctl lft  up   down rght
 )
 
 (deflayer vi
 	_
-	_    @1   @2   @3   @4   @5   @6   @7   @8   @9   @0   _    _    _   
+	_    1    2    3    4    5    6    7    8    9    0    _    _    _   
 	_    _    @w   end  @r   _    _    @u   _    _    _    _    _    _
 	del  home _    _    _    _    lft  down up   rght _    _    _  
 	_    _    _    @c   @v   @b   _    _    _    _    _    _   
