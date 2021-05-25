@@ -18,17 +18,27 @@
 (defalias
 	spc (tap-next-release spc (layer-toggle num))
 	esc (tap-next-release esc (layer-toggle vi))
-	alt (multi-tap 200 alt @esc)
+	alt (multi-tap 200 ralt @esc)
 )
 
 ;; VI-like-mode-aliases 
 (defalias 
 	b (around rctl lft)
 	w (around rctl rght)
-	u C-z
-	r C-y
-	c A-c
-	v A-v
+	v (layer-add sel)
+)
+
+;; VI-selection-like-mode-aliases 
+(defalias 
+	vb (around rctl (around shft lft))
+	vw (around rctl (around shft rght))
+	vlf (around shft lft)
+	vrg (around shft rght)
+	vup (around shft up)
+	vdo (around shft down)
+	vho (around shft home)
+	ven (around shft end)
+	ves (layer-rem sel)
 )
 
 (deflayer default
@@ -43,10 +53,19 @@
 (deflayer vi
 	_
 	_    1    2    3    4    5    6    7    8    9    0    _    _    _   
-	_    _    @w   end  @r   _    _    @u   _    _    _    _    _    _
+	_    _    @w   end  _    _    _    _    _    _    _    _    _    _
 	del  home _    _    _    _    lft  down up   rght _    _    _  
-	_    _    _    @c   @v   @b   _    _    _    _    _    _   
+	_    _    _    _    @v   @b   _    _    _    _    _    _   
 	_    _    _              _              _    _    _    _    _    _   
+)
+
+(deflayer sel
+	_
+	_    1    2    3    4    5    6    7    8    9    0    _    _    _   
+	_    _    @vw  @ven _    _    _    _    _    _    _    _    _    _
+	_    @vho _    _    _    _    @vlf @vdo @vup  @vrg _    _    _  
+	_    _    _    _    _    @vb   _    _    _    _    _    _   
+	_    _    _              _              @ves _    _    _    _    _   
 )
 
 (deflayer num
