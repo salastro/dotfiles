@@ -38,7 +38,7 @@
 	vdo S-down
 	vho S-home
 	ven S-end
-	ves S-l
+	ves (layer-rem sel)
 )
 
 (deflayer default
