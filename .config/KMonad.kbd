@@ -23,15 +23,15 @@
 
 ;; VI-like-mode-aliases 
 (defalias 
-	b C-lft
-	w C-rght
+	b (around rctl lft)
+	w (around rctl rght)
 	v (layer-add sel)
 )
 
 ;; VI-selection-like-mode-aliases 
 (defalias 
-	vb C-S-lft
-	vw C-S-rght
+	vb (around rctl S-lft)
+	vw (around rctl S-rght)
 	vlf S-lft
 	vrg S-rght
 	vup S-up
