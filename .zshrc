@@ -1,14 +1,31 @@
 # Add to path
 path+=('/home/salahdin/.local/bin')
 
+# Enable colors and change prompt:
+autoload -U colors && colors
+setopt prompt_subst
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' stagedstr 'M' 
+zstyle ':vcs_info:*' unstagedstr 'M' 
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' actionformats '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' formats \
+	'%F{5} %F{2}%b%F{5} %F{2}%c%F{3}%u%f'
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+zstyle ':vcs_info:*' enable git 
++vi-git-untracked() {
+  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+  [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
+  hook_com[unstaged]+='%F{1}??%f'
+fi
+}
+precmd () { vcs_info }
+
 if test "$USER" = "root"
 then
-	# Enable colors and change prompt:
-	autoload -U colors && colors
-	PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}#%b "
-else
-	# StarShip prompt
-	eval "$(starship init zsh)"
+	PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[black]%}% \$vcs_info_msg_0_%{$fg[red]%}]%{$reset_color%}#%b "
+else 
+	PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[black]%}% \$vcs_info_msg_0_%{$fg[red]%}]%{$reset_color%}$%b "
 fi
 
 # history
