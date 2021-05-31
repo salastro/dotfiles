@@ -28,6 +28,9 @@ else
 	PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[black]%}% \$vcs_info_msg_0_%{$fg[red]%}]%{$reset_color%}$%b "
 fi
 
+# Automatically cd into typed directory.
+setopt autocd
+
 # history
 HISTSIZE=10000000
 SAVEHIST=10000000
