@@ -13,6 +13,7 @@ xrdb -merge ~/.cache/wal/colors.Xresources
 sxhkd &
 picom --experimental-backends &
 dwmblocks &
+pgrep syncthing || syncthing serve --no-browser
 
 # the WM/DE
 exec dwm
