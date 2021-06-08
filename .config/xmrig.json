@@ -1,0 +1,21 @@
+{
+    "autosave": true,
+    "cpu": true,
+    "opencl": false,
+    "cuda": false,
+    "randomx": {
+	    "mode": "fast"
+    },
+    "pools": [
+        {
+            "coin": null,
+            "algo": "rx/wow",
+            "url": "wownero.xyz:4333",
+            "user": "Wo42vKFfimpa6mQrhVk8y1QR7D2HENcVjSyh6VfN7Upd8dxbH7kfJZhNUZgR3EexsqL7ZrEyYTLW2epBzvyxx1852VSC6qUpD",
+            "pass": "x",
+            "tls": false,
+            "keepalive": true,
+            "nicehash": false
+        }
+    ]
+}
