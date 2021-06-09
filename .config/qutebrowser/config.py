@@ -192,7 +192,7 @@ c.tabs.show = 'always'
 # commands like :open -t and :open -w .
 c.url.default_page = 'https://searx.bar/'
 # The page which opens when you start the browser
-config.set('url.start_pages', 'https://searx.bar/')
+c.url.start_pages = 'https://searx.bar/'
 
 # Search engines which can be used via the address bar.  Maps a search
 # engine name (such as `DEFAULT`, or `ddg`) to a URL with a `{}`
