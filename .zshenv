@@ -1,7 +1,7 @@
 # variables
 export EDITOR='nvim'
 export EMAIL='neomutt'
-export BROWSER='firefox'
+export BROWSER='qutebrowser'
 export TERMINAL='st'
 export FILE_MANAGER='$TERMINAL nnn -r -d -C -e -t 120'
 # paths
