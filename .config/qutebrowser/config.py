@@ -230,7 +230,7 @@ c.url.start_pages = 'https://searx.bar/'
 # the search engine name to the search term, e.g. `:open google
 # qutebrowser`.
 # Type: Dict
-c.url.searchengines = {'DEFAULT': 'https://searx.bar/search?q={}', 'ddg': 'https://duckduckgo.com/?q={}'}
+c.url.searchengines = {'DEFAULT': 'https://searx.bar/search?q={}', 'aw': 'https://wiki.archlinux.org/?search={}', 'g': 'https://www.google.com/search?q={}', 're': 'https://www.reddit.com/r/{}', 'ub': 'https://www.urbandictionary.com/define.php?term={}', 'wiki': 'https://en.wikipedia.org/wiki/{}', 'yt': 'https://www.youtube.com/results?search_query={}', 'gh': 'https://www.github.com/search?q={}'}
 
 # Ad blocking
 c.content.blocking.adblock.lists = [ \
