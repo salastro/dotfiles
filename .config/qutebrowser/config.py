@@ -23,6 +23,8 @@ c.aliases = {'q': 'quit', 'w': 'session-save', 'wq': 'quit --save', 'se': 'set'}
 # Setting dark mode
 config.set("colors.webpage.darkmode.enabled", True)
 
+# Spellcheck languages
+config.set("spellcheck.languages", ["en-US"])
 
 # Which cookies to accept. With QtWebEngine, this setting also controls
 # other features with tracking capabilities similar to those of cookies;
