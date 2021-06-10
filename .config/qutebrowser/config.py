@@ -23,6 +23,9 @@ c.aliases = {'q': 'quit', 'w': 'session-save', 'wq': 'quit --save', 'se': 'set'}
 # Setting dark mode
 config.set("colors.webpage.darkmode.enabled", True)
 
+# Auto save sessions
+# c.auto_save.session = True
+
 # Spellcheck languages
 config.set("spellcheck.languages", ["en-US"])
 
