@@ -434,6 +434,11 @@ config.bind('xb', 'config-cycle statusbar.show always never')
 config.bind('xt', 'config-cycle tabs.show always never')
 config.bind('xx', 'config-cycle statusbar.show always never;; config-cycle tabs.show always never')
 
+config.bind('J', 'tab-prev')
+config.bind('K', 'tab-next')
+config.bind('gJ', 'tab-move -')
+config.bind('gK', 'tab-move +')
+
 config.bind("yo", "yank inline [{title}]({url})")
 config.bind('tt', 'set-cmd-text -s :open -t')
 
