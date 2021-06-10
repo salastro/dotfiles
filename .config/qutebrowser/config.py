@@ -434,6 +434,7 @@ config.bind('xb', 'config-cycle statusbar.show always never')
 config.bind('xt', 'config-cycle tabs.show always never')
 config.bind('xx', 'config-cycle statusbar.show always never;; config-cycle tabs.show always never')
 
+config.bind("yo", "yank inline [{title}]({url})")
 config.bind('tt', 'set-cmd-text -s :open -t')
 
 # Bindings for cycling through CSS stylesheets from Solarized Everything CSS:
