@@ -232,6 +232,24 @@ c.url.start_pages = 'https://searx.bar/'
 # Type: Dict
 c.url.searchengines = {'DEFAULT': 'https://searx.bar/search?q={}', 'ddg': 'https://duckduckgo.com/?q={}'}
 
+# Ad blocking
+c.content.blocking.adblock.lists = [ \
+        "https://easylist.to/easylist/easylist.txt", \
+        "https://easylist.to/easylist/easyprivacy.txt", \
+        "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt", \
+        "https://easylist.to/easylist/fanboy-annoyance.txt", \
+        "https://secure.fanboy.co.nz/fanboy-annoyance.txt", \
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/annoyances.txt", \
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters-2020.txt", \
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/unbreak.txt", \
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/resource-abuse.txt", \
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/privacy.txt", \
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters.txt" \
+        ]
+
+c.content.blocking.enabled = True
+c.content.blocking.method = 'adblock'
+
 # Text color of the completion widget. May be a single color to use for
 # all columns or a list of three colors, one for each column.
 # Type: List of QtColor, or QtColor
