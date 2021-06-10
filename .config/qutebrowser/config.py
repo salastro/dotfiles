@@ -197,6 +197,15 @@ c.downloads.location.directory = '~/Downloads'
 #   - switching: Show the tab bar when switching tabs.
 c.tabs.show = 'always'
 
+# When to show status bar.
+# Type: String
+# Valid values:
+#   - always: Always show the tab bar.
+#   - never: Always hide the tab bar.
+#   - multiple: Hide the tab bar if only one tab is open.
+#   - switching: Show the tab bar when switching tabs.
+c.statusbar.show = 'always'
+
 # Setting default page for when opening new tabs or new windows with
 # commands like :open -t and :open -w .
 c.url.default_page = 'https://searx.bar/'
