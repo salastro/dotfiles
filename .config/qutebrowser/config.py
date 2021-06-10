@@ -250,6 +250,18 @@ c.content.blocking.adblock.lists = [ \
 c.content.blocking.enabled = True
 c.content.blocking.method = 'adblock'
 
+# Open cmd-line editor instead
+import os
+c.editor.command = [
+    os.environ["TERMINAL"],
+    "-e",
+    os.environ["EDITOR"],
+    "-f",
+    "{file}",
+    "-c",
+    "normal {line}G{column0}1",
+]
+
 # Text color of the completion widget. May be a single color to use for
 # all columns or a list of three colors, one for each column.
 # Type: List of QtColor, or QtColor
