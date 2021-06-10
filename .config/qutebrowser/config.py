@@ -425,14 +425,16 @@ c.editor.command = [
 #config.bind('O', 'spawn --userscript dmenu-open --tab')
 
 # Bindings for normal mode
-config.bind('m', 'hint links spawn mpv {hint-url}')
+config.bind('<Ctrl-m>', 'hint links spawn mpv {hint-url}')
 config.bind('z', 'hint links spawn st -e youtube-dl {hint-url}')
-config.bind('M', 'spawn mpv {url}')
+config.bind('<Ctrl-Shift-m>', 'spawn mpv {url}')
 config.bind('Z', 'spawn st -e youtube-dl {url}')
-config.bind('t', 'set-cmd-text -s :open -t')
+
 config.bind('xb', 'config-cycle statusbar.show always never')
 config.bind('xt', 'config-cycle tabs.show always never')
 config.bind('xx', 'config-cycle statusbar.show always never;; config-cycle tabs.show always never')
+
+config.bind('tt', 'set-cmd-text -s :open -t')
 
 # Bindings for cycling through CSS stylesheets from Solarized Everything CSS:
 # https://github.com/alphapapa/solarized-everything-css
