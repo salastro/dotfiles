@@ -143,6 +143,10 @@ config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}; rv:71.0) Gecko
 # Type: Bool
 config.set('content.images', True, 'chrome-devtools://*')
 
+# Load videos automatically in web pages.
+# Type: Bool
+config.set('content.autoplay', False, 'https://www.youtube.com')
+
 # Load images automatically in web pages.
 # Type: Bool
 config.set('content.images', True, 'devtools://*')
