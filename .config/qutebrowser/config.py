@@ -248,7 +248,7 @@ c.content.blocking.adblock.lists = [ \
         ]
 
 c.content.blocking.enabled = True
-c.content.blocking.method = 'adblock'
+c.content.blocking.method = 'both'
 
 # Open cmd-line editor instead
 import os
