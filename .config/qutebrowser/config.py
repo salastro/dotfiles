@@ -426,9 +426,9 @@ c.editor.command = [
 
 # Bindings for normal mode
 config.bind('<Ctrl-m>', 'hint links spawn mpv {hint-url}')
-config.bind('z', 'hint links spawn st -e youtube-dl {hint-url}')
+config.bind('z', 'hint links spawn st -e youtube-dl {hint-url} -o "~/Videos/%(title)s-%(id)s.%(ext)s"')
 config.bind('<Ctrl-Shift-m>', 'spawn mpv {url}')
-config.bind('Z', 'spawn st -e youtube-dl {url}')
+config.bind('Z', 'spawn st -e youtube-dl {url} -o "~/Videos/%(title)s-%(id)s.%(ext)s"')
 
 config.bind('xb', 'config-cycle statusbar.show always never')
 config.bind('xt', 'config-cycle tabs.show always never')
