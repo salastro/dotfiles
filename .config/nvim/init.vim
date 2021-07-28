@@ -15,7 +15,9 @@ se cot=menuone
 " Enable mouse
 se mouse=a
 
-" Keys
+" vars
+
+" keys
 vnoremap  "+y:%s/\V"/
 vnoremap  "+y/\V"
 
@@ -35,28 +37,13 @@ autocmd BufWritePost *.kbd !doas pkill kmonad; setsid doas kmonad %:p &
 " templates
 "" roff
 nnoremap 'roff :-read ~/.config/nvim/skeletons/skeleton.ms<CR>:filetype detect<CR>
-"" html
-nnoremap 'html :-read ~/.config/nvim/skeletons/skeleton.html<CR>:filetype detect<CR>7j9li
-autocmd FileType html inoremap ;h1 <h1></h1><!----><Esc>FhT>i
-autocmd FileType html inoremap ;h2 <h2></h2><!----><Esc>FhT>i
-autocmd FileType html inoremap ;h3 <h3></h3><!----><Esc>FhT>i
-autocmd FileType html inoremap ;h4 <h4></h4><!----><Esc>FhT>i
-autocmd FileType html inoremap ;h5 <h5></h5><!----><Esc>FhT>i
-autocmd FileType html inoremap ;h6 <h6></h6><!----><Esc>FhT>i
-autocmd FileType html inoremap ;hr <hr>
-autocmd FileType html inoremap ;p <p></p><!----><Esc>FpT>i
-autocmd FileType html inoremap ;b <b></b><!----><Esc>FbT>i
-autocmd FileType html inoremap ;i <i></i><!----><Esc>FiT>i
-autocmd FileType html inoremap ;e <em></em><!----><Esc>FeT>i
-autocmd FileType html inoremap ;ce <center></center><!----><Esc>FcT>i
-autocmd FileType html inoremap ;co <code></code><!----><Esc>FcT>i
-autocmd FileType html inoremap <Space><Space> <Esc> /<!----><CR>"_c7l
-autocmd FileType html nnoremap <Space><Space> <Esc> /<!----><CR>"_d7l
 
 " file type detect
 nnoremap ftd :filetype detect<CR>
 " update configuration
 nnoremap ,uc :so ~/.config/nvim/init.vim<CR>
+
+" functions
 
 " Custom commands
 "" tag jumping
