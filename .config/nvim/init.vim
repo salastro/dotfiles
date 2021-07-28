@@ -119,6 +119,16 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 let g:user_emmet_leader_key = '<C-e>'
 
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+
 nnoremap <leader>n :NnnPicker %:p:h<CR>
 let g:nnn#layout = 'vnew'
 let g:nnn#layout = { 'left': '~20%' }
