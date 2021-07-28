@@ -73,6 +73,7 @@ Plug 'christoomey/vim-titlecase'
 " themes
 Plug 'chrisbra/Colorizer'
 Plug 'itchyny/lightline.vim'
+" Plug 'morhetz/gruvbox'
 
 " syntax highlighting
 Plug 'baskerville/vim-sxhkdrc'
@@ -173,3 +174,6 @@ let g:rtf_on_insert_leave = 1
 
 " Colorizer
 let g:colorizer_auto_color = 1
+
+" colorscheme gruvbox
+" let g:gruvbox_transparent_bg = 1
