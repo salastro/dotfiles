@@ -139,6 +139,12 @@ let $NNN_PLUG='f:simple-fzf-open;w:setpywal;W:setpywalvid;d:dragdrop;t:preview-t
 let $NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;S:~/.scripts;a:~/.local/bin;s:/mnt/DiskE/Important/STEM;c:~/.config/;M:/media/'
 let $NNN_FIFO="/tmp/nnn.fifo"
 let $NNN_TRASH=1
+
+let g:titlecase_map_keys = 0
+nmap <leader>gt <Plug>Titlecase
+vmap <leader>gt <Plug>Titlecase
+nmap <leader>gT <Plug>TitlecaseLine
+
 let g:startify_bookmarks = [
 			\ {'c': '~/.config/nvim/init.vim'},
 			\ {'d': '~/.srcpkgs/dwm/config.def.h'},
