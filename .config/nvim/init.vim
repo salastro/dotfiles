@@ -35,6 +35,7 @@ autocmd BufNewFile,BufRead *.txt setl spell
 autocmd BufNewFile,BufRead *.tex setl spell
 autocmd BufNewFile,BufRead *.ms setl spell
 autocmd BufNewFile,BufRead *.md setl spell
+autocmd BufNewFile,BufRead COMMIT_EDITMSG setl spell
 "" other
 autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 autocmd BufWritePost *.kbd !doas pkill kmonad; setsid doas kmonad %:p &
