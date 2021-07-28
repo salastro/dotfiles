@@ -61,23 +61,30 @@ com! Sent !sent-pywal-theme % &
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Plug 'christoomey/vim-titlecase' 
-" Plug 'djoshea/vim-autoread'
-Plug 'baskerville/vim-sxhkdrc'
-Plug 'kmonad/kmonad-vim'
-Plug 'cespare/vim-toml'
 " git wrapper
 Plug 'tpope/vim-fugitive'
+
+" motions
 Plug 'christoomey/vim-sort-motion'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'christoomey/vim-titlecase' 
+
+" themes
 Plug 'itchyny/lightline.vim'
+
+" syntax highlighting
+Plug 'baskerville/vim-sxhkdrc'
+Plug 'cespare/vim-toml'
+Plug 'farfanoide/vim-kivy'
+Plug 'kmonad/kmonad-vim'
+
+" other
 Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-startify'
 Plug 'skywind3000/vim-rt-format'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
 Plug 'vim-scripts/AutoComplPop'
 Plug 'vimwiki/vimwiki'
-Plug 'skammer/vim-css-color'
 
 call plug#end()
 
