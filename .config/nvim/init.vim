@@ -24,6 +24,8 @@ nnoremap  z=
 
 let mapleader = " "
 
+map <leader>s :Startify<CR>
+
 " automation
 "" Suckless(-like) programs
 autocmd BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
@@ -64,6 +66,7 @@ Plug 'cespare/vim-toml'
 Plug 'christoomey/vim-sort-motion'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'mhinz/vim-startify'
 Plug 'skywind3000/vim-rt-format'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -95,3 +98,20 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+let g:startify_bookmarks = [
+			\ {'c': '~/.config/nvim/init.vim'},
+			\ {'d': '~/.srcpkgs/dwm/config.def.h'},
+			\ {'s':'~/.config/sxhkd/sxhkdrc'},
+			\ {'u': '~/.config/qutebrowser/config.py'},
+			\ {'a':'~/.config/aliasrc'},
+			\ {'ww':'~/Documents/VimWiki/index.md'},
+			\ {'wi':'~/Documents/VimWiki/diary/diary.md'},
+			\ ]
+let g:startify_lists = [
+			\ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+			\ { 'type': 'files',     'header': ['   MRU']            },
+			\ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+			\ { 'type': 'sessions',  'header': ['   Sessions']       },
+			\ { 'type': 'commands',  'header': ['   Commands']       },
+			\ ]
