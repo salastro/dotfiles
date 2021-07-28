@@ -71,6 +71,7 @@ Plug 'tpope/vim-commentary'
 Plug 'christoomey/vim-titlecase' 
 
 " themes
+Plug 'chrisbra/Colorizer'
 Plug 'itchyny/lightline.vim'
 
 " syntax highlighting
@@ -127,3 +128,5 @@ let g:startify_lists = [
 			\ { 'type': 'sessions',  'header': ['   Sessions']       },
 			\ { 'type': 'commands',  'header': ['   Commands']       },
 			\ ]
+
+let g:colorizer_auto_color = 1
