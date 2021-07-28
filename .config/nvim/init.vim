@@ -117,8 +117,10 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
+" Emmet
 let g:user_emmet_leader_key = '<C-e>'
 
+" Lightline
 let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
@@ -129,6 +131,7 @@ let g:lightline = {
       \ },
       \ }
 
+" NNN
 nnoremap <leader>n :NnnPicker %:p:h<CR>
 let g:nnn#layout = 'vnew'
 let g:nnn#layout = { 'left': '~20%' }
@@ -140,11 +143,13 @@ let $NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/
 let $NNN_FIFO="/tmp/nnn.fifo"
 let $NNN_TRASH=1
 
+" Titlecase
 let g:titlecase_map_keys = 0
 nmap <leader>gt <Plug>Titlecase
 vmap <leader>gt <Plug>Titlecase
 nmap <leader>gT <Plug>TitlecaseLine
 
+" Startify
 let g:startify_bookmarks = [
 			\ {'c': '~/.config/nvim/init.vim'},
 			\ {'d': '~/.srcpkgs/dwm/config.def.h'},
@@ -162,7 +167,9 @@ let g:startify_lists = [
 			\ { 'type': 'commands',  'header': ['   Commands']       },
 			\ ]
 
+" RT-Format
 let g:rtf_ctrl_enter = 0
 let g:rtf_on_insert_leave = 1
 
+" Colorizer
 let g:colorizer_auto_color = 1
