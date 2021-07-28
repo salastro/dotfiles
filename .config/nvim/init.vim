@@ -81,6 +81,7 @@ Plug 'farfanoide/vim-kivy'
 Plug 'kmonad/kmonad-vim'
 
 " external programs
+Plug 'ActivityWatch/aw-watcher-vim'
 Plug 'mcchrish/nnn.vim'
 
 " other
