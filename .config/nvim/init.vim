@@ -66,6 +66,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'baskerville/vim-sxhkdrc'
 Plug 'kmonad/kmonad-vim'
 Plug 'cespare/vim-toml'
+" git wrapper
+Plug 'tpope/vim-fugitive'
 Plug 'christoomey/vim-sort-motion'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/goyo.vim'
