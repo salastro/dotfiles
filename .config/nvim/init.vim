@@ -78,7 +78,7 @@ Plug 'skammer/vim-css-color'
 call plug#end()
 
 " VimWiki
-let g:vimwiki_list = [{'path': '~/vimwiki/',
+let g:vimwiki_list = [{'path': '~/Documents/VimWiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " Goyo
