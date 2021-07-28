@@ -47,7 +47,7 @@ nnoremap 'roff :-read ~/.config/nvim/skeletons/skeleton.ms<CR>:filetype detect<C
 " file type detect
 nnoremap ftd :filetype detect<CR>
 " update configuration
-nnoremap ,uc :so ~/.config/nvim/init.vim<CR>
+nnoremap ;uc :so ~/.config/nvim/init.vim<CR>
 
 " functions
 
