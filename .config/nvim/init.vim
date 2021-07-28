@@ -56,6 +56,8 @@ nnoremap ;uc :so ~/.config/nvim/init.vim<CR>
 com! MakeTags !ctags -R .
 "" Compiler
 com! Compile !compiler %
+"" Sent prsentations
+com! Sent !sent-pywal-theme % &
 
 call plug#begin('~/.local/share/nvim/plugged')
 
