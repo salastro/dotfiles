@@ -80,6 +80,9 @@ Plug 'cespare/vim-toml'
 Plug 'farfanoide/vim-kivy'
 Plug 'kmonad/kmonad-vim'
 
+" external programs
+Plug 'mcchrish/nnn.vim'
+
 " other
 Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-startify'
@@ -112,6 +115,16 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
+nnoremap <leader>n :NnnPicker %:p:h<CR>
+let g:nnn#layout = 'vnew'
+let g:nnn#layout = { 'left': '~20%' }
+let g:nnn#set_default_mappings = 1
+let g:nnn#command = 'nnn -r -C -e -t 120'
+let $NNN_LOCKER="/usr/local/bin/pipes.sh"
+let $NNN_PLUG='f:simple-fzf-open;w:setpywal;W:setpywalvid;d:dragdrop;t:preview-tabbed;i:-sxiv;I:d-sxiv'
+let $NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;S:~/.scripts;a:~/.local/bin;s:/mnt/DiskE/Important/STEM;c:~/.config/;M:/media/'
+let $NNN_FIFO="/tmp/nnn.fifo"
+let $NNN_TRASH=1
 let g:startify_bookmarks = [
 			\ {'c': '~/.config/nvim/init.vim'},
 			\ {'d': '~/.srcpkgs/dwm/config.def.h'},
