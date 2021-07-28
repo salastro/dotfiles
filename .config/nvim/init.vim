@@ -88,7 +88,7 @@ Plug 'mcchrish/nnn.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-startify'
-Plug 'skywind3000/vim-rt-format'
+Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8' }
 Plug 'vim-scripts/AutoComplPop'
 Plug 'vimwiki/vimwiki'
 
@@ -145,5 +145,8 @@ let g:startify_lists = [
 			\ { 'type': 'sessions',  'header': ['   Sessions']       },
 			\ { 'type': 'commands',  'header': ['   Commands']       },
 			\ ]
+
+let g:rtf_ctrl_enter = 0
+let g:rtf_on_insert_leave = 1
 
 let g:colorizer_auto_color = 1
