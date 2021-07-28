@@ -20,6 +20,7 @@ se mouse=a
 " keys
 vnoremap  "+y:%s/\V"/
 vnoremap  "+y/\V"
+nnoremap  z=
 
 let mapleader = " "
 
