@@ -21,6 +21,8 @@ se mouse=a
 vnoremap  "+y:%s/\V"/
 vnoremap  "+y/\V"
 
+let mapleader = " "
+
 " automation
 "" Suckless(-like) programs
 autocmd BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
