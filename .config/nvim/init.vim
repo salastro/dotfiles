@@ -16,6 +16,7 @@ se cot=menuone
 se mouse=a
 
 " Keys
+vnoremap  "+y:%s/\V"/
 vnoremap  "+y/\V"
 
 " automation
