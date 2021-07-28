@@ -86,6 +86,7 @@ Plug 'mcchrish/nnn.vim'
 
 " other
 Plug 'junegunn/goyo.vim'
+Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-startify'
 Plug 'skywind3000/vim-rt-format'
 Plug 'vim-scripts/AutoComplPop'
@@ -115,6 +116,8 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+let g:user_emmet_leader_key = '<C-e>'
 
 nnoremap <leader>n :NnnPicker %:p:h<CR>
 let g:nnn#layout = 'vnew'
