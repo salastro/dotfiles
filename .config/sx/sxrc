@@ -14,6 +14,7 @@ sxhkd &
 picom --experimental-backends &
 dwmblocks &
 pgrep syncthing || syncthing serve --no-browser >/dev/tty6 &
+pgrep aw-server || aw-qt >/dev/tty6 &
 
 # the WM/DE
 exec dwm
