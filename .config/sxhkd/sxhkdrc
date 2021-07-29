@@ -17,9 +17,6 @@ alt + b
 ctrl + alt + r
 	$TERMINAL newsboat
 
-alt + ctrl + h
-	$SHELL -ic '$TERMINAL $EDITOR .config/sxhkd/sxhkdrc'
-
 alt + m
 	$TERMINAL calcurse
 
