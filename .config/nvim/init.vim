@@ -68,6 +68,7 @@ Plug 'christoomey/vim-sort-motion'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'christoomey/vim-titlecase' 
+Plug 'easymotion/vim-easymotion'
 
 " themes
 Plug 'chrisbra/Colorizer'
