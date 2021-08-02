@@ -105,6 +105,7 @@ let g:VM_maps["Add Cursor Up"]               = '<C-k>'
 " VimWiki
 let g:vimwiki_list = [{'path': '~/Documents/VimWiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
+nmap <leader>wg :VimwikiGenerateLinks<CR>
 
 " Goyo
 function! s:goyo_enter()
