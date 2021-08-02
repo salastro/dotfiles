@@ -69,6 +69,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'christoomey/vim-titlecase' 
 Plug 'easymotion/vim-easymotion'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 " themes
 Plug 'chrisbra/Colorizer'
@@ -94,6 +95,12 @@ Plug 'vim-scripts/AutoComplPop'
 Plug 'vimwiki/vimwiki'
 
 call plug#end()
+
+
+" Visual-multi
+let g:VM_maps = {}
+let g:VM_maps["Add Cursor Down"]             = '<C-j>'
+let g:VM_maps["Add Cursor Up"]               = '<C-k>'
 
 " VimWiki
 let g:vimwiki_list = [{'path': '~/Documents/VimWiki/',
