@@ -165,6 +165,7 @@ let g:startify_bookmarks = [
 			\ {'s':'~/.config/sxhkd/sxhkdrc'},
 			\ {'u': '~/.config/qutebrowser/config.py'},
 			\ {'a':'~/.config/aliasrc'},
+			\ {'z':'~/.zshrc'},
 			\ {'ww':'~/Documents/VimWiki/index.md'},
 			\ {'wi':'~/Documents/VimWiki/diary/diary.md'},
 			\ ]
