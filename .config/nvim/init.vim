@@ -24,7 +24,6 @@ nnoremap  z=
 
 let mapleader = " "
 
-map <leader>s :Startify<CR>
 
 " automation
 "" Suckless(-like) programs
@@ -167,6 +166,7 @@ let g:startify_lists = [
 			\ { 'type': 'sessions',  'header': ['   Sessions']       },
 			\ { 'type': 'commands',  'header': ['   Commands']       },
 			\ ]
+map <leader>S :Startify<CR>
 
 " RT-Format
 let g:rtf_ctrl_enter = 0
