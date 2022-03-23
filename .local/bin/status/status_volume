@@ -1,7 +1,10 @@
-volstat="$(amixer get Master)"
+#!/bin/sh
 
-echo "$volstat" | grep "off" >/dev/null && printf "🔇" && exit
+mute=$(pulsemixer --get-mute)
 
-vol="🔊 $(echo "$volstat" | grep -o "\[[0-9]\+%\]" | sed 's/[^0-9]*//g')"
+case $mute in
+	"0" ) mute="🔊 " && vol="$(pulsemixer --get-volume|awk '{print $1}')%" ;;
+	"1" ) mute="🔇" && vol="" ;;
+esac
 
-printf "%s%%" "$vol"
+printf "%s%s%" "$mute" "$vol"

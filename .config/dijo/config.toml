@@ -1,9 +1,9 @@
 [look]
-true_chr = "+"
-false_chr = "*"
-future_chr = "."
+true_chr = ""
+false_chr = "❌"
+future_chr = "·"
 
 [colors]
 reached = "cyan"
-todo = "magenta"
+todo = "red"
 inactive = "light black"

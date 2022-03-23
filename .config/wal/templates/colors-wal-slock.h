@@ -3,4 +3,5 @@ static const char *colorname[NUMCOLS] = {{
 	[INIT] =         "{color8}",     /* after initialization */
 	[INPUT] =        "{color4}",   /* during input */
 	[FAILED] =       "{color1}",   /* wrong password */
+	[CAPS] =         "{color15}",         /* caps lock on */
 }};

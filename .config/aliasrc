@@ -9,30 +9,33 @@ xi(){
 	doas xbps-install $@
 	pkill -rtmin+2 dwmblocks
 }
+xr(){
+	doas xbps-remove $@
+	pkill -rtmin+2 dwmblocks
+}
 alias xq='xbps-query'
 alias xqs='xq -Rs'
 alias xqsf="xqs \* | fzf | awk  '{print $2}' | xclip -selection clipboard"
 xqsfi(){
 	xi "$(xqs \* | fzf | awk  '{print $2}')"
 }
-xr(){
-	doas xbps-remove $@
-	pkill -rtmin+2 dwmblocks
-}
 alias xrr='xr -R'
 xu(){
 	xi -Su $@
 	pkill -rtmin+2 dwmblocks
 }
+alias xuy='xu -y'
 alias xre='doas xbps-reconfigure'
 alias xal='doas xbps-alternatives'
 alias xpkgdb='doas xbps-pkgdb'
 alias xri='doas xbps-rindex'
 alias fp='fuzzypkg'
 
+# pmm
+alias pmmuy="sudo pmm-install -Suy"
+
 # Shortcuts
-alias e='$EDITOR'
-alias m='$EMAIL'
+alias e='$EDITOR -p'
 
 # trash
 alias rm='trash'
@@ -62,10 +65,10 @@ random() {
 }
 
 # nnn
-alias nnn='nnn -r -C -d -e -t 120'
-export NNN_LOCKER=pipes.sh
-export NNN_PLUG='f:simple-fzf-open;w:setpywal;W:setpywalvid;d:dragdrop;t:preview-tabbed;i:-sxiv;I:d-sxiv'
-export NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;S:~/.scripts;a:~/.local/bin;s:/mnt/DiskE/Important/STEM;c:~/.config/;M:/media/'
+alias nnn='bicon.bin nnn -r -C -d -e'
+export NNN_COLORS="263"
+export NNN_PLUG='f:simple-fzf-open;w:setpywal;W:setpywalvid;d:dragdrop;i:-sxiv;I:d-sxiv;m:mpv-all;M:mpv-music'
+export NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;S:~/.scripts;a:~/.local/bin;s:/mnt/DiskE/Important/STEM;c:~/.config/;M:/media/;w:~/Documents/VimWiki/'
 export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_TRASH=1
 n ()
@@ -88,6 +91,7 @@ n ()
     # stty lwrap undef
     # stty lnext undef
 
+    # tmux split-window -e "NNN_FIFO=$NNN_FIFO" -dh "~/.config/nnn/plugins/mpv-music"
     nnn "$@"
 
     if [ -f "$NNN_TMPFILE" ]; then
@@ -95,10 +99,6 @@ n ()
             rm -f "$NNN_TMPFILE" > /dev/null
     fi
 }
-
-# cpg/mvg
-alias cp='cpg -g'
-alias mv='mvg -g'
 
 # devour
 alias dmpv='devour mpv'
@@ -112,14 +112,14 @@ alias adb-restart='adb kill-server;adb start-server'
 # fzf
 alias fzfo='xdg-open "$(fzf)"'
 
-# alsamixer no color
-alias alsamixer='alsamixer -g'
-
 # task
 export TASKRC=$HOME/.config/taskrc
 alias t='task'
-alias td='task delete'
+alias tdo='task done'
+alias tde='task delete'
 alias ta='task add'
+alias tm='task modify'
+alias te='task edit'
 ## vit
 export VIT_DIR="$HOME/.config/vit/"
 
@@ -141,37 +141,30 @@ alias gpf='gp -f'
 alias gs='git status'
 alias gd='git diff'
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+src() {
+	cd ~/.srcpkgs && 
+	echo "\e[1;31mcd $(pwd)" &&
+	echo "\e[1;31mgit clone $(xclip -o -selection clipboard)\e[0m" &&
+	git clone $(xclip -o -selection clipboard) && 
+	cd "$(basename $(xclip -o -selection clipboard) .git)" &&
+	echo "\e[1;31mcd $(pwd)"
+}
 
 # Clear
 alias c="clear"
 
-# youtube-dl
-alias ytdl='youtube-dl --write-description'
-alias ytdl18='youtube-dl --write-description -f 18'
-alias ytdl22='youtube-dl --write-description -f 22'
+# system
+## cpg/mvg
+alias cp='cpg -givr'
+alias mv='mvg -giv'
+alias grep='grep --color=auto'
+alias mkdir='mkdir -vp'
 
-# mpv
-mpvy() {
-	youtube-dl -o - "$1" | tee "$2" | mpv -
-}
-dmpvy() {
-	youtube-dl -o - "$1" | tee "$2" | dmpv -
-}
-#alias mpv-360="mpv -ytdl-format='bestvideo[height<?360]+bestaudio'"
-#alias mpv-240="mpv -ytdl-format='bestvideo[height<?240]+bestaudio'"
-#alias mpv-144="mpv -ytdl-format='bestvideo[height<?144]+bestaudio'"
-#alias mpv-480="mpv -ytdl-format='bestvideo[height<?480]+bestaudio'"
-#alias mpv-720="mpv -ytdl-format='bestvideo[height<?720]+bestaudio'"
-#alias mpv-1080="mpv -ytdl-format='bestvideo[height<?1080]+bestaudio'"
+alias tt='tt -showwpm -t 15 -notheme'
 
-# System
-mkdircd(){ mkdir "$1" && cd "$1" ; }
-alias ..='cd ..'
+alias sudo='doas'
 
 # fetch scripts
-alias uf='ufetch'
 alias nf='neofetch'
 alias of='onefetch'
-alias cufr='c;uf;rpg c'
-# programs on start-up
-afetch
+alias pf='PF_INFO="ascii title os wm uptime palette" pfetch'

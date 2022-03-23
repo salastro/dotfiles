@@ -2,4 +2,4 @@
 
 FILE=$(fzf)
 
-[ -z "$FILE" ] || xdg-open "$FILE" &
+[ -z "$FILE" ] || setsid xdg-open "$FILE" &

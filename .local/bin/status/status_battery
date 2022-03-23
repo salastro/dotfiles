@@ -1,6 +1,8 @@
+#!/bin/sh
+
 battery="/sys/class/power_supply/BAT1"
 
-capacity=$(cat "$battery/capacity")
+capacity="$(cat "$battery/capacity")"
 
 status=$(cat "$battery/status")
 
@@ -10,8 +12,9 @@ case "$status" in
         "Charging") status="+" ;;
         "Not charging") status="=" ;;
         "Unknown") status="?" ;;
+	*) status="🔌" ;;
 esac
 
-[ "$status" = "-" ] && [ "$capacity" -le 25 ] && warn=" __LOW BATTERY__"
+[ "$status" = "-" ] && [ "$capacity" -le 35 ] && warn=" ^c#ff0000^_LOW BATTERY__^d^"
 
-printf "%s%% %s%s" $capacity $status $warn;unset warn
+printf "%s%s%s" $capacity $status $warn;unset warn

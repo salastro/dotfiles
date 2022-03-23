@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-wal -i "$1"
+wpg -a "$1" && wpg -s "$1"
 setsid video-bg "$1" >/dev/null 2>&1 &
 
 echo "wal -R;setsid video-bg '$(pwd)/$1' >/dev/null 2>&1 &" > ~/.cache/background

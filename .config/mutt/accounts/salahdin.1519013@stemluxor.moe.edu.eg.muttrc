@@ -1,0 +1,20 @@
+# vim: filetype=neomuttrc
+# muttrc file for account salahdin.1519013@stemluxor.moe.edu.eg
+set realname = "salahdin.1519013"
+set from = "salahdin.1519013@stemluxor.moe.edu.eg"
+set sendmail = "msmtp -a salahdin.1519013@stemluxor.moe.edu.eg"
+alias me salahdin.1519013 <salahdin.1519013@stemluxor.moe.edu.eg>
+set folder = "/home/salahdin/.local/share/mail/salahdin.1519013@stemluxor.moe.edu.eg"
+set header_cache = /home/salahdin/.cache/mutt-wizard/salahdin.1519013@stemluxor.moe.edu.eg/headers
+set message_cachedir = /home/salahdin/.cache/mutt-wizard/salahdin.1519013@stemluxor.moe.edu.eg/bodies
+set mbox_type = Maildir
+set hostname = "stemluxor.moe.edu.eg"
+source /usr/local/share/mutt-wizard/switch.muttrc
+set spoolfile = +INBOX
+set postponed = +Drafts
+# set trash = +Trash
+set record = +Sent
+
+macro index o "<shell-escape>mw -y salahdin.1519013@stemluxor.moe.edu.eg<enter>" "run mbsync to sync salahdin.1519013@stemluxor.moe.edu.eg"
+
+mailboxes "=Arab IoT &- AI Challenge" "=Archive" "=Calendar/Birthdays" "=Calendar/United States holidays" "=Deleted Items" "=Drafts" "=INBOX" "=Journal" "=Junk Email" "=Notes" "=Outbox" "=RSS Feeds" "=Sent Items" "=Sync Issues/Conflicts" "=Sync Issues/Local Failures" "=Sync Issues/Server Failures" "=Tasks" "=Trash"

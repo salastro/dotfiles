@@ -1,6 +1,6 @@
 (defcfg
 	input (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
-	output (uinput-sink "KMonad kbd")
+	output (uinput-sink "KMonad kbd" "/usr/bin/sleep 1 && /usr/bin/setxkbmap -layout us,ara -option compose:lctrl -option grp:alt_space_toggle")
 	fallthrough true
 	cmp-seq lctl
 )
@@ -18,7 +18,12 @@
 (defalias
 	spc (tap-next-release spc (layer-toggle num))
 	esc (tap-next-release esc (layer-toggle vi))
+	;; ger (tap-next (layer-next german) ralt)
 	alt (multi-tap 200 ralt @esc)
+	;; sft (tap-next-release #(lctl ") rsft)
+	;; sft (multi-tap 150 (around-next sft) (layer-next german))
+	sft (tap-next-release (layer-next german) rsft)
+	;; ; (tap-hold 150 (around-next sft) ;)
 )
 
 ;; VI-like-mode-aliases 
@@ -39,40 +44,60 @@
 	vho S-home
 	ven S-end
 	ves (layer-rem sel)
+	vy C-c
+	vd bspc
 )
 
-(deflayer default
+(deflayer qwerty
 	esc
 	grv  1    2    3    4    5    6    7    8    9    0    -    =    caps
-	tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+	tab  q    w    e    r    t    y    u    i    o   p    [    ]    \
 	bspc a    s    d    f    g    h    j    k    l    ;    '    ret
-	lsft z    x    c    v    b    n    m    ,    .    /    rsft
+	lsft z    x    c    v    b    n    m    ,    .    /    @sft
 	rctl met  lalt           @spc           @alt rctl lft  up   down rght
 )
+
+(deflayer german
+	_
+	_    _    _    _    _    _    _    _    _    _    _    _    _    _   
+	_    Q    W    E    R    T    Y    ü    I    ö    P    {    }    _
+	_    ä    ß    D    F    G    H    J    K    L    :    "    _  
+	_    Z    X    C    V    B    N    M    <    >    ?    _   
+	_    _    _              _              _    _    _    _    _    _   
+)
+
+;; (deflayer colemak
+;; 	@qw
+;; 	grv  1    2    3    4    5    6    7    8    9    0    -    =    caps
+;; 	tab  q    w    f    p    b    j    l    u    y    ;    [    ]    \
+;; 	bspc a    r    s    t    g    k    n    e    i    o    '    ret
+;; 	lsft x    c    d    v    z    m    h    ,    .    /    rsft
+;; 	rctl met  lalt           @spc           @alt rctl lft  up   down rght
+;; )
 
 (deflayer vi
 	_
 	_    1    2    3    4    5    6    7    8    9    0    _    _    _   
-	_    _    @w   end  _    _    _    _    _    _    _    _    _    _
-	del  home _    _    _    _    lft  down up   rght _    _    _  
-	_    _    _    _    @v   @b   _    _    _    _    _    _   
+	_    _    @w   end  _    _    _    pgup _    _    _    _    _    _
+	_    home _    pgdn _    _    lft  down up   rght _    _    _  
+	_    _    del  _    @v   @b   _    _    _    _    _    _   
 	_    _    _              _              _    _    _    _    _    _   
 )
 
 (deflayer sel
 	_
 	_    1    2    3    4    5    6    7    8    9    0    _    _    _   
-	_    _    @vw  @ven _    _    _    _    _    _    _    _    _    _
-	_    @vho _    _    _    _    @vlf @vdo @vup  @vrg _    _    _  
-	_    _    _    _    _    @vb   _    _    _    _    _    _   
+	_    _    @vw  @ven _    _    @vy  _    _    _    _    _    _    _
+	_    @vho _    _    _    _    @vlf @vdo @vup @vrg _    _    _  
+	_    _    _    _    _    @vb  _    _    _    _    _    _   
 	_    _    _              _              @ves _    _    _    _    _   
 )
 
 (deflayer num
 	_
 	_    _    _    _    _    _    _    _    _    _    _    _    _    _   
-	_    _    _    _    -    _    _    =    _    _    _    _    _    _
+	_    f14  f15  f16  -    _    _    =    `    _    _    _    _    _
 	_    1    2    3    4    5    6    7    8    9    0    _    _  
-	_    lctl _    _    _    _    _    _    _    _    _    _   
+	_    lctl _    ä    ß    _    ü    ö    _    _    _    _   
 	_    _    _              _              _    _    _    _    _    _   
 )

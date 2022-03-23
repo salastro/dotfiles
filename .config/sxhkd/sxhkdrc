@@ -7,21 +7,18 @@
 
 # Terminal programs
 super + Return
-	$TERMINAL
+	$TERMINAL bicon.bin
+
+alt + t
+	pgrep termdown || timer && timer stop
 
 super + n 
-	$SHELL -ic $FILE_MANAGER
-alt + b
-	$TERMINAL btm
+	$SHELL -ic $FILES
+ctrl + alt + b
+	$TERMINAL btop
 
 ctrl + alt + r
-	$TERMINAL newsboat
-
-alt + m
-	$TERMINAL calcurse
-
-alt + control + d
-	$TERMINAL dijo
+	$TERMINAL
 
 super + ctrl + w
 	$TERMINAL nmtui
@@ -30,40 +27,22 @@ super + e
 	$TERMINAL $EDITOR
 
 alt + control + m
-	$TERMINAL neomutt
+	$SHELL -ic $EMAIL
 
 #dmenu
 super + d
 	dmenu_run
 
-#xlunch
-super + D
-	$TERMINAL xlunch
-
 ## dmenu calculator
 super + equal
 	=
 
-## dmenu youtube
-alt + Y
-	dmenu-yt
+#xlunch
+super + D
+	$TERMINAL xlunch
 
-## dmenu calcurse
-### todo
-alt + t
-	todo-cal
-
-### apts
-alt + A
-	apts-cal
-
-# mpv
-alt + p
-        mpv "$(xclip -o -selection clipboard)" #mpv from clipboard start
-
-# slock
 super + L
-        slock #lock the screen
+        slock
 
 # scripts
 super + s
@@ -73,15 +52,12 @@ super + s
 super + w
 	$BROWSER
 
-alt + S
-	dmenu-search-engines
-
 # system
 super + p
 	arandr
-## Keyboard
-super + o
-	special-chars-menu
+
+super + control + c
+	clipmenu -i
 
 super + control + o
 	special-chars-menu write
@@ -97,30 +73,43 @@ alt + space
 {XF86AudioRaiseVolume,XF86AudioLowerVolume,XF86AudioMute}
 	volume {raise,lower,toggle}
 
+{XF86AudioPlay, XF86AudioNext, XF86AudioPrev}
+	audio {toggle, next, prev}
+
+shift + {F9, F11}
+	audio {back, head}
+
+ctrl + {F9, F11}
+	audio {backward, forward}
+
 {XF86RFKill,XF86RFKill}
 	rfkill {,un}block all #airplane mode toggle
+
+super + alt + p
+	$TERMINAL pulsemixer
 
 ## Screenshots
 ### Fullscreen
 Print
-	maim | xclip -selection clipboard -t image/png #fullscreen shot into clipboard
+	screenshot fullscreen
 
 Print + super
-	maim | tee ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png #fullscreenshot save and into clipboard
+	screenshot fullscreen save
 
 ### Active window
 Print + shift
-        maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png #active window into clipboard
+	screenshot focus
 
 Print + shift + super
-        maim -i $(xdotool getactivewindow) | tee ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png #active window save and into clipboard
+	screenshot focus save
 
 ### Selected area/window
 Print + control
-	maim -sBu | xclip -selection clipboard -t image/png #fullscreenshot save and into clipboard
+	screenshot select
 
 Print + control + super
-	maim -sBu | tee ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png #fullscreenshot save and into clipboard
+	screenshot select save
+
 ## record screen
 super + r
 	record-screen
@@ -132,3 +121,9 @@ super + R
 ### webcam
 super + alt + r
 	$SHELL -ic camera
+
+# button9
+# 	olive-editor
+
+# button8
+# 	steam

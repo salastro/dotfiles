@@ -12,7 +12,7 @@ path+=('/home/salahdin/.scripts')
 # if login in tty1 (basically the first tty to open) then
 if [[ "$(tty)" = "/dev/tty1" ]]; then
        # check if chronyd is working and if not start it (for some reason this fixes time)
-	pgrep chronyd || doas chronyd &
+	# pgrep chronyd || doas chronyd &
        # check dwm is working and if not startx
         pgrep dwm || sx
 fi

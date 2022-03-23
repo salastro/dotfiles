@@ -1,20 +1,10 @@
-#!/bin/sh
-
-# Keyboard
-setxkbmap -layout us,ara -option compose:lctrl -option grp:alt_space_toggle
 numlockx &
-
-# Themes stuff
-xrdb ~/.Xresources
-xrdb -merge ~/.cache/wal/colors.Xresources
-~/.cache/background
-
-# Background stuff
+xss-lock slock &
+kmonad ~/.config/KMonad.kbd &
 sxhkd &
-picom --experimental-backends &
 dwmblocks &
-pgrep syncthing || syncthing serve --no-browser >/dev/tty6 &
-pgrep aw-server || aw-qt >/dev/tty6 &
-
-# the WM/DE
+clipmenud &
+snotif daemon &
+redshift &
+aw-qt 1& > /dev/tty5
 exec dwm

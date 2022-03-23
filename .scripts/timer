@@ -1,10 +1,9 @@
 #!/bin/sh
 
 TMPFILE="/tmp/timer.time"
-soundfile="$HOME/Music/Notifications/Sci-fi.mp3"
 
 _notify_me() {
-	echo "Time is up" | dzen2 -p 4 & mpv $soundfile
+	notify-send "termdwon" "Time is up"
 }
 _start_timer() {
 	termdown $1 -o $TMPFILE --exec-cmd "pkill -RTMIN+4 dwmblocks" && _notify_me
@@ -12,7 +11,8 @@ _start_timer() {
 	pkill -RTMIN+4 dwmblocks 
 }
 _stop_timer() {
-	pkill termdown && echo "Stopped timer" | dzen2 -p 2
+	head -n1 $TMPFILE | xclip -selection clipboard
+	pkill termdown && notify-send "Stopped timer"
 }
 
 case $1 in

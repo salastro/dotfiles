@@ -11,7 +11,6 @@
 # Use the command 'task show' to see all defaults and overrides
 
 # Files
-# To me:Don't forget to change syncthing direcotry into this!
 data.location=~/.local/share/task/
 
 # Color theme (uncomment one to use)
@@ -30,9 +29,16 @@ data.location=~/.local/share/task/
 #include /usr/share/doc/task/rc/solarized-light-256.theme
 #include /usr/share/doc/task/rc/no-color.theme
 
+verbose=no
+
 uda.reviewed.type=date
 uda.reviewed.label=Reviewed
-report._reviewed.description=Tasksh review report.  Adjust the filter to your needs.
-report._reviewed.columns=uuid
-report._reviewed.sort=reviewed+,modified+
-report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
+report.reviewed.description=Tasksh review report.  Adjust the filter to your needs.
+report.reviewed.columns=uuid
+report.reviewed.sort=reviewed+,modified+
+report.reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
+report.next.filter=status:pending -WAITING -BLOCKED
+context.school=project:school
+context.study=project:school.study
+context.tasks=project:school.tasks or school.task or +tasks or +task
+news.version=2.6.0
