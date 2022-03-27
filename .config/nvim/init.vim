@@ -190,9 +190,10 @@ Plug 'christoomey/vim-tmux-runner'
 Plug 'gioele/vim-autoswap'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'junegunn/fzf.vim'
+Plug 'kristijanhusak/vim-carbon-now-sh'
 Plug 'mcchrish/nnn.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'kristijanhusak/vim-carbon-now-sh'
+Plug 'wakatime/vim-wakatime'
 
 " other
 Plug 'Chaitanyabsprip/present.nvim'
