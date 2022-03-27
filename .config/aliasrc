@@ -36,6 +36,7 @@ alias pmmuy="sudo pmm-install -Suy"
 
 # Shortcuts
 alias e='$EDITOR -p'
+alias s='sc-im'
 
 # trash
 alias rm='trash'
