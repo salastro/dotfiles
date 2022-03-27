@@ -6,7 +6,6 @@ tmux new-session -s "tasker" -AX -d "vit"
 tmux split-window -dv "calcurse"
 tmux split-window -dh -t 2
 tmux send-keys -t 3 "tasksh" C-m "ghistory.daily" C-m
-tmux split-window -dh -t 1 "dijo" 
 
 ( sleep 1 && tmux set destroy-unattached ) &
 
