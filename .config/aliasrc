@@ -165,6 +165,8 @@ alias tt='tt -showwpm -t 15 -notheme'
 
 alias sudo='doas'
 
+alias nrst='doas sv restart NetworkManager'
+
 # fetch scripts
 alias nf='neofetch'
 alias of='onefetch'
