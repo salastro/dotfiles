@@ -42,6 +42,10 @@ nnoremap L gt
 nnoremap T :tabnew<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 nnoremap  :exe "tabn ".g:lasttab<cr>
+nnoremap <M-J> j
+nnoremap <M-K> k
+nnoremap <M-L> l
+nnoremap <M-H> h
 
 " search
 vnoremap  "+y:%s/\V"/
