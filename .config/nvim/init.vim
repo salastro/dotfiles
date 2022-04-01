@@ -294,6 +294,7 @@ se noshowmode
 
 " NNN
 nnoremap <leader>nn :NnnPicker %:p:h<CR>
+nnoremap <leader>ne :NnnExplorer %:p:h<CR>
 let g:nnn#layout = 'vnew'
 let g:nnn#layout = { 'left': '~20%' }
 let g:nnn#set_default_mappings = 1
