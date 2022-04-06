@@ -4,143 +4,12 @@
 " | |\  |  __/ (_) \ V / | | | | | | |
 " |_| \_|\___|\___/ \_/  |_|_| |_| |_|
 "
-"
 
-" Lines numbering
-se nu
-se rnu
-
-" line breaks wraping
-se wrap 
-se linebreak
-
-" completions
-se cpt+=kspell,t
-se cot=menu,menuone,noselect
-se icm=nosplit
-se wim=longest:full,full
-se wmnu
-se ofu=syntaxcomplete#Complete
-
-" cursor lines
-se cursorline
-se cursorcolumn
-
-" Enable mouse
-se mouse=a
-
-se title
-se ic
-" se scs
-
-" keys
-let mapleader = " "
-
-" tabs
-nnoremap H gT
-nnoremap L gt
-nnoremap T :tabnew<CR>
-au TabLeave * let g:lasttab = tabpagenr()
-nnoremap  :exe "tabn ".g:lasttab<cr>
-nnoremap <M-J> j
-nnoremap <M-K> k
-nnoremap <M-L> l
-nnoremap <M-H> h
-
-" search
-vnoremap  "+y:%s/\V"/
-vnoremap  "+y/\V"
-
-noremap ; :
-noremap : ;
-
-vnoremap  "+y
-
-se fdm=marker
-
-function! MoveEm(position)
-  let saved_cursor = getpos(".")
-  let previous_blank_line = search('^$', 'bn')
-  let target_line = previous_blank_line + a:position - 1
-  execute 'move ' . target_line
-  call setpos('.', saved_cursor)
-endfunction
-
-for position in range(1, 9)
-  execute 'nnoremap m' . position . ' :call MoveEm(' . position . ')<cr>'
-endfor
-
-function! MarkHead(level)
-	normal! mm
-	execute ':normal! ' . a:level . 'I#a `m' . a:level . 'll'
-endfunction
-
-fun! MarkRange()
-	for level in range(1, 9)
-		execute 'nnoremap <leader>h' . level . ' :call MarkHead(' . level . ')<cr>'
-	endfor
-endf
-
-fun MarkLink()
-	nnoremap <leader>pp a[mma](+)`ma
-endf
-
-" spell keys
-nnoremap  1z=
-nnoremap <leader>ps :normal! mm[s1z=`m<cr>
-nnoremap <leader>ns :normal! mm]s1z=`m<cr>
-
-nnoremap <leader>mc :!ctags -R .<cr>
-
-nnoremap <leader><leader> za
-
-" automation
-"" Suckless programs
-au BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
-au BufWritePost *config.def.h !doas rm 'config.h' && doas make clean install
-"" spell
-au FileType text setl spell
-au FileType tex setl spell
-au FileType markdown setl spell
-au FileType markdown call  MarkRange()
-au FileType markdown call  MarkLink()
-au FileType gitcommit setl spell
-"" other
-au BufWritePost *sxhkdrc !pkill -USR1 sxhkd
-au BufWritePost *.kbd !pkill kmonad; setsid kmonad %:p &
-au BufEnter *.py :RTFormatEnable
-" au FileType python setl fdm=indent
-au BufEnter *.js :RTFormatEnable
-au FileType cpp setl fdm=syntax
-
-" templates
-"" roff
-nnoremap 'roff :-read ~/.config/nvim/skeletons/skeleton.ms<CR>:filetype detect<CR>
-
-" file type detect
-nnoremap ftd :filetype detect<CR>
-" update configuration
-nnoremap cu :so ~/.config/nvim/init.vim<CR>
-
-" functions
-
-" Custom commands
-"" Compiler
-com! Compile !compiler %
-"" Sent prsentations
-com! Sent !sent-pywal-theme % &
-
-com! PlugAdd normal oPlug '+'dF.F/F/vT'd
-
-ca h  tab help
-ca hv vert help
-ca hh help
-
-command! -nargs=0 Sw w !doas tee % > /dev/null
-
+" plugins {{{ "
+" definitions {{{ "
 call plug#begin('~/.local/share/nvim/plugged')
 
-" motions
+" motions {{{ "
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-titlecase' 
 Plug 'easymotion/vim-easymotion'
@@ -152,8 +21,9 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+" }}} "
 
-" Completions
+" completions {{{ "
 Plug 'DougBeney/pickachu'
 Plug 'SirVer/ultisnips'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -172,13 +42,15 @@ Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'rhysd/vim-grammarous'
 " Plug 'skywind3000/vim-auto-popmenu'
 Plug 'jdhao/better-escape.vim'
+" }}} "
 
-" themes
+" themes {{{ "
 Plug 'itchyny/lightline.vim'
 Plug 'morhetz/gruvbox'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+" }}} "
 
-" syntax highlighting
+" syntax highlighting {{{ "
 Plug 'andymass/vim-matchup'
 Plug 'baskerville/vim-sxhkdrc'
 Plug 'cespare/vim-toml'
@@ -186,8 +58,9 @@ Plug 'kevinhwang91/nvim-hlslens'
 Plug 'kmonad/kmonad-vim'
 Plug 'PyGamer0/vim-apl'
 Plug 'kshenoy/vim-signature'
+" }}} "
 
-" external programs
+" external programs {{{ "
 " Plug 'ActivityWatch/aw-watcher-vim'
 Plug 'alok/notational-fzf-vim'
 Plug 'christoomey/vim-tmux-runner'
@@ -198,8 +71,9 @@ Plug 'kristijanhusak/vim-carbon-now-sh'
 Plug 'mcchrish/nnn.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'wakatime/vim-wakatime'
+" }}} "
 
-" other
+" other {{{ "
 Plug 'Chaitanyabsprip/present.nvim'
 Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-startify'
@@ -208,42 +82,45 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'schoettl/listtrans.vim'
 Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8' }
 Plug 'vimwiki/vimwiki'
+" }}} "
 
 call plug#end()
+" }}} "
 
-" vim-surround
-vnoremap <leader>S( S(JJ
-
-" UltraSnips
+" config {{{ "
+" ultrasnips {{{ "
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsEditSplit="vertical"
+" }}} "
 
-" Easymotion
+" easymotion {{{ "
 map <leader>fi <Plug>(easymotion-s)
 let g:EasyMotion_do_mapping = 0
+" }}} "
 
-" Visual-multi
+" visual-multi {{{ "
 let g:VM_maps = {}
 let g:VM_maps["Add Cursor Down"]             = '<C-j>'
 let g:VM_maps["Add Cursor Up"]               = '<C-k>'
+" }}} "
 
-" VimWiki
+" vimwiki {{{ "
 let g:vimwiki_list = [
 			\ {'path': '~/Documents/VimWiki/Notes/', 'syntax': 'markdown', 'ext': '.md'},
 			\ {'path': '~/Documents/VimWiki/Zettelkasten/', 'syntax': 'markdown', 'ext': '.md'},
 			\ {'path': '~/Documents/VimWiki/Dreams/', 'syntax': 'markdown', 'ext': '.md'}]
-
 nmap <leader>wg <Plug>VimwikiGenerateLinks
 
-" Vim-zettel
+" vim-zettel
 let g:zettel_options = [{"front_matter" : [["tags", ""]]}, {}, {}]
 let g:zettel_format = "%title"
 nnoremap <leader>zen :ZettelNew 
 nnoremap <leader>zeo :ZettelOpen<CR>
+" }}} "
 
-" Goyo
+" goyo {{{ "
 let g:goyo_width = 81
 function! s:goyo_enter()
 	norm zz
@@ -263,11 +140,13 @@ endfunction
 
 au! User GoyoEnter nested call <SID>goyo_enter()
 au! User GoyoLeave nested call <SID>goyo_leave()
+" }}} "
 
-" Emmet
+" emmet-vim {{{ "
 let g:user_emmet_leader_key = '<C-e>'
+" }}} "
 
-" Lightline
+" lightline {{{ "
 let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
@@ -291,32 +170,31 @@ let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
 
 se noshowmode
+" }}} "
 
-" NNN
+" nnn {{{ "
 nnoremap <leader>nn :NnnPicker %:p:h<CR>
 nnoremap <leader>ne :NnnExplorer %:p:h<CR>
 let g:nnn#layout = 'vnew'
-let g:nnn#layout = { 'left': '~20%' }
+let g:nnn#layout = { 'left': '~25%' }
 let g:nnn#set_default_mappings = 1
-let g:nnn#command = 'nnn -r -C -e'
+let g:nnn#command = 'nnn -o -r -C -e'
 let $NNN_PLUG='f:simple-fzf-open;w:setpywal;W:setpywalvid;d:dragdrop;t:preview-tabbed;i:-sxiv;I:d-sxiv'
 let $NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;S:~/.scripts;a:~/.local/bin;s:/mnt/DiskE/Important/STEM;c:~/.config/;M:/media/'
 let $NNN_FIFO="/tmp/nnn.fifo"
 let $NNN_TRASH=1
+let g:nnn#replace_netrw = 1
+autocmd! FileType nnn tnoremap <buffer> l <cr>
+" }}} "
 
-" " Titlecase
-" let g:titlecase_map_keys = 0
-" nnoremap <leader>gt <Plug>Titlecase
-" vnoremap <leader>gt <Plug>Titlecase
-" nnoremap <leader>gT <Plug>TitlecaseLine
-
-" Startify
+" vim-startify {{{ "
 let g:startify_bookmarks = [
 			\ {'c': '~/.config/nvim/init.vim'},
 			\ {'dw': '~/.srcpkgs/dwm/config.def.h'},
 			\ {'s':'~/.config/sxhkd/sxhkdrc'},
 			\ {'u': '~/.config/qutebrowser/config.py'},
 			\ {'a':'~/.config/aliasrc'},
+            \ {'K':'~/.config/KMonad.kbd'},
 			\ {'zs':'~/.zshrc'},
 			\ {'ze':'~/Documents/VimWiki/Zettelkasten/'},
 			\ {'ww':'~/Documents/VimWiki/Notes/index.md'},
@@ -330,56 +208,59 @@ let g:startify_lists = [
 			\ { 'type': 'commands',  'header': ['   Commands']       },
 			\ ]
 nnoremap <leader>s :Startify<CR>
+" }}} "
 
-" RT-Format
+" rt-format {{{ "
 let g:rtf_ctrl_enter = 0
 let g:rtf_on_insert_leave = 1
+" }}} "
 
-" Colorizer
-let g:colorizer_auto_color = 1
-
-" FZF
+" fzf {{{ "
 nnoremap <leader>ff :FZF<CR>
 nnoremap <leader>fg :NV<CR>
 nnoremap <leader>b :Buffers<CR>
 let g:nv_search_paths = ['~/Documents/VimWiki/']
+" }}} "
 
-" listtrans 
+" listtrans {{{ "
 nmap tl <Plug>ListtransToggle
 vmap tl <Plug>ListtransToggleVisual
+" }}} "
 
-" Schlepp
+" schlepp {{{ "
 vnoremap <M-k> <Plug>SchleppUp
 vnoremap <M-j> <Plug>SchleppDown
 vnoremap <M-h> <Plug>SchleppLeft
 vnoremap <M-l> <Plug>SchleppRight
+" }}} "
 
-" vmath 
+" vmath {{{ " 
 vnoremap <expr>  ++  VMATH_YankAndAnalyse()
 nnoremap         ++  vip++
+" }}} "
 
-" auto-pairs
+" auto-pairs {{{ "
 let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", '<':'>'}
 let g:AutoPairsShortcutJump = '<C-Space>'
 let g:AutoPairsShortcutToggle = '<M-P>'
 au FileType markdown let b:AutoPairs = AutoPairsDefine({'**' : '**', '_':'_'})
 au FileType apl let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"',}
+" }}} "
 
-" Pickachu
+" pickachu {{{ "
 inoremap <M-c> <esc>:Pickachu color<CR>a
 inoremap <M-f> <esc>:Pickachu file<CR>a
 inoremap <M-d> <esc>:Pickachu date<CR>a
 nnoremap <M-c> <esc>:Pickachu color<CR>a
 nnoremap <M-f> <esc>:Pickachu file<CR>a
 nnoremap <M-d> <esc>:Pickachu date<CR>a
+" }}} "
 
-" hexokinase
-let g:Hexokinase_highlighters = ['foreground']
-
-" Tmux runner
+" tmux runner {{{ "
 let g:VtrStripLeadingWhitespace = 0
 let g:VtrClearEmptyLines = 0
 let g:VtrAppendNewline = 1
+nnoremap <leader>a :VtrAttachToPane<CR>
 nnoremap <leader>oo :VtrOpenRunner<CR>
 nnoremap <leader>or :VtrOpenRunner<CR>:VtrSendFile<CR>
 nnoremap <leader>fo :VtrFocusRunner<CR>
@@ -396,20 +277,22 @@ fun! AplSetup()
 	nnoremap <leader>R :VtrSendFile<CR>
 endf
 au FileType apl call AplSetup()
+" }}} "
 
-" Grammarous 
+" grammarous {{{
 let g:grammarous#move_to_first_error = 1
 let g:grammarous#show_first_error = 0
 nnoremap <leader>Ns <Plug>(grammarous-move-to-next-error)
 nnoremap <leader>Ps <Plug>(grammarous-move-to-previous-error)
+" }}}
 
-" which key nvim
+" which key nvim {{{
 lua << EOF
   require("which-key").setup {}
 EOF
+" }}}
 
-fun LSP()
-" lsp
+" lsp {{{ "
 lua << EOF
   require'lspconfig'.pylsp.setup{}
   require'lspconfig'.clangd.setup{}
@@ -417,7 +300,7 @@ lua << EOF
   require'lspconfig'.bashls.setup{}
 EOF
 
-" nvim-cmp 
+" nvim-cmp {{{ "
 lua <<EOF
   -- Setup nvim-cmp.
   local cmp = require'cmp'
@@ -454,21 +337,170 @@ lua <<EOF
   }
 
 EOF
-endf
-call LSP()
+" }}} "
+" }}} "
 
-" vim-carbon-now-sh
+" vim-carbon-now-sh {{{
 let g:carbon_now_sh_browser = 'brave'
 vnoremap <leader>c :CarbonNowSh<CR>
+" }}}
 
+" hexokinase {{{
+let g:Hexokinase_highlighters = ['foreground']
+" }}}
+
+" colorscheme {{{ "
 set bg=dark
 let g:gruvbox_contrast_dark = 'medium'
 let g:gruvbox_number_column = 'bg0'
 " let g:gruvbox_transparent_bg = '0'
 se termguicolors
 colo gruvbox
-" " hi Normal ctermbg=none guibg=none
-" hi SpellCap guifg=#b8bb26 gui=bold
-" hi SpellBad guibg=#fb4934 gui=undercurl
-" hi SpellLocal guibg=#8ec07c gui=undercurl
-" hi SpellRare guibg=#d3869b gui=undercurl
+" }}} "
+" }}} "
+" }}} "
+
+" variables {{{ "
+" lines numbering
+se nu rnu
+
+" line breaks wraping
+se wrap linebreak
+
+" completions
+se cpt+=kspell,t
+se cot=menu,menuone,noselect
+se icm=nosplit
+se wim=longest:full,full
+se wmnu
+se ofu=syntaxcomplete#Complete
+
+" cursor lines
+se cursorline cursorcolumn
+
+" enable mouse
+se mouse=a
+
+se title 
+" se scs
+se ic
+
+" tabs
+se tabstop=4 shiftwidth=4 expandtab
+
+" folds
+se fdm=marker
+" }}} "
+
+" keybinds {{{ "
+" leader
+let mapleader = " "
+
+" search
+vnoremap  "+y:%s/\V"/
+vnoremap  "+y/\V"
+
+" cmd mode
+noremap ; :
+noremap : ;
+
+" copy to clipboard
+vnoremap  "+y
+
+" tabs
+nnoremap <s-tab> gT
+nnoremap <tab> gt
+nnoremap <M-T> :tabnew<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+nnoremap  :exe "tabn ".g:lasttab<cr>
+
+" windows
+nnoremap <M-J> j
+nnoremap <M-K> k
+nnoremap <M-L> l
+nnoremap <M-H> h
+
+" spell keys
+nnoremap  1z=
+nnoremap <leader>ps :normal! mm[s1z=`m<cr>
+nnoremap <leader>ns :normal! mm]s1z=`m<cr>
+
+" ctags
+nnoremap <leader>mc :!ctags -R .<cr>
+
+" folds
+nnoremap <leader><leader> za
+
+" file type detect
+nnoremap ftd :filetype detect<CR>
+
+" update configuration
+nnoremap cu :so ~/.config/nvim/init.vim<CR>
+" }}} "
+
+" functions {{{ "
+function! MoveEm(position)
+  let saved_cursor = getpos(".")
+  let previous_blank_line = search('^$', 'bn')
+  let target_line = previous_blank_line + a:position - 1
+  execute 'move ' . target_line
+  call setpos('.', saved_cursor)
+endfunction
+
+for position in range(1, 9)
+  execute 'nnoremap m' . position . ' :call MoveEm(' . position . ')<cr>'
+endfor
+
+function! MarkHead(level)
+	normal! mm
+	execute ':normal! ' . a:level . 'I#a `m' . a:level . 'll'
+endfunction
+
+fun! MarkRange()
+	for level in range(1, 9)
+		execute 'nnoremap <leader>h' . level . ' :call MarkHead(' . level . ')<cr>'
+	endfor
+endf
+
+fun MarkLink()
+	nnoremap <leader>pp a[mma](+)`ma
+endf
+" }}} "
+
+" auto {{{ "
+"" Suckless programs
+au BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
+au BufWritePost *config.def.h !doas rm 'config.h' && doas make clean install
+"" spell
+au FileType text setl spell
+au FileType tex setl spell
+au FileType markdown setl spell
+au FileType markdown call  MarkRange()
+au FileType markdown call  MarkLink()
+au FileType gitcommit setl spell
+"" other
+au BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+au BufWritePost *.kbd !pkill kmonad; setsid kmonad %:p &
+au BufEnter *.py :RTFormatEnable
+" au FileType python setl fdm=indent
+au BufEnter *.js :RTFormatEnable
+au FileType cpp setl fdm=syntax
+" }}} "
+
+" comands {{{ "
+"" compiler
+com! Compile !compiler %
+
+"" sent prsentations
+com! Sent !sent-pywal-theme % &
+
+" plugins
+com! PlugAdd normal oPlug '+'dF.F/F/vT'd
+
+" help
+ca h  tab help
+ca hv vert help
+
+" root write
+command! -nargs=0 Sw w !doas tee % > /dev/null
+" }}} "
