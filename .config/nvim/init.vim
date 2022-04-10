@@ -5,6 +5,160 @@
 " |_| \_|\___|\___/ \_/  |_|_| |_| |_|
 "
 
+" variables {{{ "
+" lines numbering
+se nu rnu
+
+" line breaks wraping
+se wrap linebreak
+
+" completions
+se cpt+=kspell,t
+se cot=menu,menuone,noselect
+se icm=nosplit
+se wim=longest:full,full
+se wmnu
+se ofu=syntaxcomplete#Complete
+
+" cursor lines
+se cursorline cursorcolumn
+
+" enable mouse
+se mouse=a
+
+se title 
+" se scs
+se ic
+
+" tabs
+se tabstop=4 shiftwidth=4 expandtab
+
+" folds
+se fdm=marker
+
+" 
+se nf+=alpha
+" }}} "
+
+" keybinds {{{ "
+" leader
+let mapleader = " "
+
+" search
+vnoremap  "+y:%s/\V"/
+vnoremap  "+y/\V"
+nnoremap n nzvzz
+nnoremap N Nzvzz
+
+" cmd mode
+noremap ; :
+noremap : ;
+
+" copy to clipboard
+" vnoremap  "+y
+set clipboard=unnamed,unnamedplus
+
+" tabs
+nnoremap  gT
+nnoremap  gt
+" nnoremap <s-tab> gT
+" nnoremap <tab> gt
+nnoremap <M-T> :tabnew<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+nnoremap <M-s> :exe "tabn ".g:lasttab<cr>
+" nnoremap <M-i> <tab>
+
+" windows
+nnoremap <M-J> j
+nnoremap <M-K> k
+nnoremap <M-L> l
+nnoremap <M-H> h
+
+" spell keys
+nnoremap  1z=
+nnoremap <leader>ps :normal! mm[s1z=`m<cr>
+nnoremap <leader>ns :normal! mm]s1z=`m<cr>
+
+" ctags
+nnoremap <leader>mc :!ctags -R .<cr>
+
+" folds
+nnoremap <space><space> za
+
+" file type detect
+nnoremap <leader>ftd :filetype detect<CR>
+
+" update configuration
+nnoremap cu :so ~/.config/nvim/init.vim<CR>
+" }}} "
+
+" functions {{{ "
+function! MoveEm(position)
+  let saved_cursor = getpos(".")
+  let previous_blank_line = search('^$', 'bn')
+  let target_line = previous_blank_line + a:position - 1
+  execute 'move ' . target_line
+  call setpos('.', saved_cursor)
+endfunction
+
+for position in range(1, 9)
+  execute 'nnoremap m' . position . ' :call MoveEm(' . position . ')<cr>'
+endfor
+
+function! MarkHead(level)
+	normal! mm
+	execute ':normal! ' . a:level . 'I#a `m' . a:level . 'll'
+endfunction
+
+fun! MarkRange()
+	for level in range(1, 9)
+		execute 'nnoremap <leader>h' . level . ' :call MarkHead(' . level . ')<cr>'
+	endfor
+endf
+
+fun MarkLink()
+	nnoremap <leader>pp a[mma](+)`ma
+endf
+" }}} "
+
+" auto {{{ "
+"" Suckless programs
+au BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
+au BufWritePost *config.def.h !doas rm 'config.h' && doas make clean install
+"" spell
+au FileType text setl spell
+au FileType tex setl spell
+au FileType markdown setl spell
+au FileType markdown call  MarkRange()
+au FileType markdown call  MarkLink()
+au FileType gitcommit setl spell
+"" other
+au BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+au BufWritePost *.kbd !pkill kmonad; setsid kmonad %:p &
+au BufEnter *.py :RTFormatEnable
+" au FileType python setl fdm=indent
+au BufEnter *.js :RTFormatEnable
+au FileType cpp setl fdm=syntax
+" }}} "
+
+" comands {{{ "
+"" compiler
+com! Compile !compiler %
+
+"" sent prsentations
+com! Sent !sent-pywal-theme % &
+
+" plugins
+com! PlugAdd normal oPlug '+'dF.F/F/vT'd
+
+" help
+ca h  tab help
+ca hv vert help
+
+" root write
+command! -nargs=0 Sw w !doas tee % > /dev/null
+" }}} "
+
 " plugins {{{ "
 " definitions {{{ "
 call plug#begin('~/.local/share/nvim/plugged')
@@ -26,8 +180,8 @@ Plug 'tpope/vim-surround'
 " completions {{{ "
 Plug 'DougBeney/pickachu'
 Plug 'SirVer/ultisnips'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'f3fora/cmp-spell'
+Plug 'hrsh7th/cmp-cmdline'
 Plug 'folke/which-key.nvim'
 Plug 'honza/vim-snippets'
 Plug 'hrsh7th/cmp-buffer'
@@ -51,19 +205,22 @@ Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " }}} "
 
 " syntax highlighting {{{ "
+Plug 'PyGamer0/vim-apl'
 Plug 'andymass/vim-matchup'
+Plug 'Yggdroot/indentLine'
 Plug 'baskerville/vim-sxhkdrc'
 Plug 'cespare/vim-toml'
+" Plug 'jbgutierrez/vim-better-comments'
 Plug 'kevinhwang91/nvim-hlslens'
 Plug 'kmonad/kmonad-vim'
-Plug 'PyGamer0/vim-apl'
 Plug 'kshenoy/vim-signature'
 " }}} "
 
 " external programs {{{ "
 " Plug 'ActivityWatch/aw-watcher-vim'
-Plug 'alok/notational-fzf-vim'
+" Plug 'alok/notational-fzf-vim'
 Plug 'christoomey/vim-tmux-runner'
+Plug 'KabbAmine/lazyList.vim'
 Plug 'gioele/vim-autoswap'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'junegunn/fzf.vim'
@@ -71,23 +228,43 @@ Plug 'kristijanhusak/vim-carbon-now-sh'
 Plug 'mcchrish/nnn.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'wakatime/vim-wakatime'
+Plug 'github/copilot.vim'
 " }}} "
 
 " other {{{ "
 Plug 'Chaitanyabsprip/present.nvim'
 Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-startify'
-Plug 'michal-h21/vim-zettel'
 Plug 'neovim/nvim-lspconfig'
+Plug 'tpope/vim-speeddating'
 Plug 'schoettl/listtrans.vim'
 Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8' }
 Plug 'vimwiki/vimwiki'
+Plug 'tpope/vim-repeat'
+Plug 'svermeulen/vim-easyclip'
 " }}} "
 
 call plug#end()
 " }}} "
 
 " config {{{ "
+
+nnoremap <leader>li :LazyList 
+vnoremap <leader>li :LazyList 
+nnoremap <leader>ll :LazyList<CR>
+vnoremap <leader>ll :LazyList<CR>
+nnoremap <leader>l- :LazyList '- '<CR>
+vnoremap <leader>l- :LazyList '- '<CR>
+nnoremap <leader>l* :LazyList '* '<CR>
+vnoremap <leader>l* :LazyList '* '<CR>
+nnoremap <leader>lt :LazyList '- [ ] '<CR>
+vnoremap <leader>lt :LazyList '- [ ] '<CR>
+
+" vim-easyclip {{{ "
+let g:EasyClipAutoFormat = 1
+let g:EasyClipUsePasteToggleDefaults = 0
+" }}} "
+
 " ultrasnips {{{ "
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -96,8 +273,10 @@ let g:UltiSnipsEditSplit="vertical"
 " }}} "
 
 " easymotion {{{ "
-map <leader>fi <Plug>(easymotion-s)
 let g:EasyMotion_do_mapping = 0
+map <leader>fi zR<Plug>(easymotion-s)
+nmap <leader>fi zR<Plug>(easymotion-overwin-f)
+map <leader>fw zR<Plug>(easymotion-bd-w)
 " }}} "
 
 " visual-multi {{{ "
@@ -179,12 +358,13 @@ let g:nnn#layout = 'vnew'
 let g:nnn#layout = { 'left': '~25%' }
 let g:nnn#set_default_mappings = 1
 let g:nnn#command = 'nnn -o -r -C -e'
-let $NNN_PLUG='f:simple-fzf-open;w:setpywal;W:setpywalvid;d:dragdrop;t:preview-tabbed;i:-sxiv;I:d-sxiv'
-let $NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;S:~/.scripts;a:~/.local/bin;s:/mnt/DiskE/Important/STEM;c:~/.config/;M:/media/'
+let $NNN_COLORS="263"
+let $NNN_PLUG='d:dragdrop;P:preview-tui;D:diffs;p:fzplug;w:wallpaper;c:fzcd;i:imgview;F:fixname;x:togglex;f:fzopen'
+let $NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;S:~/.scripts;a:~/.local/bin;s:/mnt/DiskE/Important/STEM;c:~/.config/;M:/media/;w:~/Documents/VimWiki/'
 let $NNN_FIFO="/tmp/nnn.fifo"
 let $NNN_TRASH=1
 let g:nnn#replace_netrw = 1
-autocmd! FileType nnn tnoremap <buffer> l <cr>
+" autocmd! FileType nnn tnoremap <buffer> l <cr>
 " }}} "
 
 " vim-startify {{{ "
@@ -217,9 +397,9 @@ let g:rtf_on_insert_leave = 1
 
 " fzf {{{ "
 nnoremap <leader>ff :FZF<CR>
-nnoremap <leader>fg :NV<CR>
+" nnoremap <leader>fg :NV<CR>
 nnoremap <leader>b :Buffers<CR>
-let g:nv_search_paths = ['~/Documents/VimWiki/']
+" let g:nv_search_paths = ['~/Documents/VimWiki/']
 " }}} "
 
 " listtrans {{{ "
@@ -227,11 +407,11 @@ nmap tl <Plug>ListtransToggle
 vmap tl <Plug>ListtransToggleVisual
 " }}} "
 
-" schlepp {{{ "
-vnoremap <M-k> <Plug>SchleppUp
-vnoremap <M-j> <Plug>SchleppDown
-vnoremap <M-h> <Plug>SchleppLeft
-vnoremap <M-l> <Plug>SchleppRight
+" move {{{ "
+" inoremap <M-j> :m .+1<CR>==
+" inoremap <M-k> :m .-2<CR>==
+" vnoremap <M-j> :m '>+1<CR>gv=gv
+" vnoremap <M-k> :m '>-2<CR>gv=gv
 " }}} "
 
 " vmath {{{ " 
@@ -240,11 +420,12 @@ nnoremap         ++  vip++
 " }}} "
 
 " auto-pairs {{{ "
-let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", '<':'>'}
-let g:AutoPairsShortcutJump = '<C-Space>'
-let g:AutoPairsShortcutToggle = '<M-P>'
+let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", }
+let g:AutoPairsShortcutJump = '<M-n>'
+let g:AutoPairsShortcutToggle = '<M-p>'
 au FileType markdown let b:AutoPairs = AutoPairsDefine({'**' : '**', '_':'_'})
 au FileType apl let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"',}
+au FileType vim let b:AutoPairs = AutoPairsDefine({'<':'>',})
 " }}} "
 
 " pickachu {{{ "
@@ -311,12 +492,32 @@ lua <<EOF
         vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
       end,
     },
+    mapping = {
+      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    },
     sources = cmp.config.sources({
       { name = 'spell' },
       { name = 'nvim_lsp' },
       { name = 'ultisnips' }, -- For ultisnips users.
     }, {
       { name = 'buffer' },
+    })
+  })
+
+    -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline('/', {
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+    cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
     })
   })
 
@@ -360,147 +561,3 @@ colo gruvbox
 " }}} "
 " }}} "
 
-" variables {{{ "
-" lines numbering
-se nu rnu
-
-" line breaks wraping
-se wrap linebreak
-
-" completions
-se cpt+=kspell,t
-se cot=menu,menuone,noselect
-se icm=nosplit
-se wim=longest:full,full
-se wmnu
-se ofu=syntaxcomplete#Complete
-
-" cursor lines
-se cursorline cursorcolumn
-
-" enable mouse
-se mouse=a
-
-se title 
-" se scs
-se ic
-
-" tabs
-se tabstop=4 shiftwidth=4 expandtab
-
-" folds
-se fdm=marker
-" }}} "
-
-" keybinds {{{ "
-" leader
-let mapleader = " "
-
-" search
-vnoremap  "+y:%s/\V"/
-vnoremap  "+y/\V"
-
-" cmd mode
-noremap ; :
-noremap : ;
-
-" copy to clipboard
-vnoremap  "+y
-
-" tabs
-nnoremap <s-tab> gT
-nnoremap <tab> gt
-nnoremap <M-T> :tabnew<CR>
-au TabLeave * let g:lasttab = tabpagenr()
-nnoremap  :exe "tabn ".g:lasttab<cr>
-
-" windows
-nnoremap <M-J> j
-nnoremap <M-K> k
-nnoremap <M-L> l
-nnoremap <M-H> h
-
-" spell keys
-nnoremap  1z=
-nnoremap <leader>ps :normal! mm[s1z=`m<cr>
-nnoremap <leader>ns :normal! mm]s1z=`m<cr>
-
-" ctags
-nnoremap <leader>mc :!ctags -R .<cr>
-
-" folds
-nnoremap <leader><leader> za
-
-" file type detect
-nnoremap ftd :filetype detect<CR>
-
-" update configuration
-nnoremap cu :so ~/.config/nvim/init.vim<CR>
-" }}} "
-
-" functions {{{ "
-function! MoveEm(position)
-  let saved_cursor = getpos(".")
-  let previous_blank_line = search('^$', 'bn')
-  let target_line = previous_blank_line + a:position - 1
-  execute 'move ' . target_line
-  call setpos('.', saved_cursor)
-endfunction
-
-for position in range(1, 9)
-  execute 'nnoremap m' . position . ' :call MoveEm(' . position . ')<cr>'
-endfor
-
-function! MarkHead(level)
-	normal! mm
-	execute ':normal! ' . a:level . 'I#a `m' . a:level . 'll'
-endfunction
-
-fun! MarkRange()
-	for level in range(1, 9)
-		execute 'nnoremap <leader>h' . level . ' :call MarkHead(' . level . ')<cr>'
-	endfor
-endf
-
-fun MarkLink()
-	nnoremap <leader>pp a[mma](+)`ma
-endf
-" }}} "
-
-" auto {{{ "
-"" Suckless programs
-au BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
-au BufWritePost *config.def.h !doas rm 'config.h' && doas make clean install
-"" spell
-au FileType text setl spell
-au FileType tex setl spell
-au FileType markdown setl spell
-au FileType markdown call  MarkRange()
-au FileType markdown call  MarkLink()
-au FileType gitcommit setl spell
-"" other
-au BufWritePost *sxhkdrc !pkill -USR1 sxhkd
-au BufWritePost *.kbd !pkill kmonad; setsid kmonad %:p &
-au BufEnter *.py :RTFormatEnable
-" au FileType python setl fdm=indent
-au BufEnter *.js :RTFormatEnable
-au FileType cpp setl fdm=syntax
-" }}} "
-
-" comands {{{ "
-"" compiler
-com! Compile !compiler %
-
-"" sent prsentations
-com! Sent !sent-pywal-theme % &
-
-" plugins
-com! PlugAdd normal oPlug '+'dF.F/F/vT'd
-
-" help
-ca h  tab help
-ca hv vert help
-
-" root write
-command! -nargs=0 Sw w !doas tee % > /dev/null
-" }}} "
