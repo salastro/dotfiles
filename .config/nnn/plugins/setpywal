@@ -1,5 +1,0 @@
-#!/usr/bin/env sh
-
-wpg -a "$1" && wpg -s "$1"
-
-echo "wal -R >/dev/null 2>&1 &" > ~/.cache/background
