@@ -24,6 +24,19 @@
 	;; sft (multi-tap 150 (around-next sft) (layer-next german))
 	;; sft (tap-next-release (layer-next german) rsft)
 	;; ; (tap-hold 150 (around-next sft) ;)
+    a (tap-hold-next-release 200 a lsft)
+    ;; s (multi-tap 200 s (tap-hold-next-release 200 (tap-macro s s) met))
+    ;; d (tap-hold-next-release 200 d lctl)
+    ;; f (tap-hold-next-release 200 f lsft)
+
+    ;; j (tap-hold-next-release 200 j rsft)
+    ;; k (tap-hold-next-release 200 k rctl)
+    ;; l (tap-hold-next-release 200 l lalt)
+    ; (tap-hold-next-release 200 ; rsft)
+    fun (layer-next fun)
+    ;; . (multi-tap 180 . (tap-macro . spc (around-next sft)))
+    1 (tap-hold-next-release 200 1 lsft)
+    0 (tap-hold-next-release 200 0 rsft)
 )
 
 ;; VI-like-mode-aliases 
@@ -52,8 +65,8 @@
 	esc
 	grv  1    2    3    4    5    6    7    8    9    0    -    =    caps
 	tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-	bspc a    s    d    f    g    h    j    k    l    ;    '    ret
-	lsft z    x    c    v    b    n    m    ,    .    /    sft
+	bspc @a   s    d    f    g    h    j    k    l    @;   '    ret
+	lsft z    x    c    v    b    n    m    ,    .    /    @fun
 	rctl met  lalt           @spc           @alt rctl lft  up   down rght
 )
 
@@ -84,11 +97,29 @@
 	_    _    _              _              @ves _    _    _    _    _   
 )
 
+(deflayer fun
+	_
+	_    _    _    _    _    _    _    _    _    _    _    _    _    _   
+	_    _    _    _    _    _    _    _    _    _    _    _    _    _ 
+    _    f14  f15  f16  f17  f18  _    f20  f21  f22  f23  _    _ 
+	_    lctl _    _    _    _    _    _    _    _    _    _   
+	_    _    _              _              _    _    _    _    _    _   
+)
+
 (deflayer num
 	_
 	_    _    _    _    _    _    _    _    _    _    _    _    _    _   
-	_    f14  f15  f16  -    _    _    =    `    _    _    _    _    _
-	_    1    2    3    4    5    6    7    8    9    0    _    _  
-	_    lctl _    ä    ß    _    ü    ö    _    _    _    _   
+	_    \_   |    -    {    [    ]    }    =    `    +    _    _    _
+	_    @1    2    3    4    5    6    7    8    9    @0    \    _  
+	_    !    @    \(   $    %    ^    \)   *    #    &    _
 	_    _    _              _              _    _    _    _    _    _   
 )
+
+;; (deflayer empty
+;; 	_
+;; 	_    _    _    _    _    _    _    _    _    _    _    _    _    _   
+;; 	_    _    _    _    _    _    _    _    _    _    _    _    _    _
+;; 	_    _    _    _    _    _    _    _    _    _    _    _    _  
+;; 	_    _    _    _    _    _    _    _    _    _    _    _   
+;; 	_    _    _              _              _    _    _    _    _    _   
+;; )
