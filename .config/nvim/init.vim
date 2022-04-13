@@ -249,6 +249,15 @@ call plug#end()
 
 " config {{{ "
 
+" vim-fugitive {{{ "
+nnoremap <leader>g :G<CR>
+" autocmd User FugitiveIndex,FugitiveObject nnoremap <buffer> cc :vert Git commit<CR>
+" autocmd User FugitiveIndex,FugitiveObject nnoremap <buffer> gp :vs<CR>:term<CR>Igp<CR>
+autocmd FileType fugitive nnoremap <buffer> cc :vert Git commit<CR>
+autocmd FileType fugitive nnoremap <buffer> gp :vs<CR>:term<CR>Igp<CR>
+" }}} "
+
+" lazyList {{{ "
 nnoremap <leader>li :LazyList 
 vnoremap <leader>li :LazyList 
 nnoremap <leader>ll :LazyList<CR>
@@ -259,6 +268,7 @@ nnoremap <leader>l* :LazyList '* '<CR>
 vnoremap <leader>l* :LazyList '* '<CR>
 nnoremap <leader>lt :LazyList '- [ ] '<CR>
 vnoremap <leader>lt :LazyList '- [ ] '<CR>
+" }}} "
 
 " vim-easyclip {{{ "
 let g:EasyClipAutoFormat = 1
