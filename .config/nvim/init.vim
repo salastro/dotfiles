@@ -5,6 +5,12 @@
 " |_| \_|\___|\___/ \_/  |_|_| |_| |_|
 "
 
+" impatient to be faster
+call plug#begin('~/.local/share/nvim/plugged')
+Plug 'lewis6991/impatient.nvim'
+call plug#end()
+lua require('impatient')
+
 " variables {{{ "
 " lines numbering
 se nu rnu
@@ -36,8 +42,14 @@ se tabstop=4 shiftwidth=4 expandtab
 " folds
 se fdm=marker
 
-" 
+" 
 se nf+=alpha
+
+" timeout
+se timeoutlen=500
+
+se omnifunc=v:lua.vim.lsp.omnifunc
+
 " }}} "
 
 " keybinds {{{ "
@@ -63,7 +75,7 @@ nnoremap  gT
 nnoremap  gt
 " nnoremap <s-tab> gT
 " nnoremap <tab> gt
-nnoremap <M-T> :tabnew<CR>
+nnoremap <M-T> :tabnew<cr>
 au TabLeave * let g:lasttab = tabpagenr()
 nnoremap <M-s> :exe "tabn ".g:lasttab<cr>
 " nnoremap <M-i> <tab>
@@ -79,17 +91,33 @@ nnoremap  1z=
 nnoremap <leader>ps :normal! mm[s1z=`m<cr>
 nnoremap <leader>ns :normal! mm]s1z=`m<cr>
 
-" ctags
-nnoremap <leader>mc :!ctags -R .<cr>
-
 " folds
 nnoremap <space><space> za
 
 " file type detect
-nnoremap <leader>ftd :filetype detect<CR>
+nnoremap <leader>ftd :filetype detect<cr>
 
 " update configuration
-nnoremap cu :so ~/.config/nvim/init.vim<CR>
+nnoremap cu :so ~/.config/nvim/init.vim<cr>
+
+" make file executable
+nnoremap <leader>x :!chmod +x %<cr>
+
+" create a terminal session and run compiler in it
+nnoremap <leader>co :terminal echo % \| entr -s "compiler %"<cr>
+
+" line
+noremap gl $
+noremap gh 0
+noremap gb ^
+nnoremap  Oo
+
+" inoremap <silent> <cr> V:lua vim.lsp.buf.range_formatting()<cr><cr>
+" au InsertLeave * :norm V lua vim.lsp.buf.range_formatting()
+
+" escape and save
+inoremap  <esc>:w<cr>
+
 " }}} "
 
 " functions {{{ "
@@ -102,23 +130,8 @@ function! MoveEm(position)
 endfunction
 
 for position in range(1, 9)
-  execute 'nnoremap m' . position . ' :call MoveEm(' . position . ')<cr>'
+  execute 'nnoremap gm' . position . ' :call MoveEm(' . position . ')<cr>'
 endfor
-
-function! MarkHead(level)
-	normal! mm
-	execute ':normal! ' . a:level . 'I#a `m' . a:level . 'll'
-endfunction
-
-fun! MarkRange()
-	for level in range(1, 9)
-		execute 'nnoremap <leader>h' . level . ' :call MarkHead(' . level . ')<cr>'
-	endfor
-endf
-
-fun MarkLink()
-	nnoremap <leader>pp a[mma](+)`ma
-endf
 " }}} "
 
 " auto {{{ "
@@ -126,19 +139,11 @@ endf
 au BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
 au BufWritePost *config.def.h !doas rm 'config.h' && doas make clean install
 "" spell
-au FileType text setl spell
-au FileType tex setl spell
-au FileType markdown setl spell
-au FileType markdown call  MarkRange()
-au FileType markdown call  MarkLink()
-au FileType gitcommit setl spell
+au FileType text,tex,markdown,vimwiki,gitcommit setl spell
 "" other
-au BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+au BufWritePost sxhkdrc !pkill -USR1 sxhkd
 au BufWritePost *.kbd !pkill kmonad; setsid kmonad %:p &
 au BufEnter *.py :RTFormatEnable
-" au FileType python setl fdm=indent
-au BufEnter *.js :RTFormatEnable
-au FileType cpp setl fdm=syntax
 " }}} "
 
 " comands {{{ "
@@ -178,24 +183,24 @@ Plug 'tpope/vim-surround'
 " }}} "
 
 " completions {{{ "
-Plug 'DougBeney/pickachu'
+Plug 'DougBeney/pickachu', { 'on': 'Pickachu' }
 Plug 'SirVer/ultisnips'
 Plug 'f3fora/cmp-spell'
-Plug 'hrsh7th/cmp-cmdline'
 Plug 'folke/which-key.nvim'
 Plug 'honza/vim-snippets'
 Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-omni'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'jdhao/better-escape.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript'] }
 Plug 'nixon/vim-vmath'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-Plug 'rhysd/vim-grammarous'
-" Plug 'skywind3000/vim-auto-popmenu'
-Plug 'jdhao/better-escape.vim'
+Plug 'rhysd/vim-grammarous', { 'on': 'GrammarousCheck' }
 " }}} "
 
 " themes {{{ "
@@ -209,39 +214,46 @@ Plug 'PyGamer0/vim-apl'
 Plug 'andymass/vim-matchup'
 Plug 'Yggdroot/indentLine'
 Plug 'baskerville/vim-sxhkdrc'
-Plug 'cespare/vim-toml'
+" Plug 'cespare/vim-toml'
 " Plug 'jbgutierrez/vim-better-comments'
 Plug 'kevinhwang91/nvim-hlslens'
 Plug 'kmonad/kmonad-vim'
-Plug 'kshenoy/vim-signature'
+" Plug 'kshenoy/vim-signature'
 " }}} "
 
 " external programs {{{ "
 " Plug 'ActivityWatch/aw-watcher-vim'
 " Plug 'alok/notational-fzf-vim'
-Plug 'christoomey/vim-tmux-runner'
-Plug 'KabbAmine/lazyList.vim'
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" Plug 'karoliskoncevicius/vim-sendtowindow'
+Plug 'KabbAmine/lazyList.vim', { 'on': 'LazyList' }
+Plug 'christoomey/vim-tmux-runner',  { 'on': 'VtrAttachToPane' }
 Plug 'gioele/vim-autoswap'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-Plug 'junegunn/fzf.vim'
-Plug 'kristijanhusak/vim-carbon-now-sh'
-Plug 'mcchrish/nnn.vim'
+Plug 'github/copilot.vim'
+Plug 'junegunn/fzf.vim', { 'on': ['Files', 'GFiles', 'Buffers', 'Colors', 'Ag', 'Rg', 'Lines', 'BLines', 'Tags', 'BTags', 'Marks', 'Windows', 'Locate', 'History', 'Snippets', 'Commits', 'BCommits', 'Commands', 'Maps', 'Helptags', 'Filetypes'] }
+Plug 'kristijanhusak/vim-carbon-now-sh', { 'on': 'CarbonNowSh' }
+Plug 'lervag/vimtex', { 'for': ['tex', 'bib'] }
+Plug 'mcchrish/nnn.vim', { 'on': ['NnnPicker', 'NnnExplorer'] }
 Plug 'tpope/vim-fugitive'
 Plug 'wakatime/vim-wakatime'
-Plug 'github/copilot.vim'
+Plug 'dstein64/vim-startuptime'
 " }}} "
 
 " other {{{ "
-Plug 'Chaitanyabsprip/present.nvim'
+" Plug 'chrisbra/Recover.vim'
+" Plug 'Chaitanyabsprip/present.nvim'
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'mbbill/undotree'
 Plug 'mhinz/vim-startify'
 Plug 'neovim/nvim-lspconfig'
-Plug 'tpope/vim-speeddating'
+Plug 'petertriho/nvim-scrollbar'
 Plug 'schoettl/listtrans.vim'
-Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8' }
-Plug 'vimwiki/vimwiki'
-Plug 'tpope/vim-repeat'
+Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8', 'for': 'python' }
 Plug 'svermeulen/vim-easyclip'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-speeddating'
+Plug 'vimwiki/vimwiki', { 'for': 'markdown' }
 " }}} "
 
 call plug#end()
@@ -249,26 +261,49 @@ call plug#end()
 
 " config {{{ "
 
-" vim-fugitive {{{ "
-nnoremap <leader>g :G<CR>
-" autocmd User FugitiveIndex,FugitiveObject nnoremap <buffer> cc :vert Git commit<CR>
-" autocmd User FugitiveIndex,FugitiveObject nnoremap <buffer> gp :vs<CR>:term<CR>Igp<CR>
-autocmd FileType fugitive nnoremap <buffer> cc :vert Git commit<CR>
-autocmd FileType fugitive nnoremap <buffer> gp :vs<CR>:term<CR>Igp<CR>
+nnoremap <leader>u :UndotreeToggle<cr>
+
+" VimTex {{{ "
+filetype plugin indent on
+syntax enable
+let g:vimtex_view_method = 'zathura'
+let vimtex_compiler_latexmk_engines = {
+        \ '_' : '-xelatex',
+        \ 'build_dir' : '',
+        \ 'options' : [
+            \   '-verbose-cmds',
+            \   '--latex-args="-synctex=1 -interaction=nonstopmode"',
+            \   '-interaction=nonstopmode',
+            \ ],
+    \ }
+let g:vimtex_quickfix_open_on_warning = 0
+let maplocalleader = " "
 " }}} "
 
-" lazyList {{{ "
-nnoremap <leader>li :LazyList 
-vnoremap <leader>li :LazyList 
-nnoremap <leader>ll :LazyList<CR>
-vnoremap <leader>ll :LazyList<CR>
-nnoremap <leader>l- :LazyList '- '<CR>
-vnoremap <leader>l- :LazyList '- '<CR>
-nnoremap <leader>l* :LazyList '* '<CR>
-vnoremap <leader>l* :LazyList '* '<CR>
-nnoremap <leader>lt :LazyList '- [ ] '<CR>
-vnoremap <leader>lt :LazyList '- [ ] '<CR>
+" indentLine {{{ "
+au FileType tex,markdown,vimwiki IndentLinesDisable
 " }}} "
+
+" vim-fugitive {{{ "
+nnoremap <leader>g :G<cr>
+" autocmd User FugitiveIndex,FugitiveObject nnoremap <buffer> cc :vert Git commit<cr>
+" autocmd User FugitiveIndex,FugitiveObject nnoremap <buffer> gp :vs<cr>:term<cr>Igp<cr>
+" autocmd FileType fugitive nnoremap <buffer> cc :vert Git commit<cr>
+" autocmd FileType fugitive nnoremap <buffer> gp :vs<cr>:term<cr>Igp<cr>
+" }}} "
+
+" " lazyList {{{ "
+" nnoremap <leader>li :LazyList 
+" vnoremap <leader>li :LazyList 
+" nnoremap <leader>ll :LazyList<cr>
+" vnoremap <leader>ll :LazyList<cr>
+" nnoremap <leader>l- :LazyList '- '<cr>
+" vnoremap <leader>l- :LazyList '- '<cr>
+" nnoremap <leader>l* :LazyList '* '<cr>
+" vnoremap <leader>l* :LazyList '* '<cr>
+" nnoremap <leader>lt :LazyList '- [ ] '<cr>
+" vnoremap <leader>lt :LazyList '- [ ] '<cr>
+" " }}} "
 
 " vim-easyclip {{{ "
 let g:EasyClipAutoFormat = 1
@@ -298,37 +333,42 @@ let g:VM_maps["Add Cursor Up"]               = '<C-k>'
 " vimwiki {{{ "
 let g:vimwiki_list = [
 			\ {'path': '~/Documents/VimWiki/Notes/', 'syntax': 'markdown', 'ext': '.md'},
-			\ {'path': '~/Documents/VimWiki/Zettelkasten/', 'syntax': 'markdown', 'ext': '.md'},
-			\ {'path': '~/Documents/VimWiki/Dreams/', 'syntax': 'markdown', 'ext': '.md'}]
+            \ ]
 nmap <leader>wg <Plug>VimwikiGenerateLinks
-
-" vim-zettel
-let g:zettel_options = [{"front_matter" : [["tags", ""]]}, {}, {}]
-let g:zettel_format = "%title"
-nnoremap <leader>zen :ZettelNew 
-nnoremap <leader>zeo :ZettelOpen<CR>
 " }}} "
 
 " goyo {{{ "
-let g:goyo_width = 81
+let g:goyo_width = 83
 function! s:goyo_enter()
 	norm zz
 	nnoremap j gjzz
 	nnoremap k gkzz
 	nnoremap w wzz
 	nnoremap b bzz
-	setl linebreak
+    nnoremap  zz
+    nnoremap  zz
+    ScrollbarHide
+    Limelight
+	" setl linebreak
 endfunction
 
 function! s:goyo_leave()
+    norm zz
 	nnoremap j j
 	nnoremap k k
 	nnoremap w w
 	nnoremap b b
+    nnoremap  
+    nnoremap  
+    ScrollbarShow
+    Limelight!
+    se termguicolors
+    colo gruvbox
 endfunction
 
 au! User GoyoEnter nested call <SID>goyo_enter()
 au! User GoyoLeave nested call <SID>goyo_leave()
+noremap <leader>y :Goyo<cr>
 " }}} "
 
 " emmet-vim {{{ "
@@ -362,8 +402,8 @@ se noshowmode
 " }}} "
 
 " nnn {{{ "
-nnoremap <leader>nn :NnnPicker %:p:h<CR>
-nnoremap <leader>ne :NnnExplorer %:p:h<CR>
+nnoremap <leader>nn :NnnPicker %:p:h<cr>
+nnoremap <leader>ne :NnnExplorer %:p:h<cr>
 let g:nnn#layout = 'vnew'
 let g:nnn#layout = { 'left': '~25%' }
 let g:nnn#set_default_mappings = 1
@@ -397,7 +437,7 @@ let g:startify_lists = [
 			\ { 'type': 'sessions',  'header': ['   Sessions']       },
 			\ { 'type': 'commands',  'header': ['   Commands']       },
 			\ ]
-nnoremap <leader>s :Startify<CR>
+nnoremap <leader>s :Startify<cr>
 " }}} "
 
 " rt-format {{{ "
@@ -406,9 +446,12 @@ let g:rtf_on_insert_leave = 1
 " }}} "
 
 " fzf {{{ "
-nnoremap <leader>ff :FZF<CR>
-" nnoremap <leader>fg :NV<CR>
-nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>ff :FZF<cr>
+" nnoremap <leader>fg :NV<cr>
+nnoremap <leader>b :Goyo!<cr>:Buffers<cr>
+nnoremap <leader>t :Goyo!<cr>:Tags<cr>
+nnoremap <leader>m :Goyo!<cr>:Maps<cr>
+nnoremap <leader>wf :Goyo!<cr>:Windows<cr>
 " let g:nv_search_paths = ['~/Documents/VimWiki/']
 " }}} "
 
@@ -418,10 +461,10 @@ vmap tl <Plug>ListtransToggleVisual
 " }}} "
 
 " move {{{ "
-" inoremap <M-j> :m .+1<CR>==
-" inoremap <M-k> :m .-2<CR>==
-" vnoremap <M-j> :m '>+1<CR>gv=gv
-" vnoremap <M-k> :m '>-2<CR>gv=gv
+" inoremap <M-j> :m .+1<cr>==
+" inoremap <M-k> :m .-2<cr>==
+" vnoremap <M-j> :m '>+1<cr>gv=gv
+" vnoremap <M-k> :m '>-2<cr>gv=gv
 " }}} "
 
 " vmath {{{ " 
@@ -436,36 +479,37 @@ let g:AutoPairsShortcutToggle = '<M-p>'
 au FileType markdown let b:AutoPairs = AutoPairsDefine({'**' : '**', '_':'_'})
 au FileType apl let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"',}
 au FileType vim let b:AutoPairs = AutoPairsDefine({'<':'>',})
+au FileType tex let b:AutoPairs = AutoPairsDefine({'$':'$'})
 " }}} "
 
 " pickachu {{{ "
-inoremap <M-c> <esc>:Pickachu color<CR>a
-inoremap <M-f> <esc>:Pickachu file<CR>a
-inoremap <M-d> <esc>:Pickachu date<CR>a
-nnoremap <M-c> <esc>:Pickachu color<CR>a
-nnoremap <M-f> <esc>:Pickachu file<CR>a
-nnoremap <M-d> <esc>:Pickachu date<CR>a
+inoremap <M-c> :Pickachu color<cr>
+inoremap <M-f> :Pickachu file<cr>
+inoremap <M-d> :Pickachu date<cr>
+nnoremap <M-c> :Pickachu color<cr>
+nnoremap <M-f> :Pickachu file<cr>
+nnoremap <M-d> :Pickachu date<cr>
 " }}} "
 
 " tmux runner {{{ "
 let g:VtrStripLeadingWhitespace = 0
 let g:VtrClearEmptyLines = 0
 let g:VtrAppendNewline = 1
-nnoremap <leader>a :VtrAttachToPane<CR>
-nnoremap <leader>oo :VtrOpenRunner<CR>
-nnoremap <leader>or :VtrOpenRunner<CR>:VtrSendFile<CR>
-nnoremap <leader>fo :VtrFocusRunner<CR>
-nnoremap <leader>k :VtrKillRunner<CR>
-nnoremap <leader>r :VtrSendFile<CR>
-nnoremap <leader>R :VtrSendLinesToRunner<CR>
-vnoremap <leader>r :VtrSendLinesToRunner<CR>
+nnoremap <leader>a :VtrAttachToPane<cr>
+nnoremap <leader>oo :VtrOpenRunner<cr>
+nnoremap <leader>or :VtrOpenRunner<cr>:VtrSendFile<cr>
+nnoremap <leader>fo :VtrFocusRunner<cr>
+nnoremap <leader>k :VtrKillRunner<cr>
+nnoremap <leader>r :VtrSendFile<cr>
+nnoremap <leader>R :VtrSendLinesToRunner<cr>
+vnoremap <leader>r :VtrSendLinesToRunner<cr>
 let g:vtr_filetype_runner_overrides = { 'apl': 'apl --OFF -q -f {file}', }
 
 fun! AplSetup()
 	nunmap <leader>r
 	nunmap <leader>R
-	nnoremap <leader>r :VtrSendLinesToRunner<CR>
-	nnoremap <leader>R :VtrSendFile<CR>
+	nnoremap <leader>r :VtrSendLinesToRunner<cr>
+	nnoremap <leader>R :VtrSendFile<cr>
 endf
 au FileType apl call AplSetup()
 " }}} "
@@ -485,11 +529,18 @@ EOF
 
 " lsp {{{ "
 lua << EOF
+  require'lspconfig'.cssls.setup{}
   require'lspconfig'.pylsp.setup{}
   require'lspconfig'.clangd.setup{}
   require'lspconfig'.texlab.setup{}
   require'lspconfig'.bashls.setup{}
+  require'lspconfig'.html.setup{}
+  require'lspconfig'.eslint.setup{}
 EOF
+
+nnoremap <leader>h :lua vim.lsp.buf.hover()<cr>
+nnoremap <leader>d :lua vim.lsp.buf.definition()<cr>
+nnoremap <leader>e :lua vim.lsp.buf.references()<cr>
 
 " nvim-cmp {{{ "
 lua <<EOF
@@ -510,7 +561,8 @@ lua <<EOF
     sources = cmp.config.sources({
       { name = 'spell' },
       { name = 'nvim_lsp' },
-      { name = 'ultisnips' }, -- For ultisnips users.
+      { name = 'omni' },
+      { name = 'ultisnips' },
     }, {
       { name = 'buffer' },
     })
@@ -533,6 +585,9 @@ lua <<EOF
 
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  --Enable (broadcasting) snippet capability for completion
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
   require('lspconfig')['pylsp'].setup {
     capabilities = capabilities
@@ -546,14 +601,27 @@ lua <<EOF
   require('lspconfig')['bashls'].setup {
     capabilities = capabilities
   }
+  require('lspconfig')['html'].setup {
+      capabilities = capabilities
+  }
+  require('lspconfig')['cssls'].setup {
+      capabilities = capabilities
+  }
+  require('lspconfig')['eslint'].setup {
+      capabilities = capabilities
+  }
 
 EOF
 " }}} "
 " }}} "
 
+lua << EOF
+  require("scrollbar").setup()
+EOF
+
 " vim-carbon-now-sh {{{
 let g:carbon_now_sh_browser = 'brave'
-vnoremap <leader>c :CarbonNowSh<CR>
+vnoremap <leader>c :CarbonNowSh<cr>
 " }}}
 
 " hexokinase {{{
