@@ -5,18 +5,12 @@
 " |_| \_|\___|\___/ \_/  |_|_| |_| |_|
 "
 
-" impatient to be faster
-call plug#begin('~/.local/share/nvim/plugged')
-Plug 'lewis6991/impatient.nvim'
-call plug#end()
-lua require('impatient')
-
 " variables {{{ "
 " lines numbering
 se nu rnu
 
 " line breaks wraping
-se wrap linebreak
+se wrap lbr
 
 " completions
 se cpt+=kspell,t
@@ -24,31 +18,37 @@ se cot=menu,menuone,noselect
 se icm=nosplit
 se wim=longest:full,full
 se wmnu
+
+filet plugin on
+sy enable
 se ofu=syntaxcomplete#Complete
+se cfu=v:lua.vim.lsp.omnifunc
 
 " cursor lines
-se cursorline cursorcolumn
+se cul cuc
 
 " enable mouse
 se mouse=a
 
-se title 
-" se scs
-se ic
+se title
+se ic scs
 
 " tabs
-se tabstop=4 shiftwidth=4 expandtab
+se ts=4 sw=4 et
+filet plugin indent on
 
 " folds
 se fdm=marker
 
-" 
+" ^A
 se nf+=alpha
 
 " timeout
-se timeoutlen=500
+se tm=500
 
-se omnifunc=v:lua.vim.lsp.omnifunc
+" paths
+" se pa+=**
+" se pa-=/usr/include
 
 " }}} "
 
@@ -110,13 +110,17 @@ nnoremap <leader>co :terminal echo % \| entr -s "compiler %"<cr>
 noremap gl $
 noremap gh 0
 noremap gb ^
-nnoremap  Oo
+nnoremap <cr> za
+nnoremap <M-CR> Oo
 
 " inoremap <silent> <cr> V:lua vim.lsp.buf.range_formatting()<cr><cr>
 " au InsertLeave * :norm V lua vim.lsp.buf.range_formatting()
 
 " escape and save
 inoremap  <esc>:w<cr>
+
+" count lines of code for current buffer
+nnoremap g<c-l> :!cloc %<cr>
 
 " }}} "
 
@@ -135,6 +139,7 @@ endfor
 " }}} "
 
 " auto {{{ "
+au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 "" Suckless programs
 au BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
 au BufWritePost *config.def.h !doas rm 'config.h' && doas make clean install
@@ -161,12 +166,15 @@ ca h  tab help
 ca hv vert help
 
 " root write
-command! -nargs=0 Sw w !doas tee % > /dev/null
+com! -nargs=0 Sw w !doas tee % > /dev/null
+
 " }}} "
 
 " plugins {{{ "
 " definitions {{{ "
 call plug#begin('~/.local/share/nvim/plugged')
+
+Plug 'lewis6991/impatient.nvim'
 
 " motions {{{ "
 Plug 'christoomey/vim-sort-motion'
@@ -191,6 +199,7 @@ Plug 'honza/vim-snippets'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'hrsh7th/cmp-omni'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
@@ -232,7 +241,8 @@ Plug 'gioele/vim-autoswap'
 Plug 'github/copilot.vim'
 Plug 'junegunn/fzf.vim', { 'on': ['Files', 'GFiles', 'Buffers', 'Colors', 'Ag', 'Rg', 'Lines', 'BLines', 'Tags', 'BTags', 'Marks', 'Windows', 'Locate', 'History', 'Snippets', 'Commits', 'BCommits', 'Commands', 'Maps', 'Helptags', 'Filetypes'] }
 Plug 'kristijanhusak/vim-carbon-now-sh', { 'on': 'CarbonNowSh' }
-Plug 'lervag/vimtex', { 'for': ['tex', 'bib'] }
+" Plug 'lervag/vimtex', { 'for': ['tex', 'bib'] }
+Plug 'lervag/vimtex'
 Plug 'mcchrish/nnn.vim', { 'on': ['NnnPicker', 'NnnExplorer'] }
 Plug 'tpope/vim-fugitive'
 Plug 'wakatime/vim-wakatime'
@@ -264,8 +274,6 @@ call plug#end()
 nnoremap <leader>u :UndotreeToggle<cr>
 
 " VimTex {{{ "
-filetype plugin indent on
-syntax enable
 let g:vimtex_view_method = 'zathura'
 let vimtex_compiler_latexmk_engines = {
         \ '_' : '-xelatex',
@@ -398,7 +406,7 @@ let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
 
-se noshowmode
+" se noshowmode
 " }}} "
 
 " nnn {{{ "
@@ -419,24 +427,22 @@ let g:nnn#replace_netrw = 1
 
 " vim-startify {{{ "
 let g:startify_bookmarks = [
-			\ {'c': '~/.config/nvim/init.vim'},
-			\ {'dw': '~/.srcpkgs/dwm/config.def.h'},
-			\ {'s':'~/.config/sxhkd/sxhkdrc'},
-			\ {'u': '~/.config/qutebrowser/config.py'},
-			\ {'a':'~/.config/aliasrc'},
-            \ {'K':'~/.config/KMonad.kbd'},
-			\ {'zs':'~/.zshrc'},
-			\ {'ze':'~/Documents/VimWiki/Zettelkasten/'},
-			\ {'ww':'~/Documents/VimWiki/Notes/index.md'},
-			\ {'dl':'~/Documents/VimWiki/Dreams/diary/diary.md'},
-			\ ]
+        \ {'c': '~/.config/nvim/init.vim'},
+        \ {'d': '~/.srcpkgs/dwm/config.def.h'},
+        \ {'s':'~/.config/sxhkd/sxhkdrc'},
+        \ {'u': '~/.config/qutebrowser/config.py'},
+        \ {'a':'~/.config/aliasrc'},
+        \ {'K':'~/.config/KMonad.kbd'},
+        \ {'zs':'~/.zshrc'},
+        \ {'w':'~/Documents/VimWiki/Notes/index.md'},
+        \ ]
 let g:startify_lists = [
-			\ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-			\ { 'type': 'files',     'header': ['   MRU']            },
-			\ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-			\ { 'type': 'sessions',  'header': ['   Sessions']       },
-			\ { 'type': 'commands',  'header': ['   Commands']       },
-			\ ]
+        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+        \ { 'type': 'files',     'header': ['   MRU']            },
+        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+        \ { 'type': 'sessions',  'header': ['   Sessions']       },
+        \ { 'type': 'commands',  'header': ['   Commands']       },
+        \ ]
 nnoremap <leader>s :Startify<cr>
 " }}} "
 
@@ -486,9 +492,9 @@ au FileType tex let b:AutoPairs = AutoPairsDefine({'$':'$'})
 inoremap <M-c> :Pickachu color<cr>
 inoremap <M-f> :Pickachu file<cr>
 inoremap <M-d> :Pickachu date<cr>
-nnoremap <M-c> :Pickachu color<cr>
-nnoremap <M-f> :Pickachu file<cr>
-nnoremap <M-d> :Pickachu date<cr>
+nnoremap <M-c> :Pickachu color<cr>
+nnoremap <M-f> :Pickachu file<cr>
+nnoremap <M-d> :Pickachu date<cr>
 " }}} "
 
 " tmux runner {{{ "
@@ -521,104 +527,6 @@ nnoremap <leader>Ns <Plug>(grammarous-move-to-next-error)
 nnoremap <leader>Ps <Plug>(grammarous-move-to-previous-error)
 " }}}
 
-" which key nvim {{{
-lua << EOF
-  require("which-key").setup {}
-EOF
-" }}}
-
-" lsp {{{ "
-lua << EOF
-  require'lspconfig'.cssls.setup{}
-  require'lspconfig'.pylsp.setup{}
-  require'lspconfig'.clangd.setup{}
-  require'lspconfig'.texlab.setup{}
-  require'lspconfig'.bashls.setup{}
-  require'lspconfig'.html.setup{}
-  require'lspconfig'.eslint.setup{}
-EOF
-
-nnoremap <leader>h :lua vim.lsp.buf.hover()<cr>
-nnoremap <leader>d :lua vim.lsp.buf.definition()<cr>
-nnoremap <leader>e :lua vim.lsp.buf.references()<cr>
-
-" nvim-cmp {{{ "
-lua <<EOF
-  -- Setup nvim-cmp.
-  local cmp = require'cmp'
-
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-      end,
-    },
-    mapping = {
-      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    },
-    sources = cmp.config.sources({
-      { name = 'spell' },
-      { name = 'nvim_lsp' },
-      { name = 'omni' },
-      { name = 'ultisnips' },
-    }, {
-      { name = 'buffer' },
-    })
-  })
-
-    -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline('/', {
-    sources = {
-      { name = 'buffer' }
-    }
-  })
-
-    cmp.setup.cmdline(':', {
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
-  })
-
-  -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  --Enable (broadcasting) snippet capability for completion
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  require('lspconfig')['pylsp'].setup {
-    capabilities = capabilities
-  }
-  require('lspconfig')['clangd'].setup {
-    capabilities = capabilities
-  }
-  require('lspconfig')['texlab'].setup {
-    capabilities = capabilities
-  }
-  require('lspconfig')['bashls'].setup {
-    capabilities = capabilities
-  }
-  require('lspconfig')['html'].setup {
-      capabilities = capabilities
-  }
-  require('lspconfig')['cssls'].setup {
-      capabilities = capabilities
-  }
-  require('lspconfig')['eslint'].setup {
-      capabilities = capabilities
-  }
-
-EOF
-" }}} "
-" }}} "
-
-lua << EOF
-  require("scrollbar").setup()
-EOF
-
 " vim-carbon-now-sh {{{
 let g:carbon_now_sh_browser = 'brave'
 vnoremap <leader>c :CarbonNowSh<cr>
@@ -639,3 +547,13 @@ colo gruvbox
 " }}} "
 " }}} "
 
+" lua {{{ "
+lua require('config')
+
+" lsp {{{ "
+nnoremap <leader>h :lua vim.lsp.buf.hover()<cr>
+nnoremap <leader>d :lua vim.lsp.buf.definition()<cr>
+nnoremap <leader>e :lua vim.lsp.buf.references()<cr>
+" }}} "
+
+" }}} "
