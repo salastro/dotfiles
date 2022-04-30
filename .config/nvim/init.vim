@@ -45,6 +45,7 @@ se nf+=alpha
 
 " timeout
 se tm=500
+se ttm=100
 
 " paths
 " se pa+=**
@@ -92,7 +93,7 @@ nnoremap <leader>ps :normal! mm[s1z=`m<cr>
 nnoremap <leader>ns :normal! mm]s1z=`m<cr>
 
 " folds
-nnoremap <space><space> za
+" nnoremap <space><space> za
 
 " file type detect
 nnoremap <leader>ftd :filetype detect<cr>
@@ -119,8 +120,9 @@ nnoremap <M-CR> Oo
 " escape and save
 inoremap  <esc>:w<cr>
 
-" count lines of code for current buffer
-nnoremap g<c-l> :!cloc %<cr>
+" count lines of code
+nnoremap g<c-f> :!scc %<cr>
+nnoremap g<c-d> :!scc %:p:h<cr>
 
 " }}} "
 
@@ -165,6 +167,9 @@ com! PlugAdd normal oPlug '+'dF.F/F/vT'd
 ca h  tab help
 ca hv vert help
 
+ca pla PlugAdd
+ca pli PlugInstall
+
 " root write
 com! -nargs=0 Sw w !doas tee % > /dev/null
 
@@ -176,11 +181,12 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'lewis6991/impatient.nvim'
 
-" motions {{{ "
+" motions/text objects {{{ "
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-titlecase' 
 Plug 'easymotion/vim-easymotion'
 Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-fold'
 Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-user'
 Plug 'matze/vim-move'
@@ -188,6 +194,7 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'vim-scripts/ReplaceWithRegister'
 " }}} "
 
 " completions {{{ "
@@ -219,15 +226,16 @@ Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " }}} "
 
 " syntax highlighting {{{ "
-Plug 'PyGamer0/vim-apl'
-Plug 'andymass/vim-matchup'
-Plug 'Yggdroot/indentLine'
-Plug 'baskerville/vim-sxhkdrc'
 " Plug 'cespare/vim-toml'
 " Plug 'jbgutierrez/vim-better-comments'
+" Plug 'kshenoy/vim-signature'
+Plug 'PyGamer0/vim-apl'
+Plug 'Yggdroot/indentLine'
+Plug 'andymass/vim-matchup'
+Plug 'baskerville/vim-sxhkdrc'
 Plug 'kevinhwang91/nvim-hlslens'
 Plug 'kmonad/kmonad-vim'
-" Plug 'kshenoy/vim-signature'
+Plug 'tpope/vim-markdown'
 " }}} "
 
 " external programs {{{ "
@@ -254,7 +262,7 @@ Plug 'dstein64/vim-startuptime'
 " Plug 'Chaitanyabsprip/present.nvim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'mbbill/undotree'
+" Plug 'mbbill/undotree'
 Plug 'mhinz/vim-startify'
 Plug 'neovim/nvim-lspconfig'
 Plug 'petertriho/nvim-scrollbar'
@@ -273,19 +281,35 @@ call plug#end()
 
 nnoremap <leader>u :UndotreeToggle<cr>
 
+let g:markdown_fenced_languages = ['bash=sh', 'apl']
+" set concealcursor=i
+
 " VimTex {{{ "
 let g:vimtex_view_method = 'zathura'
-let vimtex_compiler_latexmk_engines = {
-        \ '_' : '-xelatex',
-        \ 'build_dir' : '',
-        \ 'options' : [
-            \   '-verbose-cmds',
-            \   '--latex-args="-synctex=1 -interaction=nonstopmode"',
-            \   '-interaction=nonstopmode',
-            \ ],
-    \ }
+" let g:vimtex_compiler_method = 'generic'
+" let g:vimtex_compiler_generic = {
+"             \ 'command' : 'compiler %',
+"             \}
+let g:vimtex_compiler_latexmk = {
+            \ 'build_dir' : '',
+            \ 'callback' : 1,
+            \ 'continuous' : 1,
+            \ 'executable' : 'latexmk',
+            \ 'hooks' : [],
+            \ 'options' : [
+                \   '-verbose',
+                \   '-file-line-error',
+                \   '-synctex=1',
+                \   '-interaction=nonstopmode',
+                \ ],
+                \}
+let g:vimtex_compiler_latexmk_engines = {
+            \ '_'                : '-xelatex',
+            \}
 let g:vimtex_quickfix_open_on_warning = 0
 let maplocalleader = " "
+let g:vimtex_fold_enabled = 1
+let g:surround_108 = "\\begin{\1environment: \1}\r\\end{\1\1}"
 " }}} "
 
 " indentLine {{{ "
@@ -482,7 +506,7 @@ nnoremap         ++  vip++
 let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", }
 let g:AutoPairsShortcutJump = '<M-n>'
 let g:AutoPairsShortcutToggle = '<M-p>'
-au FileType markdown let b:AutoPairs = AutoPairsDefine({'**' : '**', '_':'_'})
+au FileType markdown,vimwiki let b:AutoPairs = AutoPairsDefine({'*':'*', '**' : '**', '***': '***', '_':'_'})
 au FileType apl let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"',}
 au FileType vim let b:AutoPairs = AutoPairsDefine({'<':'>',})
 au FileType tex let b:AutoPairs = AutoPairsDefine({'$':'$'})
@@ -541,6 +565,7 @@ set bg=dark
 let g:gruvbox_contrast_dark = 'medium'
 let g:gruvbox_number_column = 'bg0'
 " let g:gruvbox_transparent_bg = '0'
+let g:gruvbox_italic = 1
 se termguicolors
 colo gruvbox
 " }}} "
