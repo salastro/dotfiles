@@ -44,6 +44,7 @@
 	b RC-lft
 	w RC-rght
 	v (layer-add sel)
+    va (tap-hold-next-release 200 home lsft)
 )
 
 ;; VI-selection-like-mode-aliases 
@@ -83,7 +84,7 @@
 	_
 	_    1    2    3    4    5    6    7    8    9    0    _    _    _   
 	_    _    @w   end  _    _    _    pgup _    _    _    _    _    _
-	_    home _    pgdn _    _    lft  down up   rght _    _    _  
+	_    @va  _    pgdn _    _    lft  down up   rght rctl _    _  
 	_    _    del  _    @v   @b   _    _    _    _    _    _   
 	_    _    _              _              _    _    _    _    _    _   
 )
@@ -101,17 +102,17 @@
 	_
 	_    _    _    _    _    _    _    _    _    _    _    _    _    _   
 	_    _    _    _    _    _    _    _    _    _    _    _    _    _ 
-    _    f14  f15  f16  f17  f18  _    f20  f21  f22  f23  _    _ 
-	_    lctl _    _    _    _    _    _    _    _    _    _   
+    _    lctl f14  f15  f16  f17  f18  f20  f21  f22  f23  _    _ 
+	_    _    _    _    _    _    _    _    _    _    _    _   
 	_    _    _              _              _    _    _    _    _    _   
 )
 
 (deflayer num
 	_
 	_    _    _    _    _    _    _    _    _    _    _    _    _    _   
-	_    \_   |    -    {    [    ]    }    =    `    +    _    _    _
-	_    @1    2    3    4    5    6    7    8    9    @0    \    _  
-	_    !    @    \(   $    %    ^    \)   *    #    &    _
+	_    spc  \    -    [    _    _    ]    =    `    _    _    _    _
+	_    @1    2    3    4    5    6    7    8    9   @0   _    _  
+	_    _    _     _   _    _    _     _   _    _    _    _
 	_    _    _              _              _    _    _    _    _    _   
 )
 
