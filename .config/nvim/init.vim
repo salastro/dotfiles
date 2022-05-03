@@ -34,6 +34,10 @@ se mouse=a
 se title
 se ic
 
+" folding
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+
 " tabs
 se ts=4 sw=4 et
 
