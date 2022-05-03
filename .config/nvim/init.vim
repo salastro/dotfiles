@@ -17,12 +17,13 @@ se cpt+=kspell,t
 se cot=menu,menuone,noselect
 se icm=nosplit
 se wim=longest:full,full
-se wmnu
+" se wmnu
+" se wic
 
-filet plugin on
+filet plugin indent on
 sy enable
-se ofu=syntaxcomplete#Complete
-se cfu=v:lua.vim.lsp.omnifunc
+" se ofu=syntaxcomplete#Complete
+" se cfu=v:lua.vim.lsp.omnifunc
 
 " cursor lines
 se cul cuc
@@ -31,11 +32,10 @@ se cul cuc
 se mouse=a
 
 se title
-se ic scs
+se ic
 
 " tabs
 se ts=4 sw=4 et
-filet plugin indent on
 
 " folds
 se fdm=marker
@@ -45,7 +45,6 @@ se nf+=alpha
 
 " timeout
 se tm=500
-se ttm=100
 
 " paths
 " se pa+=**
