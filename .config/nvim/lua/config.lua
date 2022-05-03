@@ -154,12 +154,12 @@ require'nvim-treesitter.configs'.setup {
 }
 
 -- use bash treesitter for zsh
--- local ft_to_lang = require('nvim-treesitter.parsers').ft_to_lang
+local ft_to_lang = require('nvim-treesitter.parsers').ft_to_lang
 require'nvim-treesitter.parsers'.ft_to_lang = function(ft)
     if ft == 'zsh' then
         return 'bash'
     end
-    -- return ft_to_lang(ft)
+    return ft_to_lang(ft)
 end
 
 -- other
