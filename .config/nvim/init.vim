@@ -336,18 +336,19 @@ nnoremap <leader>g :G<cr>
 " autocmd FileType fugitive nnoremap <buffer> gp :vs<cr>:term<cr>Igp<cr>
 " }}} "
 
-" " lazyList {{{ "
-" nnoremap <leader>li :LazyList 
-" vnoremap <leader>li :LazyList 
-" nnoremap <leader>ll :LazyList<cr>
-" vnoremap <leader>ll :LazyList<cr>
-" nnoremap <leader>l- :LazyList '- '<cr>
-" vnoremap <leader>l- :LazyList '- '<cr>
-" nnoremap <leader>l* :LazyList '* '<cr>
-" vnoremap <leader>l* :LazyList '* '<cr>
-" nnoremap <leader>lt :LazyList '- [ ] '<cr>
-" vnoremap <leader>lt :LazyList '- [ ] '<cr>
-" " }}} "
+" lazyList {{{ "
+" ca l LazyList
+nnoremap <leader>ii :LazyList<cr>
+vnoremap <leader>ii :LazyList<cr>
+nnoremap <leader>il :LazyList ' '<Left><Left>
+vnoremap <leader>il :LazyList ' '<Left><Left>
+nnoremap <leader>i- :LazyList '- '<cr>
+vnoremap <leader>i- :LazyList '- '<cr>
+nnoremap <leader>i* :LazyList '* '<cr>
+vnoremap <leader>i* :LazyList '* '<cr>
+nnoremap <leader>it :LazyList '- [ ] '<cr>
+vnoremap <leader>it :LazyList '- [ ] '<cr>
+" }}} "
 
 " vim-easyclip {{{ "
 let g:EasyClipAutoFormat = 1
