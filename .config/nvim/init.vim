@@ -273,6 +273,8 @@ Plug 'svermeulen/vim-easyclip'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 Plug 'vimwiki/vimwiki', { 'for': 'markdown' }
+Plug 'nvim-lua/plenary.nvim'
+Plug 'ThePrimeagen/harpoon'
 " }}} "
 
 call plug#end()
@@ -581,5 +583,12 @@ nnoremap <leader>h :lua vim.lsp.buf.hover()<cr>
 nnoremap <leader>d :lua vim.lsp.buf.definition()<cr>
 nnoremap <leader>e :lua vim.lsp.buf.references()<cr>
 " }}} "
+
+" harpoon {{{ "
+nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
+nnoremap <silent> <leader>hm :lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <silent> <leader>hn :lua require("harpoon.ui").nav_next()<CR>
+nnoremap <silent> <leader>hp :lua require("harpoon.ui").nav_prev()<CR>
+" }}} harpoon "
 
 " }}} "
