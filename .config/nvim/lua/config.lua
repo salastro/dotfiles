@@ -87,7 +87,7 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ldf',  '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ldd',  '<cmd>call v:lua.toggle_diagnostics()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lf',  '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-    if vim.bo.filetype == tex then
+    if vim.bo.filetype == "tex" then
         -- Do not remap K if it is a latex file because of VimTex plugin
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lh',  '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     else
