@@ -1,0 +1,11 @@
+[user]
+	email = salatrod@gmail.com
+	signingkey = 3F7AFA547711DD90
+	name = salastro
+[gpg]
+	program = gpg2
+[credential]
+	helper = cache
+[commit]
+	gpgsign = true
+	verbose = true
