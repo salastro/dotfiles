@@ -66,18 +66,18 @@ nnoremap N Nzvzz
 noremap ; :
 noremap : ;
 
-" copy to clipboard
+" copy to system clipboard
 " vnoremap  "+y
 set clipboard=unnamed,unnamedplus
 
 " tabs
-nnoremap  gT
-nnoremap  gt
+nnoremap <C-H> gT
+nnoremap <C-L> gt
 " nnoremap <s-tab> gT
 " nnoremap <tab> gt
 nnoremap <M-T> :tabnew<cr>
-au TabLeave * let g:lasttab = tabpagenr()
-nnoremap <M-s> :exe "tabn ".g:lasttab<cr>
+" au TabLeave * let g:lasttab = tabpagenr()
+" nnoremap <M-s> :exe "tabn ".g:lasttab<cr>
 " nnoremap <M-i> <tab>
 
 " windows
