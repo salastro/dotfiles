@@ -53,8 +53,8 @@ cmp.setup.cmdline(':', {
     sources = cmp.config.sources({
         { name = 'path' }
     }, {
-        { name = 'cmdline' }
-    })
+            { name = 'cmdline' }
+        })
 })
 
 -- Setup lspconfig.
@@ -74,11 +74,9 @@ function _G.toggle_diagnostics()
     end
 end
 
--- keymaps options
-local opts = { noremap=true, silent=true }
-
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
+local opts = { noremap=true, silent=true }
 local servers = { 'pylsp', 'clangd', 'texlab', 'bashls', 'html', 'cssls', 'eslint', }
 for _, lsp in pairs(servers) do
     require('lspconfig')[lsp].setup {
@@ -143,14 +141,26 @@ require'nvim-treesitter.configs'.setup {
         keymaps = {
             init_selection = "gt",
             node_incremental = "gn",
-            scope_incremental = "gs",
+            scope_incremental = "gS",
             node_decremental = "gp",
         },
     },
     indent = {
         enable = true
     },
+    playground = {
+        enable = true,
+    }
 }
+
+-- use bash treesitter for zsh
+-- local ft_to_lang = require('nvim-treesitter.parsers').ft_to_lang
+require'nvim-treesitter.parsers'.ft_to_lang = function(ft)
+    if ft == 'zsh' then
+        return 'bash'
+    end
+    -- return ft_to_lang(ft)
+end
 
 -- other
 require("which-key").setup()

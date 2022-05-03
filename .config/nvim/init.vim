@@ -1,3 +1,4 @@
+" vim:set et sw=4 ts=4 tw=78 fdm=marker:
 "  _   _         __     ___           
 " | \ | | ___  __\ \   / (_)_ __ ___  
 " |  \| |/ _ \/ _ \ \ / /| | '_ ` _ \ 
@@ -129,14 +130,14 @@ nnoremap g<c-d> :!scc %:p:h<cr>
 " functions {{{ "
 
 " function! MoveEm(position)
-"   let saved_cursor = getpos(".")
-"   let previous_blank_line = search('^$', 'bn')
-"   let target_line = previous_blank_line + a:position - 1
-"   execute 'move ' . target_line
-"   call setpos('.', saved_cursor)
+"     let saved_cursor = getpos(".")
+"     let previous_blank_line = search('^$', 'bn')
+"     let target_line = previous_blank_line + a:position - 1
+"     execute 'move ' . target_line
+"     call setpos('.', saved_cursor)
 " endfunction
 " for position in range(1, 9)
-"   execute 'nnoremap gm' . position . ' :call MoveEm(' . position . ')<cr>'
+"     execute 'nnoremap gm' . position . ' :call MoveEm(' . position . ')<cr>'
 " endfor
 
 " }}} "
@@ -236,6 +237,7 @@ Plug 'andymass/vim-matchup'
 Plug 'baskerville/vim-sxhkdrc'
 Plug 'kevinhwang91/nvim-hlslens'
 Plug 'kmonad/kmonad-vim'
+Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-markdown'
 " }}} "
 
@@ -270,6 +272,7 @@ Plug 'mhinz/vim-startify'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 Plug 'petertriho/nvim-scrollbar'
 Plug 'schoettl/listtrans.vim'
 Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8', 'for': 'python' }
