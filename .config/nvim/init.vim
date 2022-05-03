@@ -37,9 +37,6 @@ se ic
 " tabs
 se ts=4 sw=4 et
 
-" folds
-se fdm=marker
-
 " ^A
 se nf+=alpha
 
@@ -258,14 +255,17 @@ Plug 'dstein64/vim-startuptime'
 " }}} "
 
 " other {{{ "
-" Plug 'chrisbra/Recover.vim'
 " Plug 'Chaitanyabsprip/present.nvim'
+" Plug 'chrisbra/Recover.vim'
+Plug 'Konfekt/FastFold'
+Plug 'ThePrimeagen/harpoon'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'Konfekt/FastFold'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-startify'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'petertriho/nvim-scrollbar'
 Plug 'schoettl/listtrans.vim'
 Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8', 'for': 'python' }
@@ -273,8 +273,6 @@ Plug 'svermeulen/vim-easyclip'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 Plug 'vimwiki/vimwiki', { 'for': 'markdown' }
-Plug 'nvim-lua/plenary.nvim'
-Plug 'ThePrimeagen/harpoon'
 " }}} "
 
 call plug#end()
@@ -578,8 +576,8 @@ set bg=dark
 let g:gruvbox_contrast_dark = 'medium'
 let g:gruvbox_number_column = 'bg0'
 " let g:gruvbox_transparent_bg = '0'
-let g:gruvbox_italic = 1
-se termguicolors
+" let g:gruvbox_italic = 1
+" se termguicolors
 colo gruvbox
 " }}} "
 " }}} "
