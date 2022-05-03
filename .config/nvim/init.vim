@@ -588,11 +588,27 @@ colo gruvbox
 " lua {{{ "
 lua require('config')
 
-" lsp {{{ "
-nnoremap <leader>h :lua vim.lsp.buf.hover()<cr>
-nnoremap <leader>d :lua vim.lsp.buf.definition()<cr>
-nnoremap <leader>e :lua vim.lsp.buf.references()<cr>
-" }}} "
+" " lsp {{{ "
+" fun! LspKeys()
+"     nnoremap <buffer> <silent> <M-h> <cmd>lua vim.lsp.buf.signature_help()<CR>
+"     nnoremap <buffer> <silent> <leader>D <cmd>lua vim.lsp.buf.type_definition()<CR>
+"     nnoremap <buffer> <silent> <leader>ldf <cmd>lua vim.diagnostic.open_float()<CR>
+"     nnoremap <buffer> <silent> <leader>ldd <cmd>call v:lua.toggle_diagnostics()<CR>
+"     nnoremap <buffer> <silent> <leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
+"     if &ft != 'tex'
+"         nnoremap <buffer> <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+"     else
+"         nnoremap <buffer> <silent> <leader>lh <cmd>lua vim.lsp.buf.hover()<CR>
+"     endif
+"     nnoremap <buffer> <silent> <leader>lre <cmd>lua vim.lsp.buf.rename()<CR>
+"     nnoremap <buffer> <silent> <leader>lrr <cmd>lua vim.lsp.buf.references()<CR>
+"     nnoremap <buffer> <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+"     nnoremap <buffer> <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+"     nnoremap <buffer> <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+" endf
+
+" " au Filetype tex,python,cpp,bash,html,css,javascript call LspKeys()
+" " }}} "
 
 " harpoon {{{ "
 nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
