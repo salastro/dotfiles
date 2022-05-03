@@ -312,8 +312,17 @@ let g:vimtex_compiler_latexmk_engines = {
 let g:vimtex_quickfix_open_on_warning = 0
 let maplocalleader = " "
 let g:vimtex_fold_enabled = 1
-let g:surround_108 = "\\begin{\1environment: \1}\r\\end{\1\1}"
 " }}} "
+
+let g:surround_{char2nr('l')} = "\\begin{\1environment: \1}\r\\end{\1\r}.*\r\1}"
+let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
+" function! OpenZathura()
+"     let position = line('.') . ":" . col('.') . ":" . expand('%:p') . " "
+"     call jobstart("zathura -x 'nvr --remote +%{line} %{input}' --synctex-forward " . position . " " . substitute(expand('%:p'),"tex$","pdf", ""))
+" endfunction
+" nnoremap <leader>lv :call OpenZathura()<cr>
+
+" nnoremap <leader>lv :execute "silent !zathura --synctex-forward ".line(".").":".col(".").":%:p %:p:r.pdf"<cr>
 
 " indentLine {{{ "
 au FileType tex,markdown,vimwiki IndentLinesDisable
