@@ -575,7 +575,7 @@ vnoremap <leader>c :CarbonNowSh<cr>
 " }}}
 
 " hexokinase {{{
-let g:Hexokinase_highlighters = ['foreground']
+let g:Hexokinase_highlighters = ['virtual']
 " }}}
 
 " colorscheme {{{ "
@@ -583,8 +583,8 @@ set bg=dark
 let g:gruvbox_contrast_dark = 'medium'
 let g:gruvbox_number_column = 'bg0'
 " let g:gruvbox_transparent_bg = '0'
-" let g:gruvbox_italic = 1
-" se termguicolors
+let g:gruvbox_italic = 1
+se termguicolors
 colo gruvbox
 " }}} "
 " }}} "
