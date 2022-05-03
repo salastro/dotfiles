@@ -526,9 +526,9 @@ au FileType tex let b:AutoPairs = AutoPairsDefine({'$':'$'})
 " }}} "
 
 " pickachu {{{ "
-inoremap <M-c> :Pickachu color<cr>
-inoremap <M-f> :Pickachu file<cr>
-inoremap <M-d> :Pickachu date<cr>
+inoremap <M-c> <cmd>Pickachu color<cr>
+inoremap <M-f> <cmd>Pickachu file<cr>
+inoremap <M-d> <cmd>Pickachu date<cr>
 nnoremap <M-c> :Pickachu color<cr>
 nnoremap <M-f> :Pickachu file<cr>
 nnoremap <M-d> :Pickachu date<cr>
