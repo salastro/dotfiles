@@ -9,3 +9,10 @@
 [commit]
 	gpgsign = true
 	verbose = true
+[alias]
+	co = commit
+	p = push
+	pf = push --force
+	s = status
+	cl = clone
+	a = add
