@@ -287,10 +287,14 @@ call plug#end()
 
 " config {{{ "
 
+" undotree {{{ "
 nnoremap <leader>u :UndotreeToggle<cr>
+" }}} undotree "
 
+" md {{{ "
 let g:markdown_fenced_languages = ['bash=sh', 'apl']
 " set concealcursor=i
+" }}} md "
 
 " VimTex {{{ "
 let g:vimtex_view_method = 'zathura'
@@ -319,6 +323,7 @@ let maplocalleader = " "
 let g:vimtex_fold_enabled = 1
 " }}} "
 
+" LaTeX {{{ "
 let g:surround_{char2nr('l')} = "\\begin{\1environment: \1}\r\\end{\1\r}.*\r\1}"
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 " function! OpenZathura()
@@ -328,6 +333,7 @@ let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 " nnoremap <leader>lv :call OpenZathura()<cr>
 
 " nnoremap <leader>lv :execute "silent !zathura --synctex-forward ".line(".").":".col(".").":%:p %:p:r.pdf"<cr>
+" }}} LaTeX "
 
 " indentLine {{{ "
 au FileType tex,markdown,vimwiki IndentLinesDisable
