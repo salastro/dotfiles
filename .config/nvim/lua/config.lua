@@ -64,6 +64,7 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 --capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Toggle diagnostics.
+vim.g.diagnostics_visible = true
 function _G.toggle_diagnostics()
     if vim.g.diagnostics_visible then
         vim.g.diagnostics_visible = false
@@ -111,29 +112,11 @@ end
 
 -- Setup treesitter.
 require'nvim-treesitter.configs'.setup {
-    -- A list of parser names, or "all"
     ensure_installed = { "javascript", "cpp", "python", "latex", "bibtex", "html", "css", "c", "rust", "bash", "lua", "make", },
-
-    -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
-
-    -- List of parsers to ignore installing (for "all")
-    -- ignore_install = { "javascript" },
-
     highlight = {
-        -- `false` will disable the whole extension
         enable = true,
-
-        -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-        -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-        -- the name of the parser)
-        -- list of language that will be disabled
         -- disable = { "vim", },
-
-        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-        -- Using this option may slow down your editor, and you may see some duplicate highlights.
-        -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = false,
     },
     incremental_selection = {
@@ -150,7 +133,39 @@ require'nvim-treesitter.configs'.setup {
     },
     playground = {
         enable = true,
-    }
+    },
+    textobjects = {
+        select = {
+            enable = true,
+            -- Automatically jump forward to textobj, similar to targets.vim
+            lookahead = true,
+            keymaps = {
+                -- You can use the capture groups defined in textobjects.scm
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                ["acl"] = "@class.outer",
+                ["icl"] = "@class.inner",
+                ["acm"] = "@comment.outer",
+                ["icm"] = "@comment.outer",
+            },
+        },
+        swap = {
+            enable = true,
+            -- swap_next = {
+            --     ["<leader>"] = "@parameter.inner",
+            -- },
+            -- swap_previous = {
+            --     ["<leader>"] = "@parameter.inner",
+            -- },
+        },
+    },
+    matchup = {
+        enable = false,              -- mandatory, false will disable the whole extension
+        -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
+        -- [options]
+        -- disable_virtual_text = true,
+        -- include_match_words = true,
+    },
 }
 
 -- use bash treesitter for zsh
@@ -162,6 +177,118 @@ require'nvim-treesitter.parsers'.ft_to_lang = function(ft)
     return ft_to_lang(ft)
 end
 
+-- Setup status line.
+require('lualine').setup {
+    options = {
+        icons_enabled = false,
+        theme = 'gruvbox',
+        component_separators = { left = '', right = ''},
+        section_separators = { left = '', right = ''},
+        disabled_filetypes = {},
+        always_divide_middle = true,
+        globalstatus = false,
+    },
+    sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'branch', 'diff', 'diagnostics'},
+        lualine_c = {'filename'},
+        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
+    },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {'filename'},
+        lualine_x = {'location'},
+        lualine_y = {},
+        lualine_z = {}
+    },
+    tabline = {},
+    extensions = {}
+}
+
+require("scrollbar").setup({
+    show = true,
+    set_highlights = true,
+    folds = 1000, -- handle folds, set to number to disable folds if no. of lines in buffer exceeds this
+    max_lines = false, -- disables if no. of lines in buffer exceeds this
+    handle = {
+        text = " ",
+        color = nil,
+        cterm = nil,
+        highlight = "CursorColumn",
+        hide_if_all_visible = true, -- Hides handle if all lines are visible
+    },
+    marks = {
+        Search = {
+            text = { "—", "=" },
+            priority = 0,
+            color = "#d65d0e",
+            cterm = nil,
+            highlight = "Search",
+        },
+        Error = {
+            text = { "—", "=" },
+            priority = 1,
+            color = nil,
+            cterm = nil,
+            highlight = "DiagnosticVirtualTextError",
+        },
+        Warn = {
+            text = { "—", "=" },
+            priority = 2,
+            color = nil,
+            cterm = nil,
+            highlight = "DiagnosticVirtualTextWarn",
+        },
+        Info = {
+            text = { "—", "=" },
+            priority = 3,
+            color = nil,
+            cterm = nil,
+            highlight = "DiagnosticVirtualTextInfo",
+        },
+        Hint = {
+            text = { "—", "=" },
+            priority = 4,
+            color = nil,
+            cterm = nil,
+            highlight = "DiagnosticVirtualTextHint",
+        },
+        Misc = {
+            text = { "—", "=" },
+            priority = 5,
+            color = nil,
+            cterm = nil,
+            highlight = "Normal",
+        },
+    },
+    excluded_buftypes = {
+        "terminal",
+    },
+    excluded_filetypes = {
+        "prompt",
+        "TelescopePrompt",
+    },
+    autocmd = {
+        render = {
+            "BufWinEnter",
+            "TabEnter",
+            "TermEnter",
+            "WinEnter",
+            "CmdwinLeave",
+            "TextChanged",
+            "VimResized",
+            "WinScrolled",
+        },
+    },
+    handlers = {
+        diagnostic = true,
+        search = true, -- Requires hlslens to be loaded, will run require("scrollbar.handlers.search").setup() for you
+    },
+})
+
 -- other
-require("which-key").setup()
-require("scrollbar").setup()
+require('which-key').setup()
+require('hop').setup()

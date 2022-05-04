@@ -39,8 +39,9 @@ se ic
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
-" tabs
+" tabs and indentation
 se ts=4 sw=4 et
+" se ai ci
 
 " ^A
 se nf+=alpha
@@ -140,6 +141,14 @@ nnoremap g<c-d> :!scc %:p:h<cr>
 "     execute 'nnoremap gm' . position . ' :call MoveEm(' . position . ')<cr>'
 " endfor
 
+function! s:repeatable(cmd)
+  function! s:inner(...) closure abort
+    execute a:cmd
+  endfunction
+  let &opfunc=get(funcref('s:inner'), 'name')
+  return 'g@l'
+endfunction
+
 " }}} "
 
 " auto {{{ "
@@ -186,17 +195,16 @@ Plug 'lewis6991/impatient.nvim'
 " motions/text objects {{{ "
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-titlecase' 
-Plug 'easymotion/vim-easymotion'
-" Plug 'kana/vim-textobj-entire'
+Plug 'phaazon/hop.nvim'
+Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-fold'
-Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-user'
 Plug 'matze/vim-move'
-" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/ReplaceWithRegister'
+" Plug 'vim-scripts/ReplaceWithRegister'
 " }}} "
 
 " completions {{{ "
@@ -222,8 +230,10 @@ Plug 'rhysd/vim-grammarous', { 'on': 'GrammarousCheck' }
 " }}} "
 
 " themes {{{ "
-Plug 'itchyny/lightline.vim'
-Plug 'morhetz/gruvbox'
+" Plug 'itchyny/lightline.vim'
+Plug 'nvim-lualine/lualine.nvim'
+" Plug 'gruvbox-community/gruvbox'
+Plug 'ellisonleao/gruvbox.nvim'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " }}} "
 
@@ -237,7 +247,7 @@ Plug 'andymass/vim-matchup'
 Plug 'baskerville/vim-sxhkdrc'
 Plug 'kevinhwang91/nvim-hlslens'
 Plug 'kmonad/kmonad-vim'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-markdown'
 " }}} "
 
@@ -246,18 +256,18 @@ Plug 'tpope/vim-markdown'
 " Plug 'alok/notational-fzf-vim'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " Plug 'karoliskoncevicius/vim-sendtowindow'
+" Plug 'lervag/vimtex', { 'for': ['tex', 'bib'] }
 Plug 'KabbAmine/lazyList.vim', { 'on': 'LazyList' }
 Plug 'christoomey/vim-tmux-runner',  { 'on': 'VtrAttachToPane' }
+Plug 'dstein64/vim-startuptime'
 Plug 'gioele/vim-autoswap'
 Plug 'github/copilot.vim'
 Plug 'junegunn/fzf.vim', { 'on': ['Files', 'GFiles', 'Buffers', 'Colors', 'Ag', 'Rg', 'Lines', 'BLines', 'Tags', 'BTags', 'Marks', 'Windows', 'Locate', 'History', 'Snippets', 'Commits', 'BCommits', 'Commands', 'Maps', 'Helptags', 'Filetypes'] }
 Plug 'kristijanhusak/vim-carbon-now-sh', { 'on': 'CarbonNowSh' }
-" Plug 'lervag/vimtex', { 'for': ['tex', 'bib'] }
 Plug 'lervag/vimtex'
 Plug 'mcchrish/nnn.vim', { 'on': ['NnnPicker', 'NnnExplorer'] }
 Plug 'tpope/vim-fugitive'
 Plug 'wakatime/vim-wakatime'
-Plug 'dstein64/vim-startuptime'
 " }}} "
 
 " other {{{ "
@@ -272,6 +282,7 @@ Plug 'mhinz/vim-startify'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/playground'
 Plug 'petertriho/nvim-scrollbar'
 Plug 'schoettl/listtrans.vim'
@@ -286,6 +297,14 @@ call plug#end()
 " }}} "
 
 " config {{{ "
+
+" entire {{{ "
+let g:textobj_entire_no_default_key_mappings = 1
+onoremap aE	<plug>(textobj-entire-a)
+onoremap iE	<plug>(textobj-entire-i)
+vnoremap aE	<plug>(textobj-entire-a)
+vnoremap iE	<plug>(textobj-entire-i)
+" }}} entire "
 
 " undotree {{{ "
 nnoremap <leader>u :UndotreeToggle<cr>
@@ -362,8 +381,10 @@ vnoremap <leader>it :LazyList '- [ ] '<cr>
 " }}} "
 
 " vim-easyclip {{{ "
+nnoremap gm m
 let g:EasyClipAutoFormat = 1
 let g:EasyClipUsePasteToggleDefaults = 0
+nnoremap gr <Plug>SubstituteOverMotionMap
 " }}} "
 
 " ultrasnips {{{ "
@@ -373,17 +394,18 @@ let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsEditSplit="vertical"
 " }}} "
 
-" easymotion {{{ "
-let g:EasyMotion_do_mapping = 0
-map <leader>fi zR<Plug>(easymotion-s)
-nmap <leader>fi zR<Plug>(easymotion-overwin-f)
-map <leader>fw zR<Plug>(easymotion-bd-w)
+" hop {{{ "
+noremap <leader>fi <cmd>HopChar1<cr>
+" nnoremap <leader>fi (easymotion-overwin-f)
+" noremap <leader>fw zR<Plug>(easymotion-bd-w)
 " }}} "
 
 " visual-multi {{{ "
 let g:VM_maps = {}
 let g:VM_maps["Add Cursor Down"]             = '<C-j>'
 let g:VM_maps["Add Cursor Up"]               = '<C-k>'
+let g:VM_maps["Undo"] = 'u'
+let g:VM_maps["Redo"] = '<C-r>'
 " }}} "
 
 " vimwiki {{{ "
@@ -586,8 +608,8 @@ let g:Hexokinase_highlighters = ['virtual']
 
 " colorscheme {{{ "
 set bg=dark
-let g:gruvbox_contrast_dark = 'medium'
-let g:gruvbox_number_column = 'bg0'
+" let g:gruvbox_contrast_dark = 'medium'
+" let g:gruvbox_number_column = 'bg0'
 " let g:gruvbox_transparent_bg = '0'
 let g:gruvbox_italic = 1
 se termguicolors
@@ -620,6 +642,16 @@ lua require('config')
 
 " " au Filetype tex,python,cpp,bash,html,css,javascript call LspKeys()
 " " }}} "
+
+nnoremap <silent><expr> gH
+      \ <sid>repeatable('TSTextobjectSwapPrevious @parameter.inner')
+nnoremap <silent><expr> gL
+      \ <sid>repeatable('TSTextobjectSwapNext @parameter.inner')
+
+" let @h = ';TSTextobjectSwapPrevious @parameter.inner'
+" let @l = ';TSTextobjectSwapNext @parameter.inner'
+" nnoremap gL @l<cr>
+" nnoremap gH @h<cr>
 
 " harpoon {{{ "
 nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
