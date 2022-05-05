@@ -37,7 +37,13 @@ cmp.setup({
         { name = 'omni' },
         { name = 'ultisnips' },
         { name = 'buffer' },
-    })
+    }),
+    sorting = ({
+        comparators = {
+            function(...) return require('cmp_buffer'):compare_locality(...) end,
+            -- The rest of your comparators...
+        }
+    }),
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -208,6 +214,7 @@ require('lualine').setup {
     extensions = {}
 }
 
+-- Setup scrollbar.
 require("scrollbar").setup({
     show = true,
     set_highlights = true,
