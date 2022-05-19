@@ -74,8 +74,8 @@ noremap : ;
 set clipboard=unnamed,unnamedplus
 
 " tabs
-nnoremap <C-H> gT
-nnoremap <C-L> gt
+nnoremap <C-Tab> gT
+nnoremap <M-C-S-Tab> gt
 " nnoremap <s-tab> gT
 " nnoremap <tab> gt
 nnoremap <M-T> :tabnew<cr>
@@ -126,6 +126,8 @@ inoremap  <esc>:w<cr>
 nnoremap g<c-f> :!scc %<cr>
 nnoremap g<c-d> :!scc %:p:h<cr>
 
+nnoremap U <c-r>
+
 " }}} "
 
 " functions {{{ "
@@ -161,7 +163,7 @@ au FileType text,tex,markdown,vimwiki,gitcommit setl spell
 "" other
 au BufWritePost sxhkdrc !pkill -USR1 sxhkd
 au BufWritePost *.kbd !pkill kmonad; setsid kmonad %:p &
-au BufEnter *.py :RTFormatEnable
+" au BufEnter *.py :RTFormatEnable
 " }}} "
 
 " comands {{{ "
@@ -201,10 +203,8 @@ Plug 'kana/vim-textobj-fold'
 Plug 'kana/vim-textobj-user'
 Plug 'matze/vim-move'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-" Plug 'vim-scripts/ReplaceWithRegister'
 " }}} "
 
 " completions {{{ "
@@ -221,51 +221,44 @@ Plug 'hrsh7th/cmp-omni'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'jdhao/better-escape.vim'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
+Plug 'windwp/nvim-autopairs'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript'] }
-" Plug 'nixon/vim-vmath'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'rhysd/vim-grammarous', { 'on': 'GrammarousCheck' }
 " }}} "
 
 " themes {{{ "
-" Plug 'itchyny/lightline.vim'
 Plug 'nvim-lualine/lualine.nvim'
-" Plug 'gruvbox-community/gruvbox'
 Plug 'ellisonleao/gruvbox.nvim'
+" Plug 'romainl/vim-cool'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'mhinz/vim-startify'
+Plug 'akinsho/bufferline.nvim'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " }}} "
 
 " syntax highlighting {{{ "
-" Plug 'cespare/vim-toml'
-" Plug 'jbgutierrez/vim-better-comments'
-" Plug 'kshenoy/vim-signature'
-Plug 'PyGamer0/vim-apl'
-Plug 'Yggdroot/indentLine'
+Plug 'PyGamer0/vim-apl', {'for': 'apl'}
 Plug 'andymass/vim-matchup'
-Plug 'baskerville/vim-sxhkdrc'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'baskerville/vim-sxhkdrc', {'for': 'sxhkdrc'}
 Plug 'kevinhwang91/nvim-hlslens'
-Plug 'kmonad/kmonad-vim'
-" Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-markdown'
+Plug 'kmonad/kmonad-vim', {'for': 'kmonad'}
+Plug 'tpope/vim-markdown', {'for': ['markdown', 'vimwiki']}
 " }}} "
 
 " external programs {{{ "
-" Plug 'ActivityWatch/aw-watcher-vim'
-" Plug 'alok/notational-fzf-vim'
-" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-" Plug 'karoliskoncevicius/vim-sendtowindow'
-" Plug 'lervag/vimtex', { 'for': ['tex', 'bib'] }
 Plug 'KabbAmine/lazyList.vim', { 'on': 'LazyList' }
-Plug 'christoomey/vim-tmux-runner',  { 'on': 'VtrAttachToPane' }
+Plug 'christoomey/vim-tmux-runner',  { 'on': ['VtrAttachToPane', 'VtrOpenRunner'] }
 Plug 'dstein64/vim-startuptime'
 Plug 'gioele/vim-autoswap'
 Plug 'github/copilot.vim'
 Plug 'junegunn/fzf.vim', { 'on': ['Files', 'GFiles', 'Buffers', 'Colors', 'Ag', 'Rg', 'Lines', 'BLines', 'Tags', 'BTags', 'Marks', 'Windows', 'Locate', 'History', 'Snippets', 'Commits', 'BCommits', 'Commands', 'Maps', 'Helptags', 'Filetypes'] }
 Plug 'kristijanhusak/vim-carbon-now-sh', { 'on': 'CarbonNowSh' }
 Plug 'lervag/vimtex'
-Plug 'mcchrish/nnn.vim', { 'on': ['NnnPicker', 'NnnExplorer'] }
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-fugitive'
 Plug 'wakatime/vim-wakatime'
 " }}} "
@@ -278,7 +271,6 @@ Plug 'ThePrimeagen/harpoon'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'mbbill/undotree'
-Plug 'mhinz/vim-startify'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -311,7 +303,7 @@ nnoremap <leader>u :UndotreeToggle<cr>
 " }}} undotree "
 
 " md {{{ "
-let g:markdown_fenced_languages = ['bash=sh', 'apl']
+let g:markdown_fenced_languages = ['bash=sh', 'apl', 'python']
 " set concealcursor=i
 " }}} md "
 
@@ -351,12 +343,8 @@ let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 " endfunction
 " nnoremap <leader>lv :call OpenZathura()<cr>
 
-" nnoremap <leader>lv :execute "silent !zathura --synctex-forward ".line(".").":".col(".").":%:p %:p:r.pdf"<cr>
+" nnoremap <silent> <leader>lv :execute "silent !zathura --synctex-forward ".line(".").":".col(".").":%:p %:p:r.pdf"<cr>
 " }}} LaTeX "
-
-" indentLine {{{ "
-au FileType tex,markdown,vimwiki IndentLinesDisable
-" }}} "
 
 " vim-fugitive {{{ "
 nnoremap <leader>g :G<cr>
@@ -384,7 +372,9 @@ vnoremap <leader>it :LazyList '- [ ] '<cr>
 nnoremap gm m
 let g:EasyClipAutoFormat = 1
 let g:EasyClipUsePasteToggleDefaults = 0
-nnoremap gr <Plug>SubstituteOverMotionMap
+let g:EasyClipUsePasteToggleDefaults = 0
+" let g:EasyClipUseSubstituteDefaults = 1
+nnoremap <c-r> <Plug>SubstituteOverMotionMap
 " }}} "
 
 " ultrasnips {{{ "
@@ -402,8 +392,8 @@ noremap <leader>fi <cmd>HopChar1<cr>
 
 " visual-multi {{{ "
 let g:VM_maps = {}
-let g:VM_maps["Add Cursor Down"]             = '<C-j>'
-let g:VM_maps["Add Cursor Up"]               = '<C-k>'
+let g:VM_maps["Add Cursor Down"]             = '<C-S-K>'
+let g:VM_maps["Add Cursor Up"]               = '<S-NL>'
 let g:VM_maps["Undo"] = 'u'
 let g:VM_maps["Redo"] = '<C-r>'
 " }}} "
@@ -479,40 +469,21 @@ let g:vimshell_force_overwrite_statusline = 0
 " se noshowmode
 " }}} "
 
-" nnn {{{ "
-nnoremap <leader>nn :NnnPicker %:p:h<cr>
-nnoremap <leader>ne :NnnExplorer %:p:h<cr>
-let g:nnn#layout = 'vnew'
-let g:nnn#layout = { 'left': '~25%' }
-let g:nnn#set_default_mappings = 1
-let g:nnn#command = 'nnn -o -r -C -e'
-let $NNN_COLORS="263"
-let $NNN_PLUG='d:dragdrop;P:preview-tui;D:diffs;p:fzplug;w:wallpaper;c:fzcd;i:imgview;F:fixname;x:togglex;f:fzopen'
-let $NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;S:~/.scripts;a:~/.local/bin;s:/mnt/DiskE/Important/STEM;c:~/.config/;M:/media/;w:~/Documents/VimWiki/'
-let $NNN_FIFO="/tmp/nnn.fifo"
-let $NNN_TRASH=1
-let g:nnn#replace_netrw = 1
-" autocmd! FileType nnn tnoremap <buffer> l <cr>
-" }}} "
-
 " vim-startify {{{ "
 let g:startify_bookmarks = [
-        \ {'c': '~/.config/nvim/init.vim'},
-        \ {'d': '~/.srcpkgs/dwm/config.def.h'},
-        \ {'s':'~/.config/sxhkd/sxhkdrc'},
-        \ {'u': '~/.config/qutebrowser/config.py'},
-        \ {'a':'~/.config/aliasrc'},
-        \ {'K':'~/.config/KMonad.kbd'},
-        \ {'zs':'~/.zshrc'},
-        \ {'w':'~/Documents/VimWiki/Notes/index.md'},
-        \ ]
+            \ {'c': '~/.config/nvim/init.vim'},
+            \ {'d': '~/.srcpkgs/dwm/config.def.h'},
+            \ {'s':'~/.config/sxhkd/sxhkdrc'},
+            \ {'u': '~/.config/qutebrowser/config.py'},
+            \ {'a':'~/.config/aliasrc'},
+            \ {'K':'~/.config/KMonad.kbd'},
+            \ {'zs':'~/.zshrc'},
+            \ {'w':'~/Documents/VimWiki/Notes/index.md'},
+            \ ]
 let g:startify_lists = [
-        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-        \ { 'type': 'files',     'header': ['   MRU']            },
-        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-        \ { 'type': 'sessions',  'header': ['   Sessions']       },
-        \ { 'type': 'commands',  'header': ['   Commands']       },
-        \ ]
+            \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+            \ { 'type': 'files',     'header': ['   MRU']            },
+            \ ]
 nnoremap <leader>s :Startify<cr>
 " }}} "
 
@@ -524,7 +495,7 @@ let g:rtf_on_insert_leave = 1
 " fzf {{{ "
 nnoremap <leader>ff :FZF<cr>
 " nnoremap <leader>fg :NV<cr>
-nnoremap <leader>b :Goyo!<cr>:Buffers<cr>
+nnoremap <leader>bf :Goyo!<cr>:Buffers<cr>
 nnoremap <leader>t :Goyo!<cr>:Tags<cr>
 nnoremap <leader>m :Goyo!<cr>:Maps<cr>
 nnoremap <leader>wf :Goyo!<cr>:Windows<cr>
@@ -543,20 +514,15 @@ vmap tl <Plug>ListtransToggleVisual
 " vnoremap <M-k> :m '>-2<cr>gv=gv
 " }}} "
 
-" vmath {{{ " 
-vnoremap <expr>  ++  VMATH_YankAndAnalyse()
-nnoremap         ++  vip++
-" }}} "
-
-" auto-pairs {{{ "
-let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", }
-let g:AutoPairsShortcutJump = '<M-n>'
-let g:AutoPairsShortcutToggle = '<M-p>'
-au FileType markdown,vimwiki let b:AutoPairs = AutoPairsDefine({'*':'*', '**' : '**', '***': '***', '_':'_'})
-au FileType apl let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"',}
-au FileType vim let b:AutoPairs = AutoPairsDefine({'<':'>',})
-au FileType tex let b:AutoPairs = AutoPairsDefine({'$':'$'})
-" }}} "
+" " auto-pairs {{{ "
+" let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", }
+" let g:AutoPairsShortcutJump = '<M-n>'
+" let g:AutoPairsShortcutToggle = '<M-p>'
+" au FileType markdown,vimwiki let b:AutoPairs = AutoPairsDefine({'*':'*', '**' : '**', '***': '***', '_':'_'})
+" au FileType apl let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"',}
+" au FileType vim let b:AutoPairs = AutoPairsDefine({'<':'>',})
+" au FileType tex let b:AutoPairs = AutoPairsDefine({'$':'$'})
+" " }}} "
 
 " pickachu {{{ "
 inoremap <M-c> <cmd>Pickachu color<cr>
