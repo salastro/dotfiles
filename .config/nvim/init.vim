@@ -6,6 +6,12 @@
 " |_| \_|\___|\___/ \_/  |_|_| |_| |_|
 "
 
+let g:python3_host_prog = '/bin/python3'
+
+let g:loaded_sql_completion = 0
+
+colo desert
+inoremap jk <esc>
 " variables {{{ "
 " lines numbering
 se nu rnu
@@ -84,10 +90,10 @@ nnoremap <M-T> :tabnew<cr>
 " nnoremap <M-i> <tab>
 
 " windows
-nnoremap <M-J> j
-nnoremap <M-K> k
-nnoremap <M-L> l
-nnoremap <M-H> h
+nnoremap <C-j> j
+nnoremap <C-k> k
+nnoremap <C-l> l
+nnoremap <C-h> h
 
 " spell keys
 nnoremap  1z=
@@ -126,7 +132,7 @@ inoremap  <esc>:w<cr>
 nnoremap g<c-f> :!scc %<cr>
 nnoremap g<c-d> :!scc %:p:h<cr>
 
-nnoremap U <c-r>
+" nnoremap U <c-r>
 
 " }}} "
 
@@ -157,13 +163,15 @@ endfunction
 au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 "" Suckless programs
 au BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
-au BufWritePost *config.def.h !doas rm 'config.h' && doas make clean install
+au BufWritePost *config.h !doas make clean install
 "" spell
 au FileType text,tex,markdown,vimwiki,gitcommit setl spell
 "" other
 au BufWritePost sxhkdrc !pkill -USR1 sxhkd
 au BufWritePost *.kbd !pkill kmonad; setsid kmonad %:p &
 " au BufEnter *.py :RTFormatEnable
+au BufRead,BufNewFile *.bqn setf bqn
+au BufRead,BufNewFile * if getline(1) =~ '^#!.*bqn$' | setf bqn | endif
 " }}} "
 
 " comands {{{ "
@@ -209,6 +217,7 @@ Plug 'tpope/vim-surround'
 
 " completions {{{ "
 Plug 'DougBeney/pickachu', { 'on': 'Pickachu' }
+Plug 'vim-scripts/dbext.vim'
 Plug 'SirVer/ultisnips'
 Plug 'f3fora/cmp-spell'
 Plug 'folke/which-key.nvim'
@@ -235,24 +244,26 @@ Plug 'ellisonleao/gruvbox.nvim'
 " Plug 'romainl/vim-cool'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'mhinz/vim-startify'
-Plug 'akinsho/bufferline.nvim'
+" Plug 'akinsho/bufferline.nvim'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " }}} "
 
 " syntax highlighting {{{ "
 Plug 'PyGamer0/vim-apl', {'for': 'apl'}
+Plug 'alaviss/nim.nvim'
 Plug 'andymass/vim-matchup'
-Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'baskerville/vim-sxhkdrc', {'for': 'sxhkdrc'}
 Plug 'kevinhwang91/nvim-hlslens'
 Plug 'kmonad/kmonad-vim', {'for': 'kmonad'}
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'mlochbaum/BQN', {'rtp': 'editors/vim'}
 Plug 'tpope/vim-markdown', {'for': ['markdown', 'vimwiki']}
 " }}} "
 
 " external programs {{{ "
 Plug 'KabbAmine/lazyList.vim', { 'on': 'LazyList' }
 Plug 'christoomey/vim-tmux-runner',  { 'on': ['VtrAttachToPane', 'VtrOpenRunner'] }
-Plug 'dstein64/vim-startuptime'
+" Plug 'dstein64/vim-startuptime'
 Plug 'gioele/vim-autoswap'
 Plug 'github/copilot.vim'
 Plug 'junegunn/fzf.vim', { 'on': ['Files', 'GFiles', 'Buffers', 'Colors', 'Ag', 'Rg', 'Lines', 'BLines', 'Tags', 'BTags', 'Marks', 'Windows', 'Locate', 'History', 'Snippets', 'Commits', 'BCommits', 'Commands', 'Maps', 'Helptags', 'Filetypes'] }
@@ -261,15 +272,18 @@ Plug 'lervag/vimtex'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-fugitive'
 Plug 'wakatime/vim-wakatime'
+Plug 'https://git.sr.ht/~detegr/nvim-bqn'
 " }}} "
 
 " other {{{ "
 " Plug 'Chaitanyabsprip/present.nvim'
 " Plug 'chrisbra/Recover.vim'
+" Plug 'svermeulen/vim-easyclip'
 Plug 'Konfekt/FastFold'
 Plug 'ThePrimeagen/harpoon'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+Plug 'junegunn/vim-easy-align'
 Plug 'mbbill/undotree'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
@@ -279,7 +293,6 @@ Plug 'nvim-treesitter/playground'
 Plug 'petertriho/nvim-scrollbar'
 Plug 'schoettl/listtrans.vim'
 Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8', 'for': 'python' }
-Plug 'svermeulen/vim-easyclip'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 Plug 'vimwiki/vimwiki', { 'for': 'markdown' }
@@ -308,7 +321,7 @@ let g:markdown_fenced_languages = ['bash=sh', 'apl', 'python']
 " }}} md "
 
 " VimTex {{{ "
-let g:vimtex_view_method = 'zathura'
+let g:vimtex_view_method = 'zathura_simple'
 " let g:vimtex_compiler_method = 'generic'
 " let g:vimtex_compiler_generic = {
 "             \ 'command' : 'compiler %',
@@ -332,6 +345,8 @@ let g:vimtex_compiler_latexmk_engines = {
 let g:vimtex_quickfix_open_on_warning = 0
 let maplocalleader = " "
 let g:vimtex_fold_enabled = 1
+" let g:vimtex_syntax_enabled = 0
+" let g:vimtex_syntax_conceal_disable = 1
 " }}} "
 
 " LaTeX {{{ "
@@ -368,14 +383,14 @@ nnoremap <leader>it :LazyList '- [ ] '<cr>
 vnoremap <leader>it :LazyList '- [ ] '<cr>
 " }}} "
 
-" vim-easyclip {{{ "
-nnoremap gm m
-let g:EasyClipAutoFormat = 1
-let g:EasyClipUsePasteToggleDefaults = 0
-let g:EasyClipUsePasteToggleDefaults = 0
-" let g:EasyClipUseSubstituteDefaults = 1
-nnoremap <c-r> <Plug>SubstituteOverMotionMap
-" }}} "
+" " vim-easyclip {{{ "
+" nnoremap gm m
+" let g:EasyClipAutoFormat = 1
+" let g:EasyClipUsePasteToggleDefaults = 0
+" let g:EasyClipUsePasteToggleDefaults = 0
+" " let g:EasyClipUseSubstituteDefaults = 1
+" nnoremap <c-r> <Plug>SubstituteOverMotionMap
+" " }}} "
 
 " ultrasnips {{{ "
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -385,7 +400,7 @@ let g:UltiSnipsEditSplit="vertical"
 " }}} "
 
 " hop {{{ "
-noremap <leader>fi <cmd>HopChar1<cr>
+noremap <leader>j <cmd>HopChar1<cr>
 " nnoremap <leader>fi (easymotion-overwin-f)
 " noremap <leader>fw zR<Plug>(easymotion-bd-w)
 " }}} "
@@ -400,7 +415,7 @@ let g:VM_maps["Redo"] = '<C-r>'
 
 " vimwiki {{{ "
 let g:vimwiki_list = [
-			\ {'path': '~/Documents/VimWiki/Notes/', 'syntax': 'markdown', 'ext': '.md'},
+			\ {'path': '~/Documents/VimWiki/', 'syntax': 'markdown', 'ext': '.md'},
             \ ]
 nmap <leader>wg <Plug>VimwikiGenerateLinks
 " }}} "
@@ -478,7 +493,7 @@ let g:startify_bookmarks = [
             \ {'a':'~/.config/aliasrc'},
             \ {'K':'~/.config/KMonad.kbd'},
             \ {'zs':'~/.zshrc'},
-            \ {'w':'~/Documents/VimWiki/Notes/index.md'},
+            \ {'w':'~/Documents/VimWiki/index.md'},
             \ ]
 let g:startify_lists = [
             \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
@@ -537,6 +552,7 @@ nnoremap <M-d> :Pickachu date<cr>
 let g:VtrStripLeadingWhitespace = 0
 let g:VtrClearEmptyLines = 0
 let g:VtrAppendNewline = 1
+let g:VtrAutomaticReattachByName = 1
 nnoremap <leader>a :VtrAttachToPane<cr>
 nnoremap <leader>oo :VtrOpenRunner<cr>
 nnoremap <leader>or :VtrOpenRunner<cr>:VtrSendFile<cr>
@@ -545,13 +561,19 @@ nnoremap <leader>k :VtrKillRunner<cr>
 nnoremap <leader>r :VtrSendFile<cr>
 nnoremap <leader>R :VtrSendLinesToRunner<cr>
 vnoremap <leader>r :VtrSendLinesToRunner<cr>
-let g:vtr_filetype_runner_overrides = { 'apl': 'apl --OFF -q -f {file}', }
+let g:vtr_filetype_runner_overrides = {
+            \ 'apl': 'apl --OFF -q -f {file}',
+            \ 'python': 'python3 {file}',
+            \ 'sql': 'mysql {file}',
+            \ 'mysql': 'mysql {file}',
+            \ }
 
 fun! AplSetup()
 	nunmap <leader>r
 	nunmap <leader>R
 	nnoremap <leader>r :VtrSendLinesToRunner<cr>
 	nnoremap <leader>R :VtrSendFile<cr>
+    let g:VtrPercentage = 80
 endf
 au FileType apl call AplSetup()
 " }}} "
@@ -571,6 +593,11 @@ vnoremap <leader>c :CarbonNowSh<cr>
 " hexokinase {{{
 let g:Hexokinase_highlighters = ['virtual']
 " }}}
+
+" Easy Align {{{ "
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+" }}} Easy Align "
 
 " colorscheme {{{ "
 set bg=dark

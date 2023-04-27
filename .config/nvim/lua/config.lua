@@ -55,7 +55,7 @@ cmp.setup.cmdline(':', {
 })
 
 -- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 ------Enable (broadcasting) snippet capability for completion
 --local capabilities = vim.lsp.protocol.make_client_capabilities()
 --capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -84,7 +84,7 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D',   '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ldf', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ldd', '<cmd>call v:lua.toggle_diagnostics()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lf',  '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lf',  '<cmd>lua vim.lsp.buf.format({ async = true })<CR>', opts)
     if vim.bo.filetype == "tex" then
         -- Do not remap K if it is a latex file because of VimTex plugin
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lh',  '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
@@ -99,7 +99,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
-local servers = { 'pylsp', 'clangd', 'texlab', 'bashls', 'html', 'cssls', 'eslint', }
+local servers = { 'pylsp', 'clangd', 'texlab', 'bashls', 'html', 'cssls', 'eslint', 'sqlls' }
 for _, lsp in pairs(servers) do
     require('lspconfig')[lsp].setup {
         on_attach = on_attach,
@@ -107,21 +107,21 @@ for _, lsp in pairs(servers) do
     }
 end
 
--- require'lspconfig'.pylsp.setup{
---     capabilities = capabilities,
---     on_attach = on_attach,
---     settings = {
---         pylsp = {
---             configurationSources = {"pylint"},
---             plugins = {
---                 pylint = { enabled = true },
---                 flake8 = { enabled = false },
---                 pycodestyle = { enabled = false },
---                 pyflakes = { enabled = false },
---             }
---         }
---     },
--- }
+require'lspconfig'.pylsp.setup{
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+        pylsp = {
+            configurationSources = {"pylint"},
+            plugins = {
+                pylint = { enabled = true },
+                flake8 = { enabled = false },
+                pycodestyle = { enabled = false },
+                pyflakes = { enabled = false },
+            }
+        }
+    },
+}
 
 -- Setup treesitter.
 require'nvim-treesitter.configs'.setup {
@@ -129,8 +129,8 @@ require'nvim-treesitter.configs'.setup {
     sync_install = false,
     highlight = {
         enable = true,
-        -- disable = { "vim", },
-        additional_vim_regex_highlighting = false,
+        -- disable = { "latex", },
+        additional_vim_regex_highlighting = { "latex" },
         -- disable = function(bufnr)
         --     return vim.api.nvim_buf_line_count(bufnr) > 5000
         -- end,
@@ -146,6 +146,7 @@ require'nvim-treesitter.configs'.setup {
     },
     indent = {
         enable = true,
+        disable = { "python", },
     },
     playground = {
         enable = true,
@@ -318,7 +319,7 @@ require'nvim-tree'.setup {
   update_cwd = false,
   view = {
     width = 30,
-    height = 30,
+    -- height = 30,
     hide_root_folder = false,
     side = "left",
     preserve_window_proportions = false,
@@ -425,9 +426,9 @@ require('nvim-autopairs').setup{
 -- other
 require('which-key').setup()
 require('hop').setup()
-require'nvim-web-devicons'.setup()
-require("bufferline").setup{
-    options = {
-        mode = "tabs"
-    }
-}
+-- require'nvim-web-devicons'.setup()
+-- require("bufferline").setup{
+--     options = {
+--         mode = "tabs"
+--     }
+-- }
