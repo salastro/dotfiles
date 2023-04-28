@@ -1,6 +1,0 @@
-#!/bin/sh 
-
-doas sv up bluetoothd
-
-st -t "bluetoothctl 9" -e bluetoothctl &
-st -t "pulsemixer 9" -e pulsemixer

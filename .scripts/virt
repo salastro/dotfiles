@@ -1,5 +1,0 @@
-#!/bin/sh 
-
-doas sv up libvirtd virtlogd
-
-virt-manager
