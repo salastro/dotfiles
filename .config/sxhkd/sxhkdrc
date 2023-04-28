@@ -107,3 +107,6 @@ super + R
 ### webcam
 super + alt + r
 	$SHELL -ic camera
+
+super + z
+	$SHELL -ic toggle-kbd-backlight

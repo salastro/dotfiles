@@ -1,0 +1,9 @@
+#!/bin/sh
+
+FILE="/sys/class/leds/platform::kbd_backlight/brightness"
+state=$(cat $FILE)
+
+case $state in
+    1) echo 0 > $FILE ;;
+    0) echo 1 > $FILE ;;
+esac
