@@ -1,0 +1,9 @@
+#!/bin/sh
+
+case $1 in
+	"raise")  pulsemixer --change-volume +5 ;;
+	"lower")  pulsemixer --change-volume -5 ;;
+	"toggle") pulsemixer --toggle-mute ;;
+esac
+
+pkill -RTMIN+1 dwmblocks

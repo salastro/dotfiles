@@ -1,0 +1,3 @@
+st cmatrix &
+st btm &
+st nvim ~/.srcpkgs/dwm/config.def.h &
