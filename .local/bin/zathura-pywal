@@ -6,7 +6,7 @@ NEWLINE='
 '
 ZATHURA_DIR="${XDG_CONFIG_HOME:-${HOME}/.config/}/zathura/"
 ZATHURARC="${ZATHURA_DIR}/zathurarc"
-SETTINGS="${XDG_DATA_HOME:-${HOME}/.local/share}/zathura-pywal/settings"
+SETTINGS="${XDG_CONFIG_HOME:-${HOME}/.config/}/zathura-pywal/settings"
 COLORS="${XDG_CACHE_HOME:-${HOME}/.cache/}/wal/colors.sh"
 
 usage() {
