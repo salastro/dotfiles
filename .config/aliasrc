@@ -69,7 +69,7 @@ alias gp='git push'
 alias gpf='gp -f'
 alias gs='git status'
 alias gd='git diff'
-alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias d='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 # src() {
 # 	cd ~/.srcpkgs && 
 # 	echo "\e[1;31mcd $(pwd)" &&
