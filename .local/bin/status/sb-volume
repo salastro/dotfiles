@@ -7,4 +7,4 @@ case $mute in
 	"1" ) mute="🔇" && vol="" ;;
 esac
 
-printf "%s%s%" "$mute" "$vol"
+echo $mute $vol

@@ -1,7 +1,0 @@
-#!/bin/sh 
-
-mem=$(free | sed -n '2{p;q}' | awk '{printf 100-(($7/$2)*100)}')
-
-# greater=$(echo "$mem > 10"|bc)
-
-printf "%.*f%%" 1 $mem
