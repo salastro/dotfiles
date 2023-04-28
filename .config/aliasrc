@@ -5,34 +5,13 @@
 # /_/   \_\_|_|\__,_|___/_| \_\\____|
 
 # xbps pkg manager
-xi(){
-	doas xbps-install $@
-	pkill -rtmin+2 dwmblocks
-}
-xr(){
-	doas xbps-remove $@
-	pkill -rtmin+2 dwmblocks
-}
+alias xi='doas xbps-install -Su'
+alias xr='doas xbps-remove -R'
 alias xq='xbps-query'
 alias xqs='xq -Rs'
-alias xqsf="xqs \* | fzf | awk  '{print $2}' | xclip -selection clipboard"
-xqsfi(){
-	xi "$(xqs \* | fzf | awk  '{print $2}')"
-}
-alias xrr='xr -R'
-xu(){
-	xi -Su $@
-	pkill -rtmin+2 dwmblocks
-}
-alias xuy='xu -y'
-alias xre='doas xbps-reconfigure'
 alias xal='doas xbps-alternatives'
-alias xpkgdb='doas xbps-pkgdb'
 alias xri='doas xbps-rindex'
 alias fp='fuzzypkg'
-
-# pmm
-alias pmmuy="sudo pmm-install -Suy"
 
 # Shortcuts
 alias e='$EDITOR -p'
@@ -41,73 +20,39 @@ alias s='sc-im'
 # trash
 alias rm='trash'
 
-# ls
-alias ls='ls --color=auto -F'
-alias ll='ls -l'
-alias llh='ll -h'
-alias la='ls -A'
-alias cl="c;ls"
-alias cla="c;la"
-
 # man pages
-export LESS_TERMCAP_mb=$'\e[1;32m'
-export LESS_TERMCAP_md=$'\e[1;32m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[01;33m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[1;4;31m'
-random() {
-    if [[ $1 == "man" ]]; then
-        man -k . 2>/dev/null | shuf | head -1 | awk '{print $1}' | sed 's/(.)//g' | sed 's/,//g' | xargs man -a
-    else
-        command random "$@"
-    fi
-}
+# export LESS_TERMCAP_mb=$'\e[1;32m'
+# export LESS_TERMCAP_md=$'\e[1;32m'
+# export LESS_TERMCAP_me=$'\e[0m'
+# export LESS_TERMCAP_se=$'\e[0m'
+# export LESS_TERMCAP_so=$'\e[01;33m'
+# export LESS_TERMCAP_ue=$'\e[0m'
+# export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # nnn
-alias nnn='bicon.bin nnn -r -C -d -e'
+alias n='nnn -r -C -d -e'
 export NNN_COLORS="263"
 export NNN_PLUG='d:dragdrop;P:preview-tui;D:diffs;p:fzplug;w:wallpaper;c:fzcd;i:imgview;F:fixname;x:togglex;f:fzopen'
-export NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;S:~/.scripts;a:~/.local/bin;s:/mnt/DiskE/Important/STEM;c:~/.config/;M:/media/;w:~/Documents/VimWiki/'
-export NNN_FIFO="/tmp/nnn.fifo"
+export NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;a:~/.local/bin;c:~/.config/;M:/media/'
 export NNN_TRASH=1
-export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-n ()
-{
-    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
-        echo "nnn is already running"
-        return
-    fi
-    nnn "$@"
-    if [ -f "$NNN_TMPFILE" ]; then
-            . "$NNN_TMPFILE"
-            rm -f "$NNN_TMPFILE" > /dev/null
-    fi
-}
-
-# devour
-alias dmpv='devour mpv'
-alias dzathura='devour zathura'
-alias dzathurat='devour zathurat'
-alias dsxiv='devour sxiv'
+# n ()
+# {
+#     if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+#         echo "nnn is already running"
+#         return
+#     fi
+#     nnn "$@"
+#     if [ -f "$NNN_TMPFILE" ]; then
+#             . "$NNN_TMPFILE"
+#             rm -f "$NNN_TMPFILE" > /dev/null
+#     fi
+# }
 
 # scrcpy
-alias adb-restart='adb kill-server;adb start-server'
+alias adb-restart='adb kill-server && adb start-server'
 
 # fzf
-alias fzfo='xdg-open "$(fzf)"'
-
-# task
-export TASKRC=$HOME/.config/taskrc
-alias t='task'
-alias tdo='task done'
-alias tde='task delete'
-alias ta='task add'
-alias tm='task modify'
-alias te='task edit'
-## vit
-export VIT_DIR="$HOME/.config/vit/"
+alias o='xdg-open "$(fzf)"'
 
 # git
 alias g='git'
@@ -115,8 +60,6 @@ alias gb="git branch"
 alias gbd='gb -D'
 alias gc="git checkout"
 alias gcb="gc -b"
-alias clg="cl;gb"
-alias clag="cla;gb"
 alias gap="git apply"
 alias gad='git add'
 alias gco='git commit'
@@ -126,23 +69,20 @@ alias gp='git push'
 alias gpf='gp -f'
 alias gs='git status'
 alias gd='git diff'
-alias .f='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-src() {
-	cd ~/.srcpkgs && 
-	echo "\e[1;31mcd $(pwd)" &&
-	echo "\e[1;31mgit clone $(xclip -o -selection clipboard)\e[0m" &&
-	git clone $(xclip -o -selection clipboard) && 
-	cd "$(basename $(xclip -o -selection clipboard) .git)" &&
-	echo "\e[1;31mcd $(pwd)"
-}
-
-# Clear
-alias c="clear"
+alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+# src() {
+# 	cd ~/.srcpkgs && 
+# 	echo "\e[1;31mcd $(pwd)" &&
+# 	echo "\e[1;31mgit clone $(xclip -o -selection clipboard)\e[0m" &&
+# 	git clone $(xclip -o -selection clipboard) && 
+# 	cd "$(basename $(xclip -o -selection clipboard) .git)" &&
+# 	echo "\e[1;31mcd $(pwd)"
+# }
 
 # system
 ## cpg/mvg
-alias cp='cpg -givr'
-alias mv='mvg -giv'
+alias cp='cp -ivr'
+alias mv='mv -iv'
 alias grep='grep --color=auto'
 alias mkdir='mkdir -vp'
 
@@ -154,5 +94,3 @@ alias nrst='doas sv restart NetworkManager'
 
 # fetch scripts
 alias nf='neofetch'
-alias of='onefetch'
-alias pf='PF_INFO="ascii title os wm uptime palette" pfetch'

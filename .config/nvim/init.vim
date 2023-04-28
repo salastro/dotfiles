@@ -10,7 +10,6 @@ let g:python3_host_prog = '/bin/python3'
 
 let g:loaded_sql_completion = 0
 
-colo desert
 inoremap jk <esc>
 " variables {{{ "
 " lines numbering
@@ -244,8 +243,9 @@ Plug 'ellisonleao/gruvbox.nvim'
 " Plug 'romainl/vim-cool'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'mhinz/vim-startify'
+Plug 'dylanaraps/wal.vim'
 " Plug 'akinsho/bufferline.nvim'
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+" Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " }}} "
 
 " syntax highlighting {{{ "
@@ -271,7 +271,7 @@ Plug 'kristijanhusak/vim-carbon-now-sh', { 'on': 'CarbonNowSh' }
 Plug 'lervag/vimtex'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-fugitive'
-Plug 'wakatime/vim-wakatime'
+" Plug 'wakatime/vim-wakatime'
 Plug 'https://git.sr.ht/~detegr/nvim-bqn'
 " }}} "
 
@@ -287,7 +287,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'mbbill/undotree'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesittez/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/playground'
 Plug 'petertriho/nvim-scrollbar'
@@ -445,8 +445,6 @@ function! s:goyo_leave()
     nnoremap  
     ScrollbarShow
     Limelight!
-    se termguicolors
-    colo gruvbox
 endfunction
 
 au! User GoyoEnter nested call <SID>goyo_enter()
@@ -600,13 +598,15 @@ nmap ga <Plug>(EasyAlign)
 " }}} Easy Align "
 
 " colorscheme {{{ "
-set bg=dark
+" set bg=dark
 " let g:gruvbox_contrast_dark = 'medium'
 " let g:gruvbox_number_column = 'bg0'
 " let g:gruvbox_transparent_bg = '0'
-let g:gruvbox_italic = 1
-se termguicolors
-colo gruvbox
+" let g:gruvbox_italic = 1
+" se termguicolors
+" colo gruvbox
+" set termguicolors
+" colo wal
 " }}} "
 " }}} "
 " }}} "

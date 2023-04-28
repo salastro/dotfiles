@@ -1,10 +1,10 @@
 numlockx &
 xss-lock slock &
-kmonad ~/.config/KMonad.kbd &
+syncthing --no-browser &
+kmonad ~/.config/kmonad.kbd &
 sxhkd &
 dwmblocks &
 clipmenud &
-snotif daemon &
-redshift &
-aw-qt 1& > /dev/tty5
+picom &
+~/.cache/wallpaper &
 exec dwm
