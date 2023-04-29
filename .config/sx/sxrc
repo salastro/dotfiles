@@ -1,10 +1,4 @@
-numlockx &
-xss-lock slock &
 syncthing --no-browser &
 kmonad ~/.config/kmonad.kbd &
-sxhkd &
-dwmblocks &
-clipmenud &
-picom &
 ~/.cache/wallpaper &
 exec dwm
