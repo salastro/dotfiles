@@ -1,5 +1,16 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export BROWSER:firefox
+SETUVAR --export EDITOR:nvim
+SETUVAR --export LESS_TERMCAP_mb:\x1b\x5b01\x3b31m
+SETUVAR --export LESS_TERMCAP_md:\x1b\x5b01\x3b31m
+SETUVAR --export LESS_TERMCAP_me:\x1b\x5b0m
+SETUVAR --export LESS_TERMCAP_se:\x1b\x5b0m
+SETUVAR --export LESS_TERMCAP_so:\x1b\x5b01\x3b44\x3b33m
+SETUVAR --export LESS_TERMCAP_ue:\x1b\x5b0m
+SETUVAR --export LESS_TERMCAP_us:\x1b\x5b01\x3b32m
+SETUVAR --export TERMINAL:st
+SETUVAR --export WAKATIME_HOME:/home/salastro/\x2ewakatime
 SETUVAR __fish_initialized:3400
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr
@@ -29,4 +40,7 @@ SETUVAR fish_pager_color_description:B3A06D\x1eyellow\x1e\x2di
 SETUVAR fish_pager_color_prefix:normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
-SETUVAR fish_user_paths:/home/salastro/\x2elocal/bin/status\x1e/home/salastro/\x2elocal/bin
+SETUVAR fish_user_paths:/home/salastro/\x2elocal/share/npm/bin\x1e/home/salastro/\x2elocal/bin/status\x1e/home/salastro/\x2elocal/bin
+SETUVAR --export npm_config_cache:/home/salastro/\x2ecache/npm
+SETUVAR --export npm_config_prefix:/home/salastro/\x2elocal/share/npm
+SETUVAR --export npm_config_userconfig:/home/salastro/\x2econfig/npm/config
