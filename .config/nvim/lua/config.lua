@@ -71,29 +71,28 @@ function _G.toggle_diagnostics()
 end
 
 -- Mappings.
-local opts = { noremap=true, silent=true }
+local opts = { noremap=true, silent=true, buffer=true }
 local on_attach = function(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<M-h>',       '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D',   '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ldf', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ldd', '<cmd>call v:lua.toggle_diagnostics()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>df', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>dd', '<cmd>call v:lua.toggle_diagnostics()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lf',  '<cmd>lua vim.lsp.buf.format({ async = true })<CR>', opts)
     if vim.bo.filetype == "tex" then
         -- Do not remap K if it is a latex file because of VimTex plugin
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lh',  '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>h',  '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     else
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K',       '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     end
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd',          '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lre', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lrr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr',          '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD',          '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi',          '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gI',          '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { buffer=true })
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { buffer=true })
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -175,7 +174,7 @@ require'nvim-treesitter.configs'.setup {
 -- Setup status line.
 require('lualine').setup {
     options = {
-        icons_enabled = false,
+        icons_enabled = true,
         component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
         disabled_filetypes = {},
@@ -208,115 +207,16 @@ require("indent_blankline").setup {
     show_current_context_start = true,
 }
 
--- require'nvim-tree'.setup {
---   auto_reload_on_write = true,
---   disable_netrw = false,
---   hijack_cursor = false,
---   hijack_netrw = true,
---   hijack_unnamed_buffer_when_opening = false,
---   open_on_tab = false,
---   sort_by = "name",
---   update_cwd = false,
---   view = {
---     width = 30,
---     -- height = 30,
---     hide_root_folder = false,
---     side = "left",
---     preserve_window_proportions = false,
---     number = false,
---     relativenumber = false,
---     signcolumn = "yes",
---     mappings = {
---       custom_only = false,
---       list = {
---         -- user mappings go here
---       },
---     },
---   },
---   renderer = {
---     indent_markers = {
---       enable = false,
---       icons = {
---         corner = "└ ",
---         edge = "│ ",
---         none = "  ",
---       },
---     },
---     icons = {
---       webdev_colors = true,
---       git_placement = "before",
---     }
---   },
---   hijack_directories = {
---     enable = true,
---     auto_open = true,
---   },
---   update_focused_file = {
---     enable = false,
---     update_cwd = false,
---     ignore_list = {},
---   },
---   system_open = {
---     cmd = "",
---     args = {},
---   },
---   diagnostics = {
---     enable = false,
---     show_on_dirs = false,
---     icons = {
---       hint = "",
---       info = "",
---       warning = "",
---       error = "",
---     },
---   },
---   filters = {
---     dotfiles = false,
---     custom = {},
---     exclude = {},
---   },
---   git = {
---     enable = true,
---     ignore = true,
---     timeout = 400,
---   },
---   actions = {
---     use_system_clipboard = true,
---     change_dir = {
---       enable = true,
---       global = false,
---       restrict_above_cwd = false,
---     },
---     open_file = {
---       quit_on_open = false,
---       resize_window = false,
---       window_picker = {
---         enable = true,
---         chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
---         exclude = {
---           filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
---           buftype = { "nofile", "terminal", "help" },
---         },
---       },
---     },
---   },
---   trash = {
---     cmd = "trash",
---     require_confirm = true,
---   },
---   log = {
---     enable = false,
---     truncate = false,
---     types = {
---       all = false,
---       config = false,
---       copy_paste = false,
---       diagnostics = false,
---       git = false,
---       profile = false,
---     },
---   },
--- }
+require("nvim-tree").setup()
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  nested = true,
+  callback = function()
+    if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
+      vim.cmd "quit"
+    end
+  end
+})
 
 require('gitsigns').setup {
     signs = {
@@ -344,6 +244,24 @@ require('gitsigns').setup {
         ignore_whitespace = false,
     },
     current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+}
+
+require'tabline'.setup {
+    -- Defaults configuration options
+    enable = true,
+    options = {
+        -- If lualine is installed tabline will use separators configured in lualine by default.
+        -- These options can be used to override those settings.
+        section_separators = {'', ''},
+        component_separators = {'', ''},
+        -- max_bufferline_percent = 66, -- set to nil by default, and it uses vim.o.columns * 2/3
+        show_tabs_always = false, -- this shows tabs only when there are more than one tab or if the first tab is named
+        show_devicons = true, -- this shows devicons in buffer section
+        show_bufnr = false, -- this appends [bufnr] to buffer section,
+        show_filename_only = false, -- shows base filename only instead of relative path in filename
+        modified_italic = true, -- set to true by default; this determines whether the filename turns italic if modified
+        show_tabs_only = true, -- this shows only tabs instead of tabs + buffers
+    }
 }
 
 -- other

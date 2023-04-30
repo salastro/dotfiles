@@ -73,7 +73,6 @@ set clipboard=unnamed,unnamedplus
 
 " tabs
 nnoremap <C-Tab> gt
-nnoremap <M-C-S-Tab> gT
 nnoremap <M-T> :tabnew<cr>
 
 " windows
@@ -87,14 +86,8 @@ nnoremap  1z=
 nnoremap <leader>ps :normal! mm[s1z=`m<cr>
 nnoremap <leader>ns :normal! mm]s1z=`m<cr>
 
-" folds
-" nnoremap <space><space> za
-
-" file type detect
-nnoremap <leader>ftd :filetype detect<cr>
-
 " update configuration
-nnoremap cu :so ~/.config/nvim/init.vim<cr>
+nnoremap <leader>cu :so ~/.config/nvim/init.vim<cr>
 
 " make file executable
 nnoremap <leader>x :!chmod +x %<cr>
@@ -114,17 +107,13 @@ inoremap  <esc>:w<cr>
 
 " }}} "
 
-" functions {{{ "
-
-" }}} "
-
 " auto {{{ "
 au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 "" Suckless programs
 au BufWritePost *blocks.def.h !doas rm 'blocks.h' && doas make clean install && { pkill dwmblocks;setsid dwmblocks & }
 au BufWritePost *config.h !doas make clean install
 "" spell
-au FileType text,tex,markdown,vimwiki,gitcommit setl spell
+au FileType text,tex,markdown,gitcommit setl spell
 "" other
 au BufWritePost sxhkdrc !pkill -USR1 sxhkd
 au BufWritePost *.kbd !pkill kmonad; setsid kmonad %:p &
@@ -150,6 +139,9 @@ ca hv vert help
 ca pla PlugAdd
 ca pli PlugInstall
 
+ca ftd filetype detect
+ca co copen
+
 " root write
 com! -nargs=0 Sw w !doas tee % > /dev/null
 
@@ -170,6 +162,7 @@ Plug 'kana/vim-textobj-fold'
 Plug 'kana/vim-textobj-user'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'kdheepak/tabline.nvim'
 " }}} "
 
 " completions {{{ "
@@ -195,6 +188,7 @@ Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 " Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'folke/zen-mode.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'mhinz/vim-startify'
 Plug 'nvim-lualine/lualine.nvim'
@@ -211,7 +205,7 @@ Plug 'tpope/vim-markdown'
 
 " external programs {{{ "
 " Plug 'dstein64/vim-startuptime'
-" Plug 'kyazdani42/nvim-tree.lua'
+Plug 'kyazdani42/nvim-tree.lua'
 " Plug 'wakatime/vim-wakatime'
 Plug 'KabbAmine/lazyList.vim', { 'on': 'LazyList' }
 Plug 'christoomey/vim-tmux-runner',  { 'on': ['VtrAttachToPane', 'VtrOpenRunner'] }
@@ -344,13 +338,6 @@ let g:VM_maps["Undo"] = 'u'
 let g:VM_maps["Redo"] = '<C-r>'
 " }}} "
 
-" vimwiki {{{ "
-let g:vimwiki_list = [
-			\ {'path': '~/Documents/VimWiki/', 'syntax': 'markdown', 'ext': '.md'},
-            \ ]
-nmap <leader>wg <Plug>VimwikiGenerateLinks
-" }}} "
-
 " emmet-vim {{{ "
 let g:user_emmet_leader_key = '<C-e>'
 " }}} "
@@ -402,12 +389,19 @@ let g:rtf_on_insert_leave = 1
 " }}} "
 
 " fzf {{{ "
-nnoremap <leader>ff :FZF<cr>
-" nnoremap <leader>fg :NV<cr>
-nnoremap <leader>bf :Buffers<cr>
-nnoremap <leader>t :Tags<cr>
-nnoremap <leader>m :Maps<cr>
-nnoremap <leader>wf :Windows<cr>
+nnoremap <leader>ff :Files<cr>
+nnoremap <leader>fr :Rg<cr>
+nnoremap <leader>b  :Buffers<cr>
+nnoremap <leader>t  :Tags<cr>
+nnoremap <leader>m  :Maps<cr>
+nnoremap <leader>w  :Windows<cr>
+
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit',
+  \ 'ctrl-q': 'fill_quickfix'}
+
 " }}} "
 
 " pickachu {{{ "
@@ -424,10 +418,10 @@ let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'``
 let g:AutoPairsCompatibleMaps = 1
 let g:AutoPairsMapBS = 1
 
-au FileType markdown let b:AutoPairs = AutoPairsDefine({'*' : '*'})
-au FileType apl let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"',}
-au FileType vim let b:AutoPairs = AutoPairsDefine({'<':'>',})
-au FileType tex let b:AutoPairs = AutoPairsDefine({'$':'$'})
+" au FileType markdown let b:AutoPairs = AutoPairsDefine({'*' : '*'})
+" au FileType apl let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"',}
+" au FileType vim let b:AutoPairs = AutoPairsDefine({'<':'>',})
+" au FileType tex let b:AutoPairs = AutoPairsDefine({'$':'$'})
 
 " }}} Auto Pairs "
 
@@ -469,6 +463,8 @@ let g:Hexokinase_highlighters = ['virtual']
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 " }}} Easy Align "
+
+nnoremap <leader>e <cmd>NvimTreeToggle<CR>
 
 " colorscheme {{{ "
 " set bg=dark
