@@ -178,48 +178,49 @@ Plug 'SirVer/ultisnips'
 Plug 'f3fora/cmp-spell'
 Plug 'folke/which-key.nvim'
 Plug 'honza/vim-snippets'
+Plug 'LunarWatcher/auto-pairs'
 Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-calc'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-Plug 'hrsh7th/cmp-omni'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'windwp/nvim-autopairs'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript'] }
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 " }}} "
 
 " themes {{{ "
-Plug 'nvim-lualine/lualine.nvim'
-Plug 'ellisonleao/gruvbox.nvim'
-Plug 'mhinz/vim-startify'
-Plug 'folke/zen-mode.nvim'
 " Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'ellisonleao/gruvbox.nvim'
+Plug 'folke/zen-mode.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'mhinz/vim-startify'
+Plug 'nvim-lualine/lualine.nvim'
 " }}} "
 
 " syntax highlighting {{{ "
 Plug 'PyGamer0/vim-apl', {'for': 'apl'}
 Plug 'andymass/vim-matchup'
 Plug 'baskerville/vim-sxhkdrc', {'for': 'sxhkdrc'}
-" Plug 'kevinhwang91/nvim-hlslens'
+Plug 'kevinhwang91/nvim-hlslens'
 Plug 'kmonad/kmonad-vim'
-Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'tpope/vim-markdown'
 " }}} "
 
 " external programs {{{ "
+" Plug 'dstein64/vim-startuptime'
+" Plug 'kyazdani42/nvim-tree.lua'
+" Plug 'wakatime/vim-wakatime'
 Plug 'KabbAmine/lazyList.vim', { 'on': 'LazyList' }
 Plug 'christoomey/vim-tmux-runner',  { 'on': ['VtrAttachToPane', 'VtrOpenRunner'] }
-" Plug 'dstein64/vim-startuptime'
 Plug 'gioele/vim-autoswap'
 Plug 'github/copilot.vim'
 Plug 'junegunn/fzf.vim', { 'on': ['Files', 'GFiles', 'Buffers', 'Colors', 'Ag', 'Rg', 'Lines', 'BLines', 'Tags', 'BTags', 'Marks', 'Windows', 'Locate', 'History', 'Snippets', 'Commits', 'BCommits', 'Commands', 'Maps', 'Helptags', 'Filetypes'] }
 Plug 'lervag/vimtex'
-" Plug 'kyazdani42/nvim-tree.lua'
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-fugitive'
-" Plug 'wakatime/vim-wakatime'
 " }}} "
 
 " other {{{ "
@@ -229,7 +230,6 @@ Plug 'mbbill/undotree'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
-Plug 'petertriho/nvim-scrollbar'
 Plug 'schoettl/listtrans.vim'
 Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8', 'for': 'python' }
 Plug 'tpope/vim-repeat'
@@ -418,6 +418,18 @@ nnoremap <M-c> :Pickachu color<cr>
 nnoremap <M-f> :Pickachu file<cr>
 nnoremap <M-d> :Pickachu date<cr>
 " }}} "
+
+" Auto Pairs {{{ "
+let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", }
+let g:AutoPairsCompatibleMaps = 1
+let g:AutoPairsMapBS = 1
+
+au FileType markdown let b:AutoPairs = AutoPairsDefine({'*' : '*'})
+au FileType apl let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"',}
+au FileType vim let b:AutoPairs = AutoPairsDefine({'<':'>',})
+au FileType tex let b:AutoPairs = AutoPairsDefine({'$':'$'})
+
+" }}} Auto Pairs "
 
 " tmux runner {{{ "
 let g:VtrStripLeadingWhitespace = 0

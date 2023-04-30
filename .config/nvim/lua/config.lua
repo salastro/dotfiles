@@ -22,12 +22,13 @@ cmp.setup({
         -- ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
+        { name = 'calc' },
         { name = 'nvim_lsp_signature_help' },
-        { name = 'spell' },
         { name = 'nvim_lsp' },
-        { name = 'omni' },
         { name = 'ultisnips' },
         { name = 'buffer' },
+        { name = 'spell' },
+        { name = 'path' },
     }),
     sorting = ({
         comparators = {
@@ -50,15 +51,12 @@ cmp.setup.cmdline(':', {
     sources = cmp.config.sources({
         { name = 'path' }
     }, {
-            { name = 'cmdline' }
-        })
+            { name = 'cmdline', }
+        }),
 })
 
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-------Enable (broadcasting) snippet capability for completion
---local capabilities = vim.lsp.protocol.make_client_capabilities()
---capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Toggle diagnostics.
 vim.g.diagnostics_visible = true
@@ -125,7 +123,7 @@ require'lspconfig'.pylsp.setup{
 
 -- Setup treesitter.
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = { "javascript", "cpp", "python", "latex", "bibtex", "html", "css", "c", "rust", "bash", "lua", "make", },
+    ensure_installed = { "javascript", "cpp", "python", "latex", "bibtex", "html", "css", "c", "rust", "bash", "lua", "make", "vim" },
     sync_install = false,
     highlight = {
         enable = true,
@@ -158,10 +156,10 @@ require'nvim-treesitter.configs'.setup {
                 -- You can use the capture groups defined in textobjects.scm
                 ["af"] = "@function.outer",
                 ["if"] = "@function.inner",
-                -- ["acl"] = "@class.outer",
-                -- ["icl"] = "@class.inner",
-                -- ["acm"] = "@comment.outer",
-                -- ["icm"] = "@comment.outer",
+                ["acl"] = "@class.outer",
+                ["icl"] = "@class.inner",
+                ["acm"] = "@comment.outer",
+                ["icm"] = "@comment.outer",
             },
         },
     },
@@ -182,7 +180,7 @@ require('lualine').setup {
         section_separators = { left = '', right = ''},
         disabled_filetypes = {},
         always_divide_middle = true,
-        globalstatus = false,
+        globalstatus = true,
     },
     sections = {
         lualine_a = {'mode'},
@@ -200,91 +198,8 @@ require('lualine').setup {
         lualine_y = {},
         lualine_z = {}
     },
-    tabline = {},
-    extensions = {}
+    extensions = {'fzf', 'man', 'quickfix', 'nvim-tree'},
 }
-
--- Setup scrollbar.
-require("scrollbar").setup({
-    show = true,
-    set_highlights = true,
-    folds = 1000, -- handle folds, set to number to disable folds if no. of lines in buffer exceeds this
-    max_lines = false, -- disables if no. of lines in buffer exceeds this
-    handle = {
-        text = " ",
-        color = nil,
-        cterm = nil,
-        highlight = "CursorColumn",
-        hide_if_all_visible = true, -- Hides handle if all lines are visible
-    },
-    marks = {
-        Search = {
-            text = { "—", "=" },
-            priority = 0,
-            color = "#d65d0e",
-            cterm = nil,
-            highlight = "Search",
-        },
-        Error = {
-            text = { "—", "=" },
-            priority = 1,
-            color = nil,
-            cterm = nil,
-            highlight = "DiagnosticVirtualTextError",
-        },
-        Warn = {
-            text = { "—", "=" },
-            priority = 2,
-            color = nil,
-            cterm = nil,
-            highlight = "DiagnosticVirtualTextWarn",
-        },
-        Info = {
-            text = { "—", "=" },
-            priority = 3,
-            color = nil,
-            cterm = nil,
-            highlight = "DiagnosticVirtualTextInfo",
-        },
-        Hint = {
-            text = { "—", "=" },
-            priority = 4,
-            color = nil,
-            cterm = nil,
-            highlight = "DiagnosticVirtualTextHint",
-        },
-        Misc = {
-            text = { "—", "=" },
-            priority = 5,
-            color = nil,
-            cterm = nil,
-            highlight = "Normal",
-        },
-    },
-    excluded_buftypes = {
-        "terminal",
-    },
-    excluded_filetypes = {
-        "prompt",
-        "TelescopePrompt",
-    },
-    autocmd = {
-        render = {
-            "BufWinEnter",
-            "TabEnter",
-            "TermEnter",
-            "WinEnter",
-            "CmdwinLeave",
-            "TextChanged",
-            "VimResized",
-            "WinScrolled",
-        },
-    },
-    handlers = {
-        diagnostic = true,
-        search = true, -- Requires hlslens to be loaded, will run require("scrollbar.handlers.search").setup() for you
-    },
-})
 
 -- Setup indent lines.
 require("indent_blankline").setup {
@@ -402,6 +317,34 @@ require("indent_blankline").setup {
 --     },
 --   },
 -- }
+
+require('gitsigns').setup {
+    signs = {
+        add          = { text = '│' },
+        change       = { text = '│' },
+        delete       = { text = '―' },
+        topdelete    = { text = '―' },
+        changedelete = { text = '~' },
+        untracked    = { text = '┆' },
+    },
+    signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
+    numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
+    linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
+    word_diff  = true,  -- Toggle with `:Gitsigns toggle_word_diff`
+    watch_gitdir = {
+        interval = 1000,
+        follow_files = true
+    },
+    attach_to_untracked = true,
+    current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+    current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+        delay = 1000,
+        ignore_whitespace = false,
+    },
+    current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+}
 
 -- other
 require('which-key').setup()
