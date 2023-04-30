@@ -13,7 +13,7 @@ super + alt + t
 	pgrep termdown || timer && timer stop
 
 super + n 
-	$TERMINAL nnn -r -C -d -e
+	$TERMINAL nnn -r -C -d -e -c
 super + alt + b
 	$TERMINAL btop
 
@@ -38,7 +38,7 @@ super + equal
 	=
 
 super + L
-        slock
+    xset s activate
 
 # scripts
 super + s
@@ -106,7 +106,7 @@ super + R
 
 ### webcam
 super + alt + r
-	$SHELL -ic camera
+	camera
 
 super + z
-	$SHELL -ic toggle-kbd-backlight
+	toggle-kbd-backlight

@@ -30,7 +30,7 @@ alias rm='trash'
 # export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # nnn
-alias n='nnn -r -C -d -e'
+alias n='nnn -r -C -d -e -c'
 export NNN_COLORS="263"
 export NNN_PLUG='d:dragdrop;P:preview-tui;D:diffs;p:fzplug;w:wallpaper;c:fzcd;i:imgview;F:fixname;x:togglex;f:fzopen'
 export NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;a:~/.local/bin;c:~/.config/;M:/media/'
@@ -62,6 +62,7 @@ alias gc="git checkout"
 alias gcb="gc -b"
 alias gap="git apply"
 alias gad='git add'
+alias gadu='git add -u'
 alias gco='git commit'
 alias gm='git merge'
 alias gcl='git clone'
@@ -80,11 +81,11 @@ alias d='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 # }
 
 # system
-## cpg/mvg
 alias cp='cp -ivr'
 alias mv='mv -iv'
 alias grep='grep --color=auto'
 alias mkdir='mkdir -vp'
+alias cat='bat'
 
 alias tt='tt -showwpm -t 15 -notheme'
 

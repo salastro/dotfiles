@@ -16,4 +16,5 @@
 	s = status
 	cl = clone
 	a = add
+	au = add -u
 	d = diff

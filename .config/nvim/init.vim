@@ -6,8 +6,6 @@
 " |_| \_|\___|\___/ \_/  |_|_| |_| |_|
 "
 
-let g:python3_host_prog = '/bin/python3'
-
 let g:loaded_sql_completion = 0
 
 inoremap jk <esc>
@@ -40,9 +38,9 @@ se mouse=a
 se title
 se ic
 
-" folding
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+" " folding
+" set foldmethod=expr
+" set foldexpr=nvim_treesitter#foldexpr()
 
 " tabs and indentation
 se ts=4 sw=4 et
@@ -53,10 +51,6 @@ se nf+=alpha
 
 " timeout
 se tm=500
-
-" paths
-" se pa+=**
-" se pa-=/usr/include
 
 " }}} "
 
@@ -75,24 +69,18 @@ noremap ; :
 noremap : ;
 
 " copy to system clipboard
-" vnoremap  "+y
 set clipboard=unnamed,unnamedplus
 
 " tabs
-nnoremap <C-Tab> gT
-nnoremap <M-C-S-Tab> gt
-" nnoremap <s-tab> gT
-" nnoremap <tab> gt
+nnoremap <C-Tab> gt
+nnoremap <M-C-S-Tab> gT
 nnoremap <M-T> :tabnew<cr>
-" au TabLeave * let g:lasttab = tabpagenr()
-" nnoremap <M-s> :exe "tabn ".g:lasttab<cr>
-" nnoremap <M-i> <tab>
 
 " windows
-nnoremap <C-j> j
-nnoremap <C-k> k
-nnoremap <C-l> l
-nnoremap <C-h> h
+" nnoremap <C-j> j
+" nnoremap <C-k> k
+" nnoremap <C-l> l
+" nnoremap <C-h> h
 
 " spell keys
 nnoremap  1z=
@@ -116,45 +104,17 @@ nnoremap <leader>co :terminal echo % \| entr -s "compiler %"<cr>
 
 " line
 noremap gl $
-noremap gh 0
-noremap gb ^
+noremap gh ^
+noremap gb 0
 nnoremap <cr> za
 nnoremap <M-CR> Oo
-
-" inoremap <silent> <cr> V:lua vim.lsp.buf.range_formatting()<cr><cr>
-" au InsertLeave * :norm V lua vim.lsp.buf.range_formatting()
 
 " escape and save
 inoremap  <esc>:w<cr>
 
-" count lines of code
-nnoremap g<c-f> :!scc %<cr>
-nnoremap g<c-d> :!scc %:p:h<cr>
-
-" nnoremap U <c-r>
-
 " }}} "
 
 " functions {{{ "
-
-" function! MoveEm(position)
-"     let saved_cursor = getpos(".")
-"     let previous_blank_line = search('^$', 'bn')
-"     let target_line = previous_blank_line + a:position - 1
-"     execute 'move ' . target_line
-"     call setpos('.', saved_cursor)
-" endfunction
-" for position in range(1, 9)
-"     execute 'nnoremap gm' . position . ' :call MoveEm(' . position . ')<cr>'
-" endfor
-
-function! s:repeatable(cmd)
-  function! s:inner(...) closure abort
-    execute a:cmd
-  endfunction
-  let &opfunc=get(funcref('s:inner'), 'name')
-  return 'g@l'
-endfunction
 
 " }}} "
 
@@ -208,15 +168,12 @@ Plug 'phaazon/hop.nvim'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-fold'
 Plug 'kana/vim-textobj-user'
-Plug 'matze/vim-move'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 " }}} "
 
 " completions {{{ "
 Plug 'DougBeney/pickachu', { 'on': 'Pickachu' }
-Plug 'vim-scripts/dbext.vim'
 Plug 'SirVer/ultisnips'
 Plug 'f3fora/cmp-spell'
 Plug 'folke/which-key.nvim'
@@ -228,36 +185,28 @@ Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'hrsh7th/cmp-omni'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'jdhao/better-escape.vim'
-" Plug 'jiangmiao/auto-pairs'
 Plug 'windwp/nvim-autopairs'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript'] }
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-Plug 'rhysd/vim-grammarous', { 'on': 'GrammarousCheck' }
 " }}} "
 
 " themes {{{ "
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'ellisonleao/gruvbox.nvim'
-" Plug 'romainl/vim-cool'
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'mhinz/vim-startify'
-Plug 'dylanaraps/wal.vim'
-" Plug 'akinsho/bufferline.nvim'
+Plug 'folke/zen-mode.nvim'
 " Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " }}} "
 
 " syntax highlighting {{{ "
 Plug 'PyGamer0/vim-apl', {'for': 'apl'}
-Plug 'alaviss/nim.nvim'
 Plug 'andymass/vim-matchup'
 Plug 'baskerville/vim-sxhkdrc', {'for': 'sxhkdrc'}
-Plug 'kevinhwang91/nvim-hlslens'
-Plug 'kmonad/kmonad-vim', {'for': 'kmonad'}
+" Plug 'kevinhwang91/nvim-hlslens'
+Plug 'kmonad/kmonad-vim'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'mlochbaum/BQN', {'rtp': 'editors/vim'}
-Plug 'tpope/vim-markdown', {'for': ['markdown', 'vimwiki']}
+Plug 'tpope/vim-markdown'
 " }}} "
 
 " external programs {{{ "
@@ -267,35 +216,25 @@ Plug 'christoomey/vim-tmux-runner',  { 'on': ['VtrAttachToPane', 'VtrOpenRunner'
 Plug 'gioele/vim-autoswap'
 Plug 'github/copilot.vim'
 Plug 'junegunn/fzf.vim', { 'on': ['Files', 'GFiles', 'Buffers', 'Colors', 'Ag', 'Rg', 'Lines', 'BLines', 'Tags', 'BTags', 'Marks', 'Windows', 'Locate', 'History', 'Snippets', 'Commits', 'BCommits', 'Commands', 'Maps', 'Helptags', 'Filetypes'] }
-Plug 'kristijanhusak/vim-carbon-now-sh', { 'on': 'CarbonNowSh' }
 Plug 'lervag/vimtex'
-Plug 'kyazdani42/nvim-tree.lua'
+" Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-fugitive'
 " Plug 'wakatime/vim-wakatime'
-Plug 'https://git.sr.ht/~detegr/nvim-bqn'
 " }}} "
 
 " other {{{ "
-" Plug 'Chaitanyabsprip/present.nvim'
-" Plug 'chrisbra/Recover.vim'
-" Plug 'svermeulen/vim-easyclip'
-Plug 'Konfekt/FastFold'
-Plug 'ThePrimeagen/harpoon'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
+Plug 'chrisbra/Recover.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'mbbill/undotree'
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-treesittez/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'petertriho/nvim-scrollbar'
 Plug 'schoettl/listtrans.vim'
 Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8', 'for': 'python' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
-Plug 'vimwiki/vimwiki', { 'for': 'markdown' }
+Plug 'tpope/vim-eunuch'
 " }}} "
 
 call plug#end()
@@ -344,7 +283,7 @@ let g:vimtex_compiler_latexmk_engines = {
             \}
 let g:vimtex_quickfix_open_on_warning = 0
 let maplocalleader = " "
-let g:vimtex_fold_enabled = 1
+" let g:vimtex_fold_enabled = 1
 " let g:vimtex_syntax_enabled = 0
 " let g:vimtex_syntax_conceal_disable = 1
 " }}} "
@@ -363,10 +302,6 @@ let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 
 " vim-fugitive {{{ "
 nnoremap <leader>g :G<cr>
-" autocmd User FugitiveIndex,FugitiveObject nnoremap <buffer> cc :vert Git commit<cr>
-" autocmd User FugitiveIndex,FugitiveObject nnoremap <buffer> gp :vs<cr>:term<cr>Igp<cr>
-" autocmd FileType fugitive nnoremap <buffer> cc :vert Git commit<cr>
-" autocmd FileType fugitive nnoremap <buffer> gp :vs<cr>:term<cr>Igp<cr>
 " }}} "
 
 " lazyList {{{ "
@@ -383,14 +318,10 @@ nnoremap <leader>it :LazyList '- [ ] '<cr>
 vnoremap <leader>it :LazyList '- [ ] '<cr>
 " }}} "
 
-" " vim-easyclip {{{ "
-" nnoremap gm m
-" let g:EasyClipAutoFormat = 1
-" let g:EasyClipUsePasteToggleDefaults = 0
-" let g:EasyClipUsePasteToggleDefaults = 0
-" " let g:EasyClipUseSubstituteDefaults = 1
-" nnoremap <c-r> <Plug>SubstituteOverMotionMap
-" " }}} "
+" listtrans {{{ "
+nmap tl <Plug>ListtransToggle
+vmap tl <Plug>ListtransToggleVisual
+" }}} "
 
 " ultrasnips {{{ "
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -420,38 +351,6 @@ let g:vimwiki_list = [
 nmap <leader>wg <Plug>VimwikiGenerateLinks
 " }}} "
 
-" goyo {{{ "
-let g:goyo_width = 83
-function! s:goyo_enter()
-	norm zz
-	nnoremap j gjzz
-	nnoremap k gkzz
-	nnoremap w wzz
-	nnoremap b bzz
-    nnoremap  zz
-    nnoremap  zz
-    ScrollbarHide
-    Limelight
-	" setl linebreak
-endfunction
-
-function! s:goyo_leave()
-    norm zz
-	nnoremap j j
-	nnoremap k k
-	nnoremap w w
-	nnoremap b b
-    nnoremap  
-    nnoremap  
-    ScrollbarShow
-    Limelight!
-endfunction
-
-au! User GoyoEnter nested call <SID>goyo_enter()
-au! User GoyoLeave nested call <SID>goyo_leave()
-noremap <leader>y :Goyo<cr>
-" }}} "
-
 " emmet-vim {{{ "
 let g:user_emmet_leader_key = '<C-e>'
 " }}} "
@@ -479,7 +378,6 @@ let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
 
-" se noshowmode
 " }}} "
 
 " vim-startify {{{ "
@@ -487,11 +385,9 @@ let g:startify_bookmarks = [
             \ {'c': '~/.config/nvim/init.vim'},
             \ {'d': '~/.srcpkgs/dwm/config.def.h'},
             \ {'s':'~/.config/sxhkd/sxhkdrc'},
-            \ {'u': '~/.config/qutebrowser/config.py'},
             \ {'a':'~/.config/aliasrc'},
             \ {'K':'~/.config/KMonad.kbd'},
-            \ {'zs':'~/.zshrc'},
-            \ {'w':'~/Documents/VimWiki/index.md'},
+            \ {'F':'~/.config/fish/config.fish'},
             \ ]
 let g:startify_lists = [
             \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
@@ -508,34 +404,11 @@ let g:rtf_on_insert_leave = 1
 " fzf {{{ "
 nnoremap <leader>ff :FZF<cr>
 " nnoremap <leader>fg :NV<cr>
-nnoremap <leader>bf :Goyo!<cr>:Buffers<cr>
-nnoremap <leader>t :Goyo!<cr>:Tags<cr>
-nnoremap <leader>m :Goyo!<cr>:Maps<cr>
-nnoremap <leader>wf :Goyo!<cr>:Windows<cr>
-" let g:nv_search_paths = ['~/Documents/VimWiki/']
+nnoremap <leader>bf :Buffers<cr>
+nnoremap <leader>t :Tags<cr>
+nnoremap <leader>m :Maps<cr>
+nnoremap <leader>wf :Windows<cr>
 " }}} "
-
-" listtrans {{{ "
-nmap tl <Plug>ListtransToggle
-vmap tl <Plug>ListtransToggleVisual
-" }}} "
-
-" move {{{ "
-" inoremap <M-j> :m .+1<cr>==
-" inoremap <M-k> :m .-2<cr>==
-" vnoremap <M-j> :m '>+1<cr>gv=gv
-" vnoremap <M-k> :m '>-2<cr>gv=gv
-" }}} "
-
-" " auto-pairs {{{ "
-" let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", }
-" let g:AutoPairsShortcutJump = '<M-n>'
-" let g:AutoPairsShortcutToggle = '<M-p>'
-" au FileType markdown,vimwiki let b:AutoPairs = AutoPairsDefine({'*':'*', '**' : '**', '***': '***', '_':'_'})
-" au FileType apl let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"',}
-" au FileType vim let b:AutoPairs = AutoPairsDefine({'<':'>',})
-" au FileType tex let b:AutoPairs = AutoPairsDefine({'$':'$'})
-" " }}} "
 
 " pickachu {{{ "
 inoremap <M-c> <cmd>Pickachu color<cr>
@@ -576,18 +449,6 @@ endf
 au FileType apl call AplSetup()
 " }}} "
 
-" grammarous {{{
-let g:grammarous#move_to_first_error = 1
-let g:grammarous#show_first_error = 0
-nnoremap <leader>Ns <Plug>(grammarous-move-to-next-error)
-nnoremap <leader>Ps <Plug>(grammarous-move-to-previous-error)
-" }}}
-
-" vim-carbon-now-sh {{{
-let g:carbon_now_sh_browser = 'brave'
-vnoremap <leader>c :CarbonNowSh<cr>
-" }}}
-
 " hexokinase {{{
 let g:Hexokinase_highlighters = ['virtual']
 " }}}
@@ -611,46 +472,4 @@ nmap ga <Plug>(EasyAlign)
 " }}} "
 " }}} "
 
-" lua {{{ "
 lua require('config')
-
-" " lsp {{{ "
-" fun! LspKeys()
-"     nnoremap <buffer> <silent> <M-h> <cmd>lua vim.lsp.buf.signature_help()<CR>
-"     nnoremap <buffer> <silent> <leader>D <cmd>lua vim.lsp.buf.type_definition()<CR>
-"     nnoremap <buffer> <silent> <leader>ldf <cmd>lua vim.diagnostic.open_float()<CR>
-"     nnoremap <buffer> <silent> <leader>ldd <cmd>call v:lua.toggle_diagnostics()<CR>
-"     nnoremap <buffer> <silent> <leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
-"     if &ft != 'tex'
-"         nnoremap <buffer> <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
-"     else
-"         nnoremap <buffer> <silent> <leader>lh <cmd>lua vim.lsp.buf.hover()<CR>
-"     endif
-"     nnoremap <buffer> <silent> <leader>lre <cmd>lua vim.lsp.buf.rename()<CR>
-"     nnoremap <buffer> <silent> <leader>lrr <cmd>lua vim.lsp.buf.references()<CR>
-"     nnoremap <buffer> <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-"     nnoremap <buffer> <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-"     nnoremap <buffer> <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-" endf
-
-" " au Filetype tex,python,cpp,bash,html,css,javascript call LspKeys()
-" " }}} "
-
-nnoremap <silent><expr> gH
-      \ <sid>repeatable('TSTextobjectSwapPrevious @parameter.inner')
-nnoremap <silent><expr> gL
-      \ <sid>repeatable('TSTextobjectSwapNext @parameter.inner')
-
-" let @h = ';TSTextobjectSwapPrevious @parameter.inner'
-" let @l = ';TSTextobjectSwapNext @parameter.inner'
-" nnoremap gL @l<cr>
-" nnoremap gH @h<cr>
-
-" harpoon {{{ "
-nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
-nnoremap <silent> <leader>hm :lua require("harpoon.ui").toggle_quick_menu()<CR>
-nnoremap <silent> <leader>hn :lua require("harpoon.ui").nav_next()<CR>
-nnoremap <silent> <leader>hp :lua require("harpoon.ui").nav_prev()<CR>
-" }}} harpoon "
-
-" }}} "
