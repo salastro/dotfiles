@@ -8,11 +8,13 @@ map K zoom in
 map J zoom out
 map p print
 map g goto top
+map i recolor
 set synctex true
 set synctex-editor-command "nvim --headless -c "VimtexInverseSearch %{line} '%{input}'""
 set window-title-home-tilde true
 set statusbar-basename true
 set selection-clipboard clipboard
+set recolor 'true'
 
 ### zathura-pywal ###
 # Allow recolor
