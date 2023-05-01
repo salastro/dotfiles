@@ -267,3 +267,4 @@ require'tabline'.setup {
 -- other
 require('which-key').setup()
 require('hop').setup()
+require('hlslens').setup()
