@@ -1,5 +1,5 @@
 #
-# recolor
+set recolor
 completion-bg
 completion-fg
 completion-group-bg
