@@ -2,4 +2,4 @@
 
 PIDFILE="/tmp/record.pid"
 
-[ -s $PIDFILE ] &&  printf "[recording"
+[ -s $PIDFILE ] &&  printf "🔴 recording"

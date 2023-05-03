@@ -7,6 +7,6 @@ then
 	kill $(cat $PIDFILE)
 	rm $PIDFILE
 else
-	ffmpeg -s "$(xdpyinfo | awk '/dimensions/ {print $2;}')" -framerate 30 -f x11grab -i "$DISPLAY" -f alsa -i default ~/Videos/Mine/Screencast/$(date +%s).mp4 & echo $! > $PIDFILE
+	ffmpeg -s "$(xdpyinfo | awk '/dimensions/ {print $2;}')" -framerate 30 -f x11grab -i "$DISPLAY" -f alsa -i default ~/Videos/Screencast/$(date +%s).mp4 & echo $! > $PIDFILE
 fi
 pkill -RTMIN+5 dwmblocks
