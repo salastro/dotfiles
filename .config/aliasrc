@@ -30,7 +30,7 @@ alias rm='trash'
 # export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # nnn
-alias n='nnn -r -C -d -e -c'
+alias n='nnn -C -d -e'
 export NNN_COLORS="263"
 export NNN_PLUG='d:dragdrop;P:preview-tui;D:diffs;p:fzplug;w:wallpaper;c:fzcd;i:imgview;F:fixname;x:togglex;f:fzopen'
 export NNN_BMS='D:~/Documents;d:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;P:~/.srcpkgs;a:~/.local/bin;c:~/.config/;M:/media/'
@@ -86,6 +86,7 @@ alias mv='mv -iv'
 alias grep='grep --color=auto'
 alias mkdir='mkdir -vp'
 alias cat='bat'
+alias wget="wget --hsts-file ~/.cache/wget-hsts"
 
 alias tt='tt -showwpm -t 15 -notheme'
 
