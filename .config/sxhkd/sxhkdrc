@@ -13,12 +13,9 @@ super + alt + t
 	pgrep termdown || timer && timer stop
 
 super + n 
-	$TERMINAL nnn -r -C -d -e -c
-super + alt + b
+	$TERMINAL nnn -C -d -e -c
+super + ctrl + b
 	$TERMINAL btop
-
-ctrl + alt + r
-	$TERMINAL
 
 super + ctrl + w
 	$TERMINAL nmtui
