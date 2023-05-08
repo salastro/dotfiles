@@ -1,5 +1,4 @@
 if status is-interactive
-	set fish_greeting # empty greeting
 	source ~/.config/aliasrc
 
 	# vi mode
@@ -17,6 +16,11 @@ if status is-interactive
 	set fish_cursor_insert line
 	set fish_cursor_replace_one underscore
 	set fish_cursor_visual block
+
+    # # tmux
+    # if test -z "$TMUX"
+    #     exec tmux
+    # end
 end
 
 if status is-login
