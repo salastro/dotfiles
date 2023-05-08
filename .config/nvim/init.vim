@@ -148,10 +148,14 @@ com! -nargs=0 Sw w !doas tee % > /dev/null
 " }}} "
 
 " plugins {{{ "
+" sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+"        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 " definitions {{{ "
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'lewis6991/impatient.nvim'
+
+Plug 'kevinhwang91/nvim-bqf'
 
 " motions/text objects {{{ "
 Plug 'christoomey/vim-sort-motion'
@@ -171,7 +175,7 @@ Plug 'SirVer/ultisnips'
 Plug 'f3fora/cmp-spell'
 Plug 'folke/which-key.nvim'
 Plug 'honza/vim-snippets'
-Plug 'LunarWatcher/auto-pairs'
+" Plug 'LunarWatcher/auto-pairs'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-calc'
 Plug 'hrsh7th/cmp-cmdline'
@@ -185,8 +189,8 @@ Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 " }}} "
 
 " themes {{{ "
-" Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-Plug 'ellisonleao/gruvbox.nvim'
+Plug 'NvChad/nvim-colorizer.lua'
+Plug 'shaunsingh/nord.nvim'
 Plug 'folke/zen-mode.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -206,7 +210,7 @@ Plug 'tpope/vim-markdown'
 " external programs {{{ "
 " Plug 'dstein64/vim-startuptime'
 Plug 'kyazdani42/nvim-tree.lua'
-" Plug 'wakatime/vim-wakatime'
+Plug 'wakatime/vim-wakatime'
 Plug 'KabbAmine/lazyList.vim', { 'on': 'LazyList' }
 Plug 'christoomey/vim-tmux-runner',  { 'on': ['VtrAttachToPane', 'VtrOpenRunner'] }
 Plug 'gioele/vim-autoswap'
@@ -375,7 +379,7 @@ let g:startify_bookmarks = [
             \ {'s':'~/.config/sxhkd/sxhkdrc'},
             \ {'a':'~/.config/aliasrc'},
             \ {'K':'~/.config/KMonad.kbd'},
-            \ {'F':'~/.config/fish/config.fish'},
+            \ {'f':'~/.config/fish/config.fish'},
             \ ]
 let g:startify_lists = [
             \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
@@ -416,8 +420,10 @@ nnoremap <M-d> :Pickachu date<cr>
 
 " Auto Pairs {{{ "
 let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", }
-let g:AutoPairsCompatibleMaps = 1
+" let g:AutoPairsCompatibleMaps = 1
 let g:AutoPairsMapBS = 1
+let g:AutoPairsShortcutToggleMultilineClose = '<C-CR>'
+
 
 " au FileType markdown let b:AutoPairs = AutoPairsDefine({'*' : '*'})
 " au FileType apl let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"',}
@@ -474,9 +480,14 @@ nnoremap <leader>e <cmd>NvimTreeToggle<CR>
 " let g:gruvbox_transparent_bg = '0'
 " let g:gruvbox_italic = 1
 " se termguicolors
-" colo gruvbox
-" set termguicolors
-" colo wal
+" au ColorScheme * hi Normal ctermbg=none guibg=none
+" au ColorScheme * hi NonText ctermbg=none guibg=none
+" au ColorScheme * hi SignColumn ctermbg=none guibg=none
+" au ColorScheme * hi LineNr ctermbg=none guibg=none
+let g:nord_borders = v:true
+let g:nord_disable_background = v:true
+
+colorscheme nord
 " }}} "
 " }}} "
 " }}} "

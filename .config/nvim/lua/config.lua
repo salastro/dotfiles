@@ -71,7 +71,7 @@ function _G.toggle_diagnostics()
 end
 
 -- Mappings.
-local opts = { noremap=true, silent=true, buffer=true }
+local opts = { noremap=true, silent=true }
 local on_attach = function(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<M-h>',       '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -230,7 +230,7 @@ require('gitsigns').setup {
     signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
     numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
     linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
-    word_diff  = true,  -- Toggle with `:Gitsigns toggle_word_diff`
+    word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
     watch_gitdir = {
         interval = 1000,
         follow_files = true
@@ -262,6 +262,34 @@ require'tabline'.setup {
         modified_italic = true, -- set to true by default; this determines whether the filename turns italic if modified
         show_tabs_only = true, -- this shows only tabs instead of tabs + buffers
     }
+}
+
+require("colorizer").setup {
+  filetypes = { "*" },
+  user_default_options = {
+    RGB = true, -- #RGB hex codes
+    RRGGBB = true, -- #RRGGBB hex codes
+    names = true, -- "Name" codes like Blue or blue
+    RRGGBBAA = false, -- #RRGGBBAA hex codes
+    AARRGGBB = false, -- 0xAARRGGBB hex codes
+    rgb_fn = false, -- CSS rgb() and rgba() functions
+    hsl_fn = false, -- CSS hsl() and hsla() functions
+    css = false, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+    css_fn = false, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+    -- Available modes for `mode`: foreground, background,  virtualtext
+    mode = "virtualtext", -- Set the display mode.
+    -- Available methods are false / true / "normal" / "lsp" / "both"
+    -- True is same as normal
+    tailwind = false, -- Enable tailwind colors
+    -- parsers can contain values used in |user_default_options|
+    sass = { enable = false, parsers = { "css" }, }, -- Enable sass colors
+    virtualtext = "■",
+    -- update color values even if buffer is not focused
+    -- example use: cmp_menu, cmp_docs
+    always_update = false
+  },
+  -- all the sub-options of filetypes apply to buftypes
+  buftypes = {},
 }
 
 -- other
