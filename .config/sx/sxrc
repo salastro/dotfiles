@@ -1,4 +1,4 @@
 syncthing --no-browser &
 kmonad ~/.config/kmonad.kbd &
-~/.cache/wallpaper &
+~/.config/wallpaper &
 exec dwm
