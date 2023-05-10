@@ -1,3 +1,13 @@
+fish_add_path ~/.local/bin
+fish_add_path ~/.local/bin/status
+fish_add_path ~/.local/share/npm/bin
+
+set -Ux WAKATIME_HOME ~/.wakatime
+set -Ux XDG_RUNTIME_DIR /tmp/runtime-$USER
+set -Ux npm_config_cache ~/.cache/npm
+set -Ux npm_config_prefix ~/.local/share/npm
+set -Ux npm_config_userconfig ~/.config/npm/config
+
 if status is-interactive
 	source ~/.config/aliasrc
 
